@@ -1,0 +1,6 @@
+[theme]
+primaryColor = "#F5E2C8"  # Sea green for buttons and highlights
+backgroundColor = "#D88373"  # Light grey for the main background
+secondaryBackgroundColor = "#A9BCD0"  # Slightly darker grey for sidebar
+textColor = "#333333"  # Dark grey for text
+font = "sans serif"
