@@ -47,14 +47,22 @@ def analyse_sales(data):
     
     data['Date'] = pd.to_datetime(data['Date'])
     if chart_type == "Sales by Product Category (Pie)":
+        # Group by category and sum sales
         sales_by_category = data.groupby('Product_Category')['Purchase_Amount'].sum()
+        # Sort and take top 5, lump rest into "Other"
+        top_5 = sales_by_category.nlargest(5)
+        other_sales = sales_by_category.sum() - top_5.sum()
+        if other_sales > 0:
+            top_5['Other'] = other_sales
+        # Pie chart
         fig, ax = plt.subplots()
-        ax.pie(sales_by_category, labels=sales_by_category.index, autopct='%1.1f%%')
-        ax.set_title('Sales Distribution by Product Category')
+        ax.pie(top_5, labels=top_5.index, autopct='%1.1f%%', colors=['#1E90FF', '#87CEEB', '#B0E0E6', '#ADD8E6', '#E0FFFF', '#D3D3D3'])
+        ax.set_title('Top 5 Product Categories by Sales (Pie)')
         st.pyplot(fig)
     else:
+        # Bar chart for payment methods
         fig, ax = plt.subplots()
-        payment_breakdown.plot(kind='bar', ax=ax)
+        payment_breakdown.plot(kind='bar', ax=ax, color='#1E90FF')
         ax.set_title('Purchases by Payment Method')
         ax.set_xlabel('Payment Method')
         ax.set_ylabel('Number of Purchases')
