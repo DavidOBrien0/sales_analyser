@@ -7,6 +7,10 @@ import io
 # Custom CSS for styling
 st.markdown("""
     <style>
+    /* Apply Matrix-style font to all text */
+    * {
+        font-family: 'Courier New', Courier, monospace !important;
+    }
     .big-title {
         color: #1E90FF;  /* Dodger Blue for the title */
         font-size: 36px;
@@ -15,7 +19,6 @@ st.markdown("""
     .secure-text {
         color: #000000;  /* Black for the secure message */
         font-size: 18px;
-        font-family: 'Courier New', Courier, monospace;  /* Matrix-like digital font */
     }
     </style>
 """, unsafe_allow_html=True)
@@ -115,13 +118,13 @@ def analyse_sales(data):
 
 # Streamlit app setup
 st.sidebar.title("Sales Analyser")
-page = st.sidebar.radio("Navigate", ["Welcome", "Analyse Sales"])
+page = st.sidebar.radio("Navigate", ["Home", "Analyse Sales"])
 
 # Use session state to track if password is correct
 if 'password_correct' not in st.session_state:
     st.session_state.password_correct = False
 
-if page == "Welcome":
+if page == "Home":
     st.markdown('<p class="big-title">Welcome to Sales Analyser</p>', unsafe_allow_html=True)
     st.markdown('<p class="secure-text">This Is A Secure Algorithm - Unauthorised Access Is Forbidden.</p>', unsafe_allow_html=True)
     
@@ -132,7 +135,7 @@ if page == "Welcome":
             st.session_state.password_correct = True
             st.success("Password accepted! You can now switch to 'Analyse Sales'.")
         else:
-            st.error("Incorrect existentes password. Try again.")
+            st.error("Incorrect password. Try again.")
 
 elif page == "Analyse Sales" and st.session_state.password_correct:
     st.markdown('<p class="big-title">Sales Analyser</p>', unsafe_allow_html=True)
@@ -160,4 +163,4 @@ elif page == "Analyse Sales" and st.session_state.password_correct:
         st.info("Please upload a CSV file to start the analysis.")
 else:
     st.markdown('<p class="big-title">Sales Analyser</p>', unsafe_allow_html=True)
-    st.warning("Please enter the correct password on the Welcome page to access this section.")
+    st.warning("Please enter the correct password on the Home page to access this section.")
