@@ -48,6 +48,16 @@ def generate_pdf(summary_df, filename="sales_analysis_results.pdf"):
 
 # Function to analyse the sales data
 def analyse_sales(data):
+    # Robust date conversion
+    try:
+        data['Date'] = pd.to_datetime(data['Date'], errors='coerce')
+        if data['Date'].isnull().all():
+            st.error("DATE COLUMN ISSUE: All 'Date' values are invalid—check your CSV format.")
+            return None
+    except Exception as e:
+        st.error(f"DATE COLUMN ISSUE: {e}")
+        return None
+
     total_sales = data['Purchase_Amount'].sum()
     avg_spend = data['Purchase_Amount'].mean()
     num_customers = data['Customer_ID'].nunique()
@@ -82,10 +92,10 @@ def analyse_sales(data):
     max_spike_date = sales_by_date.idxmax()
     max_spike_value = sales_by_date.max()
     avg_sales = sales_by_date.mean()
-    if max_spike_value > avg_sales * 1.2:  # 20% above average
+    if pd.notnull(max_spike_date) and max_spike_value > avg_sales * 1.2:  # 20% above average
         spike_percent = ((max_spike_value - avg_sales) / avg_sales) * 100
-        st.write(f"**BIGGEST SALES SPIKE:** {max_spike_date.date()} - ${max_spike_value:.2f} (UP {spike_percent:.1f}% FROM AVERAGE!)")
-    outlier_spend = data['Purchase_Amount'].quantile(0.95)  # Top 5%
+        st.write(f"**BIGGEST SALES SPIKE:** {max_spike_date.strftime('%Y-%m-%d')} - ${max_spike_value:.2f} (UP {spike_percent:.1f}% FROM AVERAGE!)")
+    outlier_spend = data['Purchase_Amount'].quantile(0.95)
     if top_spender['Purchase_Amount'] > outlier_spend:
         st.write(f"**OUTLIER ALERT:** Customer {top_spender['Customer_ID']} spent ${top_spender['Purchase_Amount']:.2f} - TOP 5%!")
 
@@ -94,7 +104,7 @@ def analyse_sales(data):
     st.write(f"**AVERAGE SPEND PER PURCHASE:** ${avg_spend:.2f}")
     st.write(f"**NUMBER OF UNIQUE CUSTOMERS:** {num_customers}")
     st.write(f"**AVERAGE SALES PER CUSTOMER:** ${sales_per_customer:.2f}")
-    st.write(f"**TOP SPENDER:** Customer {top_spender['Customer_ID']} spent ${top_spender['Purchase_Amount']:.2f} on {top_spender['Date']}")
+    st.write(f"**TOP SPENDER:** Customer {top_spender['Customer_ID']} spent ${top_spender['Purchase_Amount']:.2f} on {top_spender['Date'].strftime('%Y-%m-%d')}")
     st.write(f"**TOTAL ITEMS SOLD:** {total_quantity}")
     st.write(f"**MOST POPULAR PRODUCT CATEGORY:** {popular_category}")
     st.write(f"**PAYMENT METHOD BREAKDOWN:**\n{payment_breakdown.to_string()}")
@@ -132,7 +142,6 @@ def analyse_sales(data):
     ]
     chart_type = st.selectbox("CHOOSE A CHART TO VIEW:", chart_options)
     
-    data['Date'] = pd.to_datetime(data['Date'])
     if chart_type == "SALES OVER TIME (LINE)":
         sales_by_date = data.groupby('Date')['Purchase_Amount'].sum()
         fig, ax = plt.subplots()
@@ -222,7 +231,7 @@ def analyse_sales(data):
     avg_items_per_purchase = data['Quantity'].mean()
     top_payment_method = payment_breakdown.idxmax()
 
-    st.write(f"**BUSIEST DAY:** {busiest_day.date()} with ${data.groupby('Date')['Purchase_Amount'].sum().max():.2f} in sales")
+    st.write(f"**BUSIEST DAY:** {busiest_day.strftime('%Y-%m-%d')} with ${data.groupby('Date')['Purchase_Amount'].sum().max():.2f} in sales")
     st.write(f"**MOST FREQUENT CUSTOMER:** {most_frequent_customer} made {customer_frequency.max()} purchases")
     st.write(f"**AVERAGE ITEMS PER PURCHASE:** {avg_items_per_purchase:.2f}")
     st.write(f"**MOST USED PAYMENT METHOD:** {top_payment_method}")
@@ -242,13 +251,12 @@ def analyse_sales(data):
             region_sales, f"{discount_usage.get('Yes', 0):.1f}", f"{avg_age:.1f}",
             num_orders, f"${avg_shipping:.2f}", f"${total_tax:.2f}", num_products,
             f"${avg_unit_price:.2f}", f"{return_rate:.1f}", f"{loyalty_percentage:.1f}",
-            f"{avg_rating:.1f}", f"{busiest_day.date()} (${data.groupby('Date')['Purchase_Amount'].sum().max():.2f})",
+            f"{avg_rating:.1f}", busiest_day.strftime('%Y-%m-%d') + f" (${data.groupby('Date')['Purchase_Amount'].sum().max():.2f})",
             f"{most_frequent_customer} ({customer_frequency.max()} purchases)",
             f"{avg_items_per_purchase:.2f}", top_payment_method
         ]
     }
-    summary_df = pd.DataFrame(summary_data)
-    return summary_df
+    return pd.DataFrame(summary_data)
 
 # Streamlit app setup
 st.sidebar.title("SALES ANALYSER")
@@ -281,37 +289,37 @@ elif page == "ANALYSE SALES" and st.session_state.password_correct:
             data = pd.read_csv(uploaded_file)
             st.write("FILE LOADED SUCCESSFULLY!")
             summary_df = analyse_sales(data)
-
-            # Export Options
-            st.write("### DOWNLOAD YOUR RESULTS")
-            col1, col2, col3 = st.columns(3)
-            with col1:
-                csv_buffer = io.StringIO()
-                summary_df.to_csv(csv_buffer, index=False)
-                st.download_button(
-                    label="DOWNLOAD CSV",
-                    data=csv_buffer.getvalue(),
-                    file_name="sales_analysis_results.csv",
-                    mime="text/csv"
-                )
-            with col2:
-                pdf_buffer = generate_pdf(summary_df)
-                st.download_button(
-                    label="DOWNLOAD PDF",
-                    data=pdf_buffer,
-                    file_name="sales_analysis_results.pdf",
-                    mime="application/pdf"
-                )
-            with col3:
-                excel_buffer = io.BytesIO()
-                summary_df.to_excel(excel_buffer, index=False, engine='openpyxl')
-                excel_buffer.seek(0)
-                st.download_button(
-                    label="DOWNLOAD EXCEL",
-                    data=excel_buffer,
-                    file_name="sales_analysis_results.xlsx",
-                    mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
-                )
+            if summary_df is not None:  # Only proceed if analysis succeeded
+                # Export Options
+                st.write("### DOWNLOAD YOUR RESULTS")
+                col1, col2, col3 = st.columns(3)
+                with col1:
+                    csv_buffer = io.StringIO()
+                    summary_df.to_csv(csv_buffer, index=False)
+                    st.download_button(
+                        label="DOWNLOAD CSV",
+                        data=csv_buffer.getvalue(),
+                        file_name="sales_analysis_results.csv",
+                        mime="text/csv"
+                    )
+                with col2:
+                    pdf_buffer = generate_pdf(summary_df)
+                    st.download_button(
+                        label="DOWNLOAD PDF",
+                        data=pdf_buffer,
+                        file_name="sales_analysis_results.pdf",
+                        mime="application/pdf"
+                    )
+                with col3:
+                    excel_buffer = io.BytesIO()
+                    summary_df.to_excel(excel_buffer, index=False, engine='openpyxl')
+                    excel_buffer.seek(0)
+                    st.download_button(
+                        label="DOWNLOAD EXCEL",
+                        data=excel_buffer,
+                        file_name="sales_analysis_results.xlsx",
+                        mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+                    )
         except Exception as e:
             st.error(f"ERROR: SOMETHING WENT WRONG WITH THE FILE - {e}")
     else:
@@ -319,3 +327,4 @@ elif page == "ANALYSE SALES" and st.session_state.password_correct:
 else:
     st.markdown('<p class="big-title">SALES ANALYSER</p>', unsafe_allow_html=True)
     st.warning("PLEASE ENTER THE CORRECT PASSWORD ON THE HOME PAGE TO ACCESS THIS SECTION.")
+
