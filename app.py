@@ -3,6 +3,9 @@ import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
 import io
+from reportlab.lib.pagesizes import letter
+from reportlab.pdfgen import canvas
+import openpyxl
 
 # Custom CSS for styling
 st.markdown("""
@@ -25,6 +28,23 @@ st.markdown("""
 
 # Define the correct password
 correct_password = "Letmein"
+
+# Function to generate PDF
+def generate_pdf(summary_df, filename="sales_analysis_results.pdf"):
+    buffer = io.BytesIO()
+    c = canvas.Canvas(buffer, pagesize=letter)
+    c.setFont("Courier", 12)
+    y = 750
+    for index, row in summary_df.iterrows():
+        text = f"{row['METRIC']}: {row['VALUE']}"
+        c.drawString(50, y, text)
+        y -= 20
+        if y < 50:
+            c.showPage()
+            y = 750
+    c.save()
+    buffer.seek(0)
+    return buffer
 
 # Function to analyse the sales data
 def analyse_sales(data):
@@ -56,6 +76,19 @@ def analyse_sales(data):
     avg_rating = data['Customer_Rating'].mean()
     source_breakdown = data['Purchase_Source'].value_counts()
 
+    # Insights Engine
+    st.write("### KEY INSIGHTS")
+    sales_by_date = data.groupby('Date')['Purchase_Amount'].sum()
+    max_spike_date = sales_by_date.idxmax()
+    max_spike_value = sales_by_date.max()
+    avg_sales = sales_by_date.mean()
+    if max_spike_value > avg_sales * 1.2:  # 20% above average
+        spike_percent = ((max_spike_value - avg_sales) / avg_sales) * 100
+        st.write(f"**BIGGEST SALES SPIKE:** {max_spike_date.date()} - ${max_spike_value:.2f} (UP {spike_percent:.1f}% FROM AVERAGE!)")
+    outlier_spend = data['Purchase_Amount'].quantile(0.95)  # Top 5%
+    if top_spender['Purchase_Amount'] > outlier_spend:
+        st.write(f"**OUTLIER ALERT:** Customer {top_spender['Customer_ID']} spent ${top_spender['Purchase_Amount']:.2f} - TOP 5%!")
+
     st.write("### SALES ANALYSIS RESULTS")
     st.write(f"**TOTAL SALES:** ${total_sales:.2f}")
     st.write(f"**AVERAGE SPEND PER PURCHASE:** ${avg_spend:.2f}")
@@ -85,6 +118,8 @@ def analyse_sales(data):
     st.write(f"**AVERAGE CUSTOMER RATING:** {avg_rating:.1f}/5")
     st.write(f"**PURCHASE SOURCE BREAKDOWN:**\n{source_breakdown.to_string()}")
 
+    # Chart Section
+    st.write("### VISUALISE YOUR DATA")
     chart_options = [
         "SALES OVER TIME (LINE)", 
         "PURCHASES BY PAYMENT METHOD (BAR)", 
@@ -92,7 +127,8 @@ def analyse_sales(data):
         "SALES BY PRODUCT CATEGORY (PIE)", 
         "DISCOUNT USAGE (PIE)", 
         "PURCHASE AMOUNT VS CUSTOMER AGE (SCATTER)", 
-        "CUSTOMER AGE DISTRIBUTION (HISTOGRAM)"
+        "CUSTOMER AGE DISTRIBUTION (HISTOGRAM)",
+        "BUILD YOUR OWN CHART"
     ]
     chart_type = st.selectbox("CHOOSE A CHART TO VIEW:", chart_options)
     
@@ -151,6 +187,33 @@ def analyse_sales(data):
         ax.set_xlabel('AGE')
         ax.set_ylabel('NUMBER OF CUSTOMERS')
         st.pyplot(fig)
+    elif chart_type == "BUILD YOUR OWN CHART":
+        numeric_cols = data.select_dtypes(include=['int64', 'float64']).columns.tolist()
+        x_axis = st.selectbox("CHOOSE X-AXIS:", numeric_cols + data.columns.tolist())
+        y_axis = st.selectbox("CHOOSE Y-AXIS (FOR SCATTER/BAR/LINE):", ["None"] + numeric_cols)
+        custom_chart_type = st.selectbox("CHOOSE CHART TYPE:", ["BAR", "LINE", "PIE", "SCATTER", "HISTOGRAM"])
+        
+        fig, ax = plt.subplots()
+        if custom_chart_type == "BAR" and y_axis != "None":
+            data.groupby(x_axis)[y_axis].sum().plot(kind='bar', ax=ax, color='#1E90FF')
+            ax.set_title(f"{y_axis} BY {x_axis} (BAR)")
+        elif custom_chart_type == "LINE" and y_axis != "None":
+            data.groupby(x_axis)[y_axis].sum().plot(kind='line', ax=ax, color='#1E90FF')
+            ax.set_title(f"{y_axis} BY {x_axis} (LINE)")
+        elif custom_chart_type == "PIE":
+            data[x_axis].value_counts().plot(kind='pie', ax=ax, autopct='%1.1f%%', colors=['#1E90FF', '#87CEEB', '#B0E0E6'])
+            ax.set_title(f"{x_axis} BREAKDOWN (PIE)")
+        elif custom_chart_type == "SCATTER" and y_axis != "None":
+            ax.scatter(data[x_axis], data[y_axis], color='#1E90FF', alpha=0.5)
+            ax.set_title(f"{y_axis} VS {x_axis} (SCATTER)")
+        elif custom_chart_type == "HISTOGRAM":
+            ax.hist(data[x_axis], bins=10, color='#1E90FF', edgecolor='black')
+            ax.set_title(f"{x_axis} DISTRIBUTION (HISTOGRAM)")
+        ax.set_xlabel(x_axis.upper())
+        if y_axis != "None":
+            ax.set_ylabel(y_axis.upper())
+        plt.xticks(rotation=45)
+        st.pyplot(fig)
 
     st.write("### ADDITIONAL INSIGHTS")
     busiest_day = data.groupby('Date')['Purchase_Amount'].sum().idxmax()
@@ -184,7 +247,8 @@ def analyse_sales(data):
             f"{avg_items_per_purchase:.2f}", top_payment_method
         ]
     }
-    return pd.DataFrame(summary_data)
+    summary_df = pd.DataFrame(summary_data)
+    return summary_df
 
 # Streamlit app setup
 st.sidebar.title("SALES ANALYSER")
@@ -218,14 +282,36 @@ elif page == "ANALYSE SALES" and st.session_state.password_correct:
             st.write("FILE LOADED SUCCESSFULLY!")
             summary_df = analyse_sales(data)
 
-            csv_buffer = io.StringIO()
-            summary_df.to_csv(csv_buffer, index=False)
-            st.download_button(
-                label="DOWNLOAD ANALYSIS RESULTS",
-                data=csv_buffer.getvalue(),
-                file_name="sales_analysis_results.csv",
-                mime="text/csv"
-            )
+            # Export Options
+            st.write("### DOWNLOAD YOUR RESULTS")
+            col1, col2, col3 = st.columns(3)
+            with col1:
+                csv_buffer = io.StringIO()
+                summary_df.to_csv(csv_buffer, index=False)
+                st.download_button(
+                    label="DOWNLOAD CSV",
+                    data=csv_buffer.getvalue(),
+                    file_name="sales_analysis_results.csv",
+                    mime="text/csv"
+                )
+            with col2:
+                pdf_buffer = generate_pdf(summary_df)
+                st.download_button(
+                    label="DOWNLOAD PDF",
+                    data=pdf_buffer,
+                    file_name="sales_analysis_results.pdf",
+                    mime="application/pdf"
+                )
+            with col3:
+                excel_buffer = io.BytesIO()
+                summary_df.to_excel(excel_buffer, index=False, engine='openpyxl')
+                excel_buffer.seek(0)
+                st.download_button(
+                    label="DOWNLOAD EXCEL",
+                    data=excel_buffer,
+                    file_name="sales_analysis_results.xlsx",
+                    mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+                )
         except Exception as e:
             st.error(f"ERROR: SOMETHING WENT WRONG WITH THE FILE - {e}")
     else:
