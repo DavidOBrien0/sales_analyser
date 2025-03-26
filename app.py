@@ -15,9 +15,13 @@ st.markdown("""
     .secure-text {
         color: #000000;  /* Black for the secure message */
         font-size: 18px;
+        font-family: 'Courier New', Courier, monospace;  /* Matrix-like digital font */
     }
     </style>
 """, unsafe_allow_html=True)
+
+# Define the correct password
+correct_password = "Letmein"
 
 # Function to analyse the sales data
 def analyse_sales(data):
@@ -113,10 +117,24 @@ def analyse_sales(data):
 st.sidebar.title("Sales Analyser")
 page = st.sidebar.radio("Navigate", ["Welcome", "Analyse Sales"])
 
+# Use session state to track if password is correct
+if 'password_correct' not in st.session_state:
+    st.session_state.password_correct = False
+
 if page == "Welcome":
     st.markdown('<p class="big-title">Welcome to Sales Analyser</p>', unsafe_allow_html=True)
-    st.markdown('<p class="secure-text">This Is A Secure Algorithm - Unauthorised Access Forbidden.</p>', unsafe_allow_html=True)
-else:
+    st.markdown('<p class="secure-text">This Is A Secure Algorithm - Unauthorised Access Is Forbidden.</p>', unsafe_allow_html=True)
+    
+    # Password input
+    password = st.text_input("Enter password to access analysis:", type="password")
+    if st.button("Submit"):
+        if password == correct_password:
+            st.session_state.password_correct = True
+            st.success("Password accepted! You can now switch to 'Analyse Sales'.")
+        else:
+            st.error("Incorrect existentes password. Try again.")
+
+elif page == "Analyse Sales" and st.session_state.password_correct:
     st.markdown('<p class="big-title">Sales Analyser</p>', unsafe_allow_html=True)
     st.write("Upload your CSV file to analyse sales data.")
 
@@ -140,3 +158,6 @@ else:
             st.error(f"Error: Something went wrong with the file - {e}")
     else:
         st.info("Please upload a CSV file to start the analysis.")
+else:
+    st.markdown('<p class="big-title">Sales Analyser</p>', unsafe_allow_html=True)
+    st.warning("Please enter the correct password on the Welcome page to access this section.")
