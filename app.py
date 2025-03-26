@@ -8,12 +8,13 @@ import io
 st.markdown("""
     <style>
     .big-title {
-        color: #1E90FF;
+        color: #1E90FF;  /* Dodger Blue for the title */
         font-size: 36px;
         font-weight: bold;
     }
-    .welcome-text {
-        color: #FF4040;
+    .secure-text {
+        color: #000000;  /* Black for the secure message */
+        font-size: 18px;
     }
     </style>
 """, unsafe_allow_html=True)
@@ -114,9 +115,7 @@ page = st.sidebar.radio("Navigate", ["Welcome", "Analyse Sales"])
 
 if page == "Welcome":
     st.markdown('<p class="big-title">Welcome to Sales Analyser</p>', unsafe_allow_html=True)
-    st.markdown('<p class="welcome-text">Built by David - the grandest analyser in town!</p>', unsafe_allow_html=True)
-    st.write("This app lets you upload a CSV file to analyse your sales data, view charts, and download results.")
-    st.write("Head to 'Analyse Sales' on the left to get started!")
+    st.markdown('<p class="secure-text">This Is A Secure Algorithm - Unauthorised Access Forbidden.</p>', unsafe_allow_html=True)
 else:
     st.markdown('<p class="big-title">Sales Analyser</p>', unsafe_allow_html=True)
     st.write("Upload your CSV file to analyse sales data.")
