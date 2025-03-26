@@ -8,7 +8,7 @@ Date,Customer_ID,Purchase_Amount,Product_Category,Quantity,Payment_Method,Region
 2025-03-06,006,75.00,Furniture,1,Credit,East,Yes,38,M,ORD007,S03,E107,10:30,10.00,6.25,P2345,75.00,No,Yes,FURN20,Online,Express,5,Web
 2025-03-07,002,8.50,Stationery,3,Debit,North,No,27,F,ORD008,S04,E108,12:45,0.00,0.71,P6789,2.83,Yes,No,None,In-Store,Standard,2,Ad
 2025-03-08,007,120.00,Appliances,1,Credit,West,No,41,M,ORD009,S01,E109,17:00,15.00,10.00,P4567,120.00,No,Yes,None,Online,Express,4,Referral
-2025-03-09,003,35.25,Sports,2,Cash,South,Yes,45,M,ORD010,S02,E110,08:50,6.75,2.94,P8901,17.63,No,No,SPORT15,Phone,Standard,3,Web2025-03-10,008,65.00,Jewellery,1,Credit,North,No,31,F,ORD011,S03,E111,14:00,8.50,5.42,P1122,65.00,No,Yes,JEWEL25,Online,Express,4,Ad
+2025-03-09,003,35.25,Sports,2,Cash,South,Yes,45,M,ORD010,S02,E110,08:50,6.75,2.94,P8901,17.63,No,No,SPORT15,Phone,Standard,3,Web
 2025-03-11,009,22.75,Beauty,2,Debit,South,Yes,23,F,ORD012,S04,E112,10:15,0.00,1.89,P3344,11.38,No,No,BEAUTY10,In-Store,Standard,3,Web
 2025-03-12,010,14.50,Pet Supplies,3,Cash,East,No,39,M,ORD013,S01,E113,16:30,4.25,1.21,P5566,4.83,No,Yes,None,Phone,Pickup,5,Referral
 2025-03-13,004,89.99,Garden,1,Credit,West,Yes,52,F,ORD014,S02,E114,12:00,12.00,7.50,P7788,89.99,No,No,GARDEN15,Online,Standard,4,Search
