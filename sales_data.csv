@@ -1,0 +1,6 @@
+Date,Customer_ID,Purchase_Amount,Product_Category,Quantity,Payment_Method,Region,Discount_Applied
+2025-03-01,001,25.50,Electronics,1,Credit,North,No
+2025-03-02,002,15.75,Clothing,2,Cash,South,Yes
+2025-03-02,003,30.00,Electronics,1,Credit,East,No
+2025-03-03,001,10.25,Clothing,1,Debit,West,Yes
+2025-03-04,004,45.00,Home,3,Credit,North,No
