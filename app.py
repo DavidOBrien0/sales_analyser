@@ -83,7 +83,7 @@ def analyse_sales(data):
 
 # Streamlit app setup
 st.title("Sales Analyser")
-st.write("Upload your CSV file to analyse sales data.")
+st.write("Built by David - the grandest analyser in town!")
 
 # File uploader
 uploaded_file = st.file_uploader("Choose a CSV file", type="csv")
