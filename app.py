@@ -4,16 +4,16 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import io
 
-# Custom CSS for extra styling
+# Custom CSS for styling
 st.markdown("""
     <style>
     .big-title {
-        color: #2E8B57;  /* Sea green to match buttons */
+        color: #1E90FF;  /* Dodger Blue for the title */
         font-size: 36px;
         font-weight: bold;
     }
     .welcome-text {
-        color: #4682B4;  /* Steel blue for a friendly vibe */
+        color: #FF4040;  /* Coral Red for a subtle pop */
     }
     </style>
 """, unsafe_allow_html=True)
