@@ -8,12 +8,12 @@ import io
 st.markdown("""
     <style>
     .big-title {
-        color: #1E90FF;  /* Dodger Blue for the title */
+        color: #1E90FF;
         font-size: 36px;
         font-weight: bold;
     }
     .welcome-text {
-        color: #FF4040;  /* Coral Red for a subtle pop */
+        color: #FF4040;
     }
     </style>
 """, unsafe_allow_html=True)
@@ -30,6 +30,12 @@ def analyse_sales(data):
     payment_breakdown = data['Payment_Method'].value_counts()
     region_sales = data.groupby('Region')['Purchase_Amount'].sum().idxmax()
     discount_usage = data['Discount_Applied'].value_counts(normalize=True) * 100
+    avg_age = data['Customer_Age'].mean()
+    gender_breakdown = data['Customer_Gender'].value_counts()
+    loyalty_percentage = (data['Customer_Loyalty'] == 'Yes').mean() * 100
+    channel_breakdown = data['Order_Channel'].value_counts()
+    avg_shipping = data['Shipping_Cost'].mean()
+    return_rate = (data['Return_Status'] == 'Yes').mean() * 100
 
     st.write("### Sales Analysis Results")
     st.write(f"**Total Sales:** ${total_sales:.2f}")
@@ -42,25 +48,27 @@ def analyse_sales(data):
     st.write(f"**Payment Method Breakdown:**\n{payment_breakdown.to_string()}")
     st.write(f"**Region with Highest Sales:** {region_sales}")
     st.write(f"**Discount Usage:** {discount_usage['Yes']:.1f}% of purchases had a discount")
+    st.write(f"**Average Customer Age:** {avg_age:.1f} years")
+    st.write(f"**Gender Breakdown:**\n{gender_breakdown.to_string()}")
+    st.write(f"**Loyalty Members:** {loyalty_percentage:.1f}% of customers")
+    st.write(f"**Order Channel Breakdown:**\n{channel_breakdown.to_string()}")
+    st.write(f"**Average Shipping Cost:** ${avg_shipping:.2f}")
+    st.write(f"**Return Rate:** {return_rate:.1f}% of purchases returned")
 
     chart_type = st.selectbox("Choose a chart to view:", ["Sales by Product Category (Pie)", "Purchases by Payment Method (Bar)"])
     
     data['Date'] = pd.to_datetime(data['Date'])
     if chart_type == "Sales by Product Category (Pie)":
-        # Group by category and sum sales
         sales_by_category = data.groupby('Product_Category')['Purchase_Amount'].sum()
-        # Sort and take top 5, lump rest into "Other"
         top_5 = sales_by_category.nlargest(5)
         other_sales = sales_by_category.sum() - top_5.sum()
         if other_sales > 0:
             top_5['Other'] = other_sales
-        # Pie chart
         fig, ax = plt.subplots()
         ax.pie(top_5, labels=top_5.index, autopct='%1.1f%%', colors=['#1E90FF', '#87CEEB', '#B0E0E6', '#ADD8E6', '#E0FFFF', '#D3D3D3'])
         ax.set_title('Top 5 Product Categories by Sales (Pie)')
         st.pyplot(fig)
     else:
-        # Bar chart for payment methods
         fig, ax = plt.subplots()
         payment_breakdown.plot(kind='bar', ax=ax, color='#1E90FF')
         ax.set_title('Purchases by Payment Method')
@@ -84,13 +92,15 @@ def analyse_sales(data):
         'Metric': [
             'Total Sales', 'Average Spend per Purchase', 'Number of Unique Customers',
             'Average Sales per Customer', 'Total Items Sold', 'Most Popular Product Category',
-            'Region with Highest Sales', 'Discount Usage (%)', 'Busiest Day', 'Most Frequent Customer',
-            'Average Items per Purchase', 'Most Used Payment Method'
+            'Region with Highest Sales', 'Discount Usage (%)', 'Average Customer Age',
+            'Loyalty Members (%)', 'Average Shipping Cost', 'Return Rate (%)', 'Busiest Day',
+            'Most Frequent Customer', 'Average Items per Purchase', 'Most Used Payment Method'
         ],
         'Value': [
             f"${total_sales:.2f}", f"${avg_spend:.2f}", num_customers,
             f"${sales_per_customer:.2f}", total_quantity, popular_category,
-            region_sales, f"{discount_usage['Yes']:.1f}", 
+            region_sales, f"{discount_usage['Yes']:.1f}", f"{avg_age:.1f}",
+            f"{loyalty_percentage:.1f}", f"${avg_shipping:.2f}", f"{return_rate:.1f}",
             f"{busiest_day.date()} (${data.groupby('Date')['Purchase_Amount'].sum().max():.2f})",
             f"{most_frequent_customer} ({customer_frequency.max()} purchases)",
             f"{avg_items_per_purchase:.2f}", top_payment_method

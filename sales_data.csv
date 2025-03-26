@@ -1,6 +1,40 @@
-Date,Customer_ID,Purchase_Amount,Product_Category,Quantity,Payment_Method,Region,Discount_Applied
-2025-03-01,001,25.50,Electronics,1,Credit,North,No
-2025-03-02,002,15.75,Clothing,2,Cash,South,Yes
-2025-03-02,003,30.00,Electronics,1,Credit,East,No
-2025-03-03,001,10.25,Clothing,1,Debit,West,Yes
-2025-03-04,004,45.00,Home,3,Credit,North,No
+Date,Customer_ID,Purchase_Amount,Product_Category,Quantity,Payment_Method,Region,Discount_Applied,Customer_Age,Customer_Gender,Order_ID,Store_ID,Employee_ID,Transaction_Time,Shipping_Cost,Tax_Amount,Product_ID,Unit_Price,Return_Status,Customer_Loyalty,Promotion_Code,Order_Channel,Delivery_Method,Customer_Rating,Purchase_Source
+2025-03-01,001,25.50,Electronics,1,Credit,North,No,34,M,ORD001,S01,E101,14:30,0.00,2.12,P1234,25.50,No,Yes,None,Online,Standard,4,Web
+2025-03-02,002,15.75,Clothing,2,Cash,South,Yes,27,F,ORD002,S02,E102,09:15,3.99,1.31,P5678,7.88,No,No,SAVE10,In-Store,Standard,3,Ad
+2025-03-02,003,30.00,Electronics,1,Credit,East,No,45,M,ORD003,S03,E103,16:45,0.00,2.50,P1235,30.00,No,Yes,None,Online,Express,5,Referral
+2025-03-03,001,10.25,Books,1,Debit,West,Yes,34,M,ORD004,S04,E104,11:00,2.50,0.85,P9012,10.25,No,Yes,FREE5,Online,Standard,4,Web
+2025-03-04,004,45.00,Home,3,Credit,North,No,52,F,ORD005,S01,E105,13:20,5.99,3.75,P3456,15.00,No,No,None,In-Store,Pickup,4,Referral
+2025-03-05,005,19.99,Toys,2,Cash,South,No,29,Other,ORD006,S02,E106,15:10,4.50,1.67,P7890,10.00,No,Yes,None,Phone,Standard,3,Ad
+2025-03-06,006,75.00,Furniture,1,Credit,East,Yes,38,M,ORD007,S03,E107,10:30,10.00,6.25,P2345,75.00,No,Yes,FURN20,Online,Express,5,Web
+2025-03-07,002,8.50,Stationery,3,Debit,North,No,27,F,ORD008,S04,E108,12:45,0.00,0.71,P6789,2.83,Yes,No,None,In-Store,Standard,2,Ad
+2025-03-08,007,120.00,Appliances,1,Credit,West,No,41,M,ORD009,S01,E109,17:00,15.00,10.00,P4567,120.00,No,Yes,None,Online,Express,4,Referral
+2025-03-09,003,35.25,Sports,2,Cash,South,Yes,45,M,ORD010,S02,E110,08:50,6.75,2.94,P8901,17.63,No,No,SPORT15,Phone,Standard,3,Web2025-03-10,008,65.00,Jewellery,1,Credit,North,No,31,F,ORD011,S03,E111,14:00,8.50,5.42,P1122,65.00,No,Yes,JEWEL25,Online,Express,4,Ad
+2025-03-11,009,22.75,Beauty,2,Debit,South,Yes,23,F,ORD012,S04,E112,10:15,0.00,1.89,P3344,11.38,No,No,BEAUTY10,In-Store,Standard,3,Web
+2025-03-12,010,14.50,Pet Supplies,3,Cash,East,No,39,M,ORD013,S01,E113,16:30,4.25,1.21,P5566,4.83,No,Yes,None,Phone,Pickup,5,Referral
+2025-03-13,004,89.99,Garden,1,Credit,West,Yes,52,F,ORD014,S02,E114,12:00,12.00,7.50,P7788,89.99,No,No,GARDEN15,Online,Standard,4,Search
+2025-03-14,005,39.00,Footwear,2,Debit,North,No,29,Other,ORD015,S03,E115,15:45,0.00,3.25,P9900,19.50,No,Yes,None,In-Store,Express,3,Ad
+2025-03-15,006,9.25,Baby Products,1,Cash,South,Yes,38,M,ORD016,S04,E116,09:30,3.75,0.77,P1236,9.25,Yes,No,BABY5,Online,Standard,2,Web
+2025-03-16,007,55.75,Health,1,Credit,East,No,41,M,ORD017,S01,E117,17:15,7.99,4.65,P3457,55.75,No,Yes,None,Online,Express,5,Referral
+2025-03-17,008,27.00,Automotive,2,Debit,West,No,31,F,ORD018,S02,E118,11:45,0.00,2.25,P5679,13.50,No,No,None,In-Store,Pickup,4,Search
+2025-03-18,009,42.50,Groceries,5,Cash,North,Yes,23,F,ORD019,S03,E119,13:10,5.50,3.54,P7891,8.50,No,Yes,GROC20,Phone,Standard,3,Ad
+2025-03-19,010,95.00,Appliances,1,Credit,South,No,39,M,ORD020,S04,E120,15:00,10.50,7.92,P9013,95.00,No,No,None,Online,Express,4,Web
+2025-03-20,011,33.80,Electronics,2,Credit,East,No,28,M,ORD021,S01,E121,14:20,0.00,2.82,P1237,16.90,No,Yes,None,Online,Standard,4,Web
+2025-03-21,012,12.99,Clothing,1,Debit,South,Yes,35,F,ORD022,S02,E122,09:45,2.99,1.08,P5670,12.99,No,No,CLOTH5,In-Store,Pickup,3,Ad
+2025-03-22,013,85.00,Furniture,1,Credit,North,No,50,M,ORD023,S03,E123,16:00,12.50,7.08,P2346,85.00,No,Yes,None,Online,Express,5,Referral
+2025-03-23,014,7.50,Books,3,Cash,West,No,22,F,ORD024,S04,E124,11:30,0.00,0.63,P9014,2.50,No,No,None,In-Store,Standard,4,Search
+2025-03-24,015,55.25,Appliances,1,Debit,East,Yes,40,M,ORD025,S01,E125,13:00,8.75,4.60,P4568,55.25,No,Yes,APP10,Online,Standard,3,Web
+2025-03-25,011,18.00,Toys,2,Credit,South,No,28,M,ORD026,S02,E126,15:15,4.99,1.50,P7892,9.00,No,Yes,None,Phone,Express,4,Ad
+2025-03-26,012,29.99,Home,1,Cash,North,Yes,35,F,ORD027,S03,E127,10:00,0.00,2.50,P3458,29.99,No,No,HOME15,In-Store,Standard,5,Referral
+2025-03-27,013,14.75,Stationery,4,Debit,West,No,50,M,ORD028,S04,E128,17:30,3.25,1.23,P6780,3.69,No,Yes,None,Online,Pickup,2,Search
+2025-03-28,014,62.50,Jewellery,1,Credit,East,No,22,F,ORD029,S01,E129,12:15,7.50,5.21,P1123,62.50,No,No,None,Online,Express,4,Web
+2025-03-29,015,9.99,Beauty,2,Cash,South,Yes,40,M,ORD030,S02,E130,14:45,0.00,0.83,P3345,5.00,No,Yes,BEAUTY5,In-Store,Standard,3,Ad
+2025-03-30,016,45.00,Sports,3,Debit,North,No,33,F,ORD031,S03,E131,16:10,5.99,3.75,P8902,15.00,No,No,None,Phone,Standard,5,Referral
+2025-03-31,017,22.25,Pet Supplies,1,Credit,West,Yes,29,M,ORD032,S04,E132,09:15,4.50,1.85,P5567,22.25,No,Yes,PET10,Online,Express,4,Web
+2025-04-01,018,78.00,Garden,1,Cash,East,No,47,F,ORD033,S01,E133,13:30,10.00,6.50,P7789,78.00,No,No,None,In-Store,Standard,3,Search
+2025-04-02,019,15.50,Footwear,2,Debit,South,No,25,Other,ORD034,S02,E134,15:00,0.00,1.29,P9901,7.75,No,Yes,None,Online,Pickup,4,Ad
+2025-04-03,020,6.75,Baby Products,1,Credit,North,Yes,36,M,ORD035,S03,E135,11:45,3.25,0.56,P1238,6.75,No,No,BABY5,Phone,Standard,5,Referral
+2025-04-04,016,39.99,Health,1,Debit,West,No,33,F,ORD036,S04,E136,17:00,6.75,3.33,P3459,39.99,No,Yes,None,Online,Express,2,Web
+2025-04-05,017,28.00,Automotive,2,Cash,East,Yes,29,M,ORD037,S01,E137,10:30,0.00,2.33,P5671,14.00,No,No,AUTO10,In-Store,Standard,4,Ad
+2025-04-06,018,12.25,Groceries,3,Credit,South,No,47,F,ORD038,S02,E138,14:15,4.99,1.02,P7893,4.08,No,Yes,None,Online,Standard,3,Search
+2025-04-07,019,95.50,Appliances,1,Debit,North,No,25,Other,ORD039,S03,E139,16:45,12.50,7.96,P4569,95.50,No,No,None,Phone,Express,5,Referral
+2025-04-08,020,17.99,Toys,2,Cash,West,Yes,36,M,ORD040,S04,E140,12:00,0.00,1.50,P7894,9.00,No,Yes,TOY5,In-Store,Pickup,4,Web
