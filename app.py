@@ -48,8 +48,10 @@ def generate_pdf(summary_df, filename="bookstore_sales_analysis.pdf"):
 
 # Function to analyse the sales data
 def analyse_sales(data):
-    # Combine Day_Month and Year into a full datetime
+    # Ensure Day_Month and Year are strings, then combine into Full_Date
     try:
+        data['Day_Month'] = data['Day_Month'].astype(str)
+        data['Year'] = data['Year'].astype(str)
         data['Full_Date'] = pd.to_datetime(data['Day_Month'] + '/' + data['Year'], format='%d/%m/%Y', errors='coerce')
         if data['Full_Date'].isnull().all():
             st.error("DATE COLUMN ISSUE: Invalid 'Day_Month' or 'Year' values—check your CSV format.")
