@@ -8,7 +8,13 @@ from reportlab.lib.pagesizes import letter
 from reportlab.pdfgen import canvas
 import openpyxl
 
-# Custom CSS to match the "Code Name Red" design with improved sidebar
+# Initialize session state for page navigation
+if 'page' not in st.session_state:
+    st.session_state.page = "HOME"
+if 'password_correct' not in st.session_state:
+    st.session_state.password_correct = False
+
+# Custom CSS to match the "Code Name Red" design with fixed sidebar
 st.markdown("""
     <style>
     /* Import Montserrat font from Google Fonts */
@@ -44,60 +50,69 @@ st.markdown("""
         text-transform: uppercase;
         color: #FFFFFF;
     }
-    .header-nav a {
+    .header-nav {
+        display: flex;
+        gap: 20px;
+    }
+    .header-nav button {
+        background: none;
+        border: none;
         color: #FFFFFF;
         font-size: 14px;
         font-weight: 700;
         text-transform: uppercase;
-        margin: 0 15px;
-        text-decoration: none;
+        cursor: pointer;
         transition: color 0.3s ease;
     }
-    .header-nav a:hover {
+    .header-nav button:hover {
         color: #00FF00; /* Matrix green on hover */
+    }
+    .header-nav button.active {
+        color: #00FF00; /* Matrix green for active page */
+        text-decoration: underline;
     }
 
-    /* Sidebar styling - updated to match the app */
-    .css-1d391kg { /* Streamlit sidebar class */
+    /* Sidebar styling - updated with more reliable selectors */
+    [data-testid="stSidebar"] {
         background-color: #000000;
-        padding: 30px; /* Increased padding */
+        padding: 30px;
     }
-    .css-1d391kg .stSidebar > div > div > div > div > h1 {
-        color: #FFFFFF;
-        font-size: 24px; /* Larger font size to match analysis headings */
-        font-weight: 700;
-        text-transform: uppercase;
-        margin-bottom: 20px;
-        text-align: center;
-    }
-    .css-1d391kg .stRadio > div {
+    [data-testid="stSidebar"] .stRadio > div {
         display: flex;
         flex-direction: column;
-        gap: 10px; /* Space between radio options */
+        gap: 10px;
     }
-    .css-1d391kg .stRadio > label {
-        color: #FFFFFF;
-        font-size: 16px; /* Match selectbox font size */
-        font-weight: 700;
-        text-transform: uppercase;
-        padding: 15px; /* Increased padding */
-        border: 1px solid transparent; /* Placeholder for hover effect */
-        border-radius: 0;
-        transition: all 0.3s ease;
-        text-align: center;
+    [data-testid="stSidebar"] .stRadio > label {
+        color: #FFFFFF !important;
+        font-size: 16px !important;
+        font-weight: 700 !important;
+        text-transform: uppercase !important;
+        padding: 15px !important;
+        border: 1px solid transparent !important;
+        border-radius: 0 !important;
+        transition: all 0.3s ease !important;
+        text-align: center !important;
     }
-    .css-1d391kg .stRadio > label:hover {
-        color: #00FF00; /* Matrix green on hover */
-        border-color: #00FF00; /* Matrix green border on hover */
-        background-color: rgba(255, 255, 255, 0.1); /* Subtle white background on hover */
-        box-shadow: 0 0 10px rgba(0, 255, 0, 0.5); /* Matrix green glow */
+    [data-testid="stSidebar"] .stRadio > label:hover {
+        color: #00FF00 !important; /* Matrix green on hover */
+        border-color: #00FF00 !important;
+        background-color: rgba(255, 255, 255, 0.1) !important;
+        box-shadow: 0 0 10px rgba(0, 255, 0, 0.5) !important;
     }
-    .css-1d391kg .stRadio > label > div > input:checked + div {
-        background-color: #00FF00; /* Matrix green for selected radio button */
-        border-color: #00FF00;
+    [data-testid="stSidebar"] .stRadio > label > div > input:checked + div {
+        background-color: #00FF00 !important;
+        border-color: #00FF00 !important;
     }
-    .css-1d391kg .stRadio > label > div > input:checked + div > p {
-        color: #000000; /* Black text for selected radio button */
+    [data-testid="stSidebar"] .stRadio > label > div > input:checked + div > p {
+        color: #000000 !important;
+    }
+    [data-testid="stSidebar"] > div:first-child > div > div > div > div > div > h1 {
+        color: #FFFFFF !important;
+        font-size: 24px !important;
+        font-weight: 700 !important;
+        text-transform: uppercase !important;
+        margin-bottom: 20px !important;
+        text-align: center !important;
     }
 
     /* Homepage styling */
@@ -589,29 +604,33 @@ def analyse_sales(data):
     return pd.DataFrame(summary_data)
 
 # Streamlit app setup
-# Custom header
-st.markdown("""
-    <div class="header">
-        <div class="header-logo">DATA ANALYTICS</div>
-        <div class="header-nav">
-            <a href="#">HOME</a>
-            <a href="#">ANALYSE SALES</a>
-        </div>
-    </div>
-""", unsafe_allow_html=True)
+# Custom header with functional navigation
+st.markdown('<div class="header">', unsafe_allow_html=True)
+col1, col2 = st.columns([1, 2])
+with col1:
+    st.markdown('<div class="header-logo">DATA ANALYTICS</div>', unsafe_allow_html=True)
+with col2:
+    st.markdown('<div class="header-nav">', unsafe_allow_html=True)
+    col_home, col_analyse = st.columns(2)
+    with col_home:
+        if st.button("HOME", key="header_home"):
+            st.session_state.page = "HOME"
+    with col_analyse:
+        if st.button("ANALYSE SALES", key="header_analyse"):
+            st.session_state.page = "ANALYSE SALES"
+    st.markdown('</div>', unsafe_allow_html=True)
+st.markdown('</div>', unsafe_allow_html=True)
 
-# Sidebar for navigation
-page = st.sidebar.radio("NAVIGATE", ["HOME", "ANALYSE SALES"])
-
-# Use session state to track if password is correct
-if 'password_correct' not in st.session_state:
-    st.session_state.password_correct = False
+# Sidebar for navigation (synced with header)
+page = st.sidebar.radio("NAVIGATE", ["HOME", "ANALYSE SALES"], index=0 if st.session_state.page == "HOME" else 1)
+if page != st.session_state.page:
+    st.session_state.page = page
 
 # Main content container
 with st.container():
     st.markdown('<div class="main-container">', unsafe_allow_html=True)
 
-    if page == "HOME":
+    if st.session_state.page == "HOME":
         st.markdown('<p class="big-title">DATA ANALYSER</p>', unsafe_allow_html=True)
         st.markdown('<p class="secure-text">THIS IS A SECURE ALGORITHM - UNAUTHORISED ACCESS IS FORBIDDEN.</p>', unsafe_allow_html=True)
         
@@ -623,7 +642,7 @@ with st.container():
             else:
                 st.error("INCORRECT PASSWORD. TRY AGAIN.")
 
-    elif page == "ANALYSE SALES" and st.session_state.password_correct:
+    elif st.session_state.page == "ANALYSE SALES" and st.session_state.password_correct:
         st.markdown('<p class="big-title">DATA ANALYSER</p>', unsafe_allow_html=True)
         st.write("UPLOAD YOUR CSV FILE TO ANALYSE BUSINESS SALES DATA.")
 
