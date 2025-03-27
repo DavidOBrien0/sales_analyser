@@ -8,7 +8,7 @@ from reportlab.lib.pagesizes import letter
 from reportlab.pdfgen import canvas
 import openpyxl
 
-# Custom CSS to match the "Code Name Red" design with improved selectbox
+# Custom CSS to match the "Code Name Red" design with improved sidebar
 st.markdown("""
     <style>
     /* Import Montserrat font from Google Fonts */
@@ -57,28 +57,47 @@ st.markdown("""
         color: #00FF00; /* Matrix green on hover */
     }
 
-    /* Sidebar styling */
+    /* Sidebar styling - updated to match the app */
     .css-1d391kg { /* Streamlit sidebar class */
         background-color: #000000;
-        padding: 20px;
-        border-right: 1px solid #FFFFFF;
-    }
-    .css-1d391kg .stRadio > label {
-        color: #FFFFFF;
-        font-size: 14px;
-        font-weight: 700;
-        text-transform: uppercase;
-        padding: 10px;
-        transition: color 0.3s ease;
-    }
-    .css-1d391kg .stRadio > label:hover {
-        color: #00FF00; /* Matrix green on hover */
+        padding: 30px; /* Increased padding */
     }
     .css-1d391kg .stSidebar > div > div > div > div > h1 {
         color: #FFFFFF;
-        font-size: 18px;
+        font-size: 24px; /* Larger font size to match analysis headings */
         font-weight: 700;
         text-transform: uppercase;
+        margin-bottom: 20px;
+        text-align: center;
+    }
+    .css-1d391kg .stRadio > div {
+        display: flex;
+        flex-direction: column;
+        gap: 10px; /* Space between radio options */
+    }
+    .css-1d391kg .stRadio > label {
+        color: #FFFFFF;
+        font-size: 16px; /* Match selectbox font size */
+        font-weight: 700;
+        text-transform: uppercase;
+        padding: 15px; /* Increased padding */
+        border: 1px solid transparent; /* Placeholder for hover effect */
+        border-radius: 0;
+        transition: all 0.3s ease;
+        text-align: center;
+    }
+    .css-1d391kg .stRadio > label:hover {
+        color: #00FF00; /* Matrix green on hover */
+        border-color: #00FF00; /* Matrix green border on hover */
+        background-color: rgba(255, 255, 255, 0.1); /* Subtle white background on hover */
+        box-shadow: 0 0 10px rgba(0, 255, 0, 0.5); /* Matrix green glow */
+    }
+    .css-1d391kg .stRadio > label > div > input:checked + div {
+        background-color: #00FF00; /* Matrix green for selected radio button */
+        border-color: #00FF00;
+    }
+    .css-1d391kg .stRadio > label > div > input:checked + div > p {
+        color: #000000; /* Black text for selected radio button */
     }
 
     /* Homepage styling */
@@ -159,15 +178,15 @@ st.markdown("""
         border-color: #00FF00; /* Matrix green */
     }
 
-    /* Selectbox styling - improved for readability */
+    /* Selectbox styling */
     .stSelectbox > div > div {
         background-color: #000000;
         color: #FFFFFF;
         border: 1px solid #FFFFFF;
         border-radius: 0;
-        padding: 12px; /* Increased padding */
-        font-size: 16px; /* Larger font size */
-        min-width: 300px; /* Minimum width for long chart names */
+        padding: 12px;
+        font-size: 16px;
+        min-width: 300px;
         transition: border-color 0.3s ease;
     }
     .stSelectbox > div > div:hover,
@@ -176,11 +195,11 @@ st.markdown("""
     }
     .stSelectbox > div > div > select {
         color: #FFFFFF;
-        font-size: 16px; /* Match font size */
+        font-size: 16px;
         text-transform: uppercase;
         background-color: #000000;
         padding: 8px;
-        width: 100%; /* Ensure full width */
+        width: 100%;
     }
     .stSelectbox > div > div > select > option {
         background-color: #000000;
