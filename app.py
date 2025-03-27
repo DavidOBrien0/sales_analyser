@@ -52,8 +52,11 @@ def analyse_sales(data):
     try:
         data['Full_Date'] = pd.to_datetime(data['Day_Month'] + '/' + data['Year'], format='%d/%m/%Y', errors='coerce')
         if data['Full_Date'].isnull().all():
-            st.error("DATE COLUMN ISSUE: All 'Day_Month/Year' values are invalid—check your CSV format.")
+            st.error("DATE COLUMN ISSUE: Invalid 'Day_Month' or 'Year' values—check your CSV format.")
             return None
+    except KeyError as e:
+        st.error(f"DATE COLUMN ISSUE: Missing 'Day_Month' or 'Year' column - {e}")
+        return None
     except Exception as e:
         st.error(f"DATE COLUMN ISSUE: {e}")
         return None
@@ -64,7 +67,7 @@ def analyse_sales(data):
     sales_per_customer = total_sales / num_customers
     top_spender = data.loc[data['Purchase_Amount'].idxmax()]
     total_quantity = data['Quantity'].sum()
-    popular_category = data['Product_Category'].mode()[0]
+    popular_age = data['Product_Category'].mode()[0]
     payment_breakdown = data['Payment_Method'].value_counts()
     region_sales = data.groupby('Region')['Purchase_Amount'].sum().idxmax()
     discount_usage = data['Discount_Applied'].value_counts(normalize=True) * 100
@@ -103,7 +106,7 @@ def analyse_sales(data):
     st.write(f"**AVERAGE SALES PER CUSTOMER:** ${sales_per_customer:.2f}")
     st.write(f"**TOP SPENDER:** Customer {top_spender['Customer_ID']} spent ${top_spender['Purchase_Amount']:.2f} on {top_spender['Day_Month']}")
     st.write(f"**TOTAL BOOKS SOLD:** {total_quantity}")
-    st.write(f"**MOST POPULAR GENRE:** {popular_category}")
+    st.write(f"**MOST POPULAR AGE:** {popular_age}")
     st.write(f"**PAYMENT METHOD BREAKDOWN:**\n{payment_breakdown.to_string()}")
     st.write(f"**REGION WITH HIGHEST SALES:** {region_sales}")
     st.write(f"**DISCOUNT USAGE:** {discount_usage.get('Yes', 0):.1f}% of purchases had a discount")
@@ -128,7 +131,7 @@ def analyse_sales(data):
         "SALES OVER TIME (LINE)", 
         "PURCHASES BY PAYMENT METHOD (BAR)", 
         "SALES BY REGION (BAR)", 
-        "SALES BY GENRE (PIE)", 
+        "SALES BY AGE (PIE)", 
         "DISCOUNT USAGE (PIE)", 
         "PURCHASE AMOUNT VS CUSTOMER AGE (SCATTER)", 
         "CUSTOMER AGE DISTRIBUTION (HISTOGRAM)",
@@ -160,7 +163,7 @@ def analyse_sales(data):
         ax.set_xlabel('REGION')
         ax.set_ylabel('TOTAL SALES ($)')
         st.pyplot(fig)
-    elif chart_type == "SALES BY GENRE (PIE)":
+    elif chart_type == "SALES BY AGE (PIE)":
         sales_by_category = data.groupby('Product_Category')['Purchase_Amount'].sum()
         top_5 = sales_by_category.nlargest(5)
         other_sales = sales_by_category.sum() - top_5.sum()
@@ -168,7 +171,7 @@ def analyse_sales(data):
             top_5['Other'] = other_sales
         fig, ax = plt.subplots()
         ax.pie(top_5, labels=top_5.index, autopct='%1.1f%%', colors=['#1E90FF', '#87CEEB', '#B0E0E6', '#ADD8E6', '#E0FFFF', '#D3D3D3'])
-        ax.set_title('TOP 5 GENRES BY SALES (PIE)')
+        ax.set_title('TOP 5 AGES BY SALES (PIE)')
         st.pyplot(fig)
     elif chart_type == "DISCOUNT USAGE (PIE)":
         fig, ax = plt.subplots()
@@ -233,7 +236,7 @@ def analyse_sales(data):
     summary_data = {
         'METRIC': [
             'TOTAL SALES', 'AVERAGE SPEND PER PURCHASE', 'NUMBER OF UNIQUE CUSTOMERS',
-            'AVERAGE SALES PER CUSTOMER', 'TOTAL BOOKS SOLD', 'MOST POPULAR GENRE',
+            'AVERAGE SALES PER CUSTOMER', 'TOTAL BOOKS SOLD', 'MOST POPULAR AGE',
             'REGION WITH HIGHEST SALES', 'DISCOUNT USAGE (%)', 'AVERAGE CUSTOMER AGE',
             'NUMBER OF ORDERS', 'AVERAGE SHIPPING COST', 'TOTAL TAX PAID', 'NUMBER OF UNIQUE TITLES',
             'AVERAGE UNIT PRICE', 'RETURN RATE (%)', 'LOYALTY MEMBERS (%)', 'AVERAGE CUSTOMER RATING',
@@ -241,7 +244,7 @@ def analyse_sales(data):
         ],
         'VALUE': [
             f"${total_sales:.2f}", f"${avg_spend:.2f}", num_customers,
-            f"${sales_per_customer:.2f}", total_quantity, popular_category,
+            f"${sales_per_customer:.2f}", total_quantity, str(popular_age),
             region_sales, f"{discount_usage.get('Yes', 0):.1f}", f"{avg_age:.1f}",
             num_orders, f"${avg_shipping:.2f}", f"${total_tax:.2f}", num_products,
             f"${avg_unit_price:.2f}", f"{return_rate:.1f}", f"{loyalty_percentage:.1f}",
