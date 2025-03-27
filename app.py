@@ -8,11 +8,11 @@ from reportlab.lib.pagesizes import letter
 from reportlab.pdfgen import canvas
 import openpyxl
 
-# Custom CSS for styling (keep chart styling, remove homepage flair)
+# Custom CSS for Matrix vibe with font applied globally
 st.markdown("""
     <style>
-    /* Matrix-style font for charts and analysis section */
-    .chart-section * {
+    /* Matrix-style font applied to all text */
+    html, body, [class*="css"]  {
         font-family: 'Courier New', Courier, monospace !important;
     }
     .big-title {
@@ -22,15 +22,14 @@ st.markdown("""
     .secure-text {
         font-size: 18px;
     }
-    /* Chart-specific styling */
-    .chart-section .stButton>button {
+    .stButton>button {
         background-color: #1E90FF;
         color: #000000;
         border: 2px solid #00FF00;
         border-radius: 5px;
         box-shadow: 0 0 5px #1E90FF;
     }
-    .chart-section .stButton>button:hover {
+    .stButton>button:hover {
         background-color: #00FF00;
         color: #000000;
         box-shadow: 0 0 10px #00FF00;
