@@ -14,7 +14,7 @@ if 'page' not in st.session_state:
 if 'password_correct' not in st.session_state:
     st.session_state.password_correct = False
 
-# Custom CSS to match the "Code Name Red" design with fixed sidebar
+# Custom CSS to match the "Code Name Red" design with improved header and sidebar
 st.markdown("""
     <style>
     /* Import Montserrat font from Google Fonts */
@@ -62,41 +62,58 @@ st.markdown("""
         font-weight: 700;
         text-transform: uppercase;
         cursor: pointer;
-        transition: color 0.3s ease;
+        padding: 10px 15px;
+        transition: all 0.3s ease;
     }
     .header-nav button:hover {
         color: #00FF00; /* Matrix green on hover */
+        background-color: rgba(0, 255, 0, 0.1); /* Subtle green background */
     }
     .header-nav button.active {
         color: #00FF00; /* Matrix green for active page */
-        text-decoration: underline;
+        border-bottom: 2px solid #00FF00; /* Green underline */
+        background-color: rgba(0, 255, 0, 0.2); /* Slightly stronger green background */
     }
 
-    /* Sidebar styling - updated with more reliable selectors */
+    /* Sidebar styling - enhanced design */
     [data-testid="stSidebar"] {
         background-color: #000000;
         padding: 30px;
+        border-right: 1px solid #00FF00; /* Matrix green border */
+        box-shadow: 0 0 15px rgba(0, 255, 0, 0.3); /* Subtle green glow */
+    }
+    [data-testid="stSidebar"] > div:first-child > div > div > div > div > div > h1 {
+        color: #FFFFFF !important;
+        font-size: 28px !important; /* Larger title */
+        font-weight: 700 !important;
+        text-transform: uppercase !important;
+        margin-bottom: 20px !important;
+        text-align: center !important;
+        border-bottom: 2px solid #00FF00; /* Green underline */
+        padding-bottom: 10px;
+        box-shadow: 0 0 10px rgba(0, 255, 0, 0.5); /* Green glow */
     }
     [data-testid="stSidebar"] .stRadio > div {
         display: flex;
         flex-direction: column;
-        gap: 10px;
+        gap: 15px; /* Increased gap */
     }
     [data-testid="stSidebar"] .stRadio > label {
         color: #FFFFFF !important;
         font-size: 16px !important;
         font-weight: 700 !important;
         text-transform: uppercase !important;
-        padding: 15px !important;
+        padding: 20px !important; /* More padding */
         border: 1px solid transparent !important;
         border-radius: 0 !important;
         transition: all 0.3s ease !important;
         text-align: center !important;
+        background-color: rgba(255, 255, 255, 0.05); /* Subtle white background */
     }
     [data-testid="stSidebar"] .stRadio > label:hover {
-        color: #00FF00 !important; /* Matrix green on hover */
+        color: #00FF00 !important;
         border-color: #00FF00 !important;
-        background-color: rgba(255, 255, 255, 0.1) !important;
+        background-color: rgba(0, 255, 0, 0.1) !important;
         box-shadow: 0 0 10px rgba(0, 255, 0, 0.5) !important;
     }
     [data-testid="stSidebar"] .stRadio > label > div > input:checked + div {
@@ -105,14 +122,7 @@ st.markdown("""
     }
     [data-testid="stSidebar"] .stRadio > label > div > input:checked + div > p {
         color: #000000 !important;
-    }
-    [data-testid="stSidebar"] > div:first-child > div > div > div > div > div > h1 {
-        color: #FFFFFF !important;
-        font-size: 24px !important;
-        font-weight: 700 !important;
-        text-transform: uppercase !important;
-        margin-bottom: 20px !important;
-        text-align: center !important;
+        border-bottom: 2px solid #00FF00 !important; /* Green underline for active */
     }
 
     /* Homepage styling */
@@ -558,7 +568,7 @@ def analyse_sales(data):
                 x=x_axis,
                 color=color_by if color_by != "None" else None,
                 title=f"{x_axis} DISTRIBUTION (HISTOGRAM)",
-                color_discrete_sequence=px.colors.sequential.Plasma  # Neon colors
+                color_discrete_sequence=px.colors.sequential.Plasma  # Fixed typo and syntax
             )
         else:
             st.write("Please select valid options to build your chart.")
@@ -604,19 +614,19 @@ def analyse_sales(data):
     return pd.DataFrame(summary_data)
 
 # Streamlit app setup
-# Custom header with functional navigation
+# Custom header with improved navigation using Streamlit buttons
 st.markdown('<div class="header">', unsafe_allow_html=True)
 col1, col2 = st.columns([1, 2])
 with col1:
     st.markdown('<div class="header-logo">DATA ANALYTICS</div>', unsafe_allow_html=True)
 with col2:
     st.markdown('<div class="header-nav">', unsafe_allow_html=True)
-    col_home, col_analyse = st.columns(2)
-    with col_home:
-        if st.button("HOME", key="header_home"):
+    col_btn1, col_btn2 = st.columns(2)
+    with col_btn1:
+        if st.button("HOME", key="home_btn"):
             st.session_state.page = "HOME"
-    with col_analyse:
-        if st.button("ANALYSE SALES", key="header_analyse"):
+    with col_btn2:
+        if st.button("ANALYSE SALES", key="analyse_btn"):
             st.session_state.page = "ANALYSE SALES"
     st.markdown('</div>', unsafe_allow_html=True)
 st.markdown('</div>', unsafe_allow_html=True)
@@ -695,3 +705,4 @@ with st.container():
         st.warning("PLEASE ENTER THE CORRECT PASSWORD ON THE HOME PAGE TO ACCESS THIS SECTION.")
 
     st.markdown('</div>', unsafe_allow_html=True)
+
