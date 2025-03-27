@@ -68,7 +68,7 @@ st.markdown("""
         border-radius: 0 !important;
         transition: all 0.3s ease !important;
         text-align: center !important;
-        background-color: rgba(255, 255, 0.05);
+        background-color: rgba(255, 255, 255, 0.05);
     }
     [data-testid="stSidebar"] .stRadio > label:hover {
         color: #FF0000 !important;
@@ -655,4 +655,3 @@ with st.container():
         st.warning("PLEASE ENTER THE CORRECT PASSWORD ON THE HOME PAGE TO ACCESS THIS SECTION.")
 
     st.markdown('</div>', unsafe_allow_html=True)
-
