@@ -1,16 +1,17 @@
 # Import libraries
 import streamlit as st
 import pandas as pd
-import matplotlib.pyplot as plt
+import plotly.express as px
+import plotly.graph_objects as go
 import io
 from reportlab.lib.pagesizes import letter
 from reportlab.pdfgen import canvas
 import openpyxl
 
-# Custom CSS for styling
+# Custom CSS for Matrix vibe with enhanced styling
 st.markdown("""
     <style>
-    /* Apply Matrix-style font to all text */
+    /* Matrix-style font and neon glow */
     * {
         font-family: 'Courier New', Courier, monospace !important;
     }
@@ -18,10 +19,24 @@ st.markdown("""
         color: #1E90FF;
         font-size: 36px;
         font-weight: bold;
+        text-shadow: 0 0 10px #1E90FF, 0 0 20px #1E90FF;
     }
     .secure-text {
-        color: #000000;
+        color: #00FF00;
         font-size: 18px;
+        text-shadow: 0 0 5px #00FF00;
+    }
+    .stButton>button {
+        background-color: #1E90FF;
+        color: #000000;
+        border: 2px solid #00FF00;
+        border-radius: 5px;
+        box-shadow: 0 0 5px #1E90FF;
+    }
+    .stButton>button:hover {
+        background-color: #00FF00;
+        color: #000000;
+        box-shadow: 0 0 10px #00FF00;
     }
     </style>
 """, unsafe_allow_html=True)
@@ -48,13 +63,13 @@ def generate_pdf(summary_df, filename="bookstore_sales_analysis.pdf"):
 
 # Function to analyse the sales data
 def analyse_sales(data):
-    # Ensure Day_Month and Year are strings, then combine into Full_Date
+    # Ensure Day_Month and Year are strings
     try:
         data['Day_Month'] = data['Day_Month'].astype(str)
         data['Year'] = data['Year'].astype(str)
         data['Full_Date'] = pd.to_datetime(data['Day_Month'] + '/' + data['Year'], format='%d/%m/%Y', errors='coerce')
         if data['Full_Date'].isnull().all():
-            st.error("DATE COLUMN ISSUE: Invalid 'Day_Month' or 'Year' values—check your CSV format.")
+            st.error("DATE COLUMN ISSUE: All 'Day_Month/Year' values are invalid—check your CSV format.")
             return None
     except KeyError as e:
         st.error(f"DATE COLUMN ISSUE: Missing 'Day_Month' or 'Year' column - {e}")
@@ -127,7 +142,7 @@ def analyse_sales(data):
     st.write(f"**AVERAGE CUSTOMER RATING:** {avg_rating:.1f}/5")
     st.write(f"**PURCHASE SOURCE BREAKDOWN:**\n{source_breakdown.to_string()}")
 
-    # Chart Section
+    # Chart Section with Plotly
     st.write("### VISUALISE YOUR DATA")
     chart_options = [
         "SALES OVER TIME (LINE)", 
@@ -137,91 +152,197 @@ def analyse_sales(data):
         "DISCOUNT USAGE (PIE)", 
         "PURCHASE AMOUNT VS CUSTOMER AGE (SCATTER)", 
         "CUSTOMER AGE DISTRIBUTION (HISTOGRAM)",
+        "SALES BY LOYALTY STATUS (SUNBURST)",
         "BUILD YOUR OWN CHART"
     ]
     chart_type = st.selectbox("CHOOSE A CHART TO VIEW:", chart_options)
-    
+
+    # Custom Plotly layout for consistent styling
+    plot_layout = dict(
+        plot_bgcolor='rgba(0,0,0,0)',
+        paper_bgcolor='rgba(0,0,0,0)',
+        font=dict(family="Courier New, monospace", color="#00FF00"),
+        title_font=dict(size=20, color="#1E90FF"),
+        xaxis=dict(gridcolor="#1E90FF", zerolinecolor="#1E90FF"),
+        yaxis=dict(gridcolor="#1E90FF", zerolinecolor="#1E90FF"),
+        hoverlabel=dict(bgcolor="#1E90FF", font=dict(color="#000000")),
+    )
+
     if chart_type == "SALES OVER TIME (LINE)":
-        sales_by_date = data.groupby('Full_Date')['Purchase_Amount'].sum()
-        fig, ax = plt.subplots()
-        ax.plot(sales_by_date.index, sales_by_date.values, color='#1E90FF')
-        ax.set_title('SALES OVER TIME')
-        ax.set_xlabel('DATE (DD/MM)')
-        ax.set_ylabel('TOTAL SALES ($)')
-        plt.xticks(rotation=45)
-        st.pyplot(fig)
+        sales_by_date = data.groupby('Full_Date')['Purchase_Amount'].sum().reset_index()
+        fig = px.line(
+            sales_by_date, 
+            x='Full_Date', 
+            y='Purchase_Amount',
+            title='SALES OVER TIME',
+            labels={'Full_Date': 'DATE (DD/MM)', 'Purchase_Amount': 'TOTAL SALES ($)'},
+            line_shape='spline',  # Smooth line
+            color_discrete_sequence=['#1E90FF']
+        )
+        fig.update_layout(**plot_layout)
+        fig.update_traces(line=dict(width=3), hovertemplate='Date: %{x|%d/%m}<br>Sales: $%{y:.2f}')
+        st.plotly_chart(fig, use_container_width=True)
+
     elif chart_type == "PURCHASES BY PAYMENT METHOD (BAR)":
-        fig, ax = plt.subplots()
-        payment_breakdown.plot(kind='bar', ax=ax, color='#1E90FF')
-        ax.set_title('PURCHASES BY PAYMENT METHOD')
-        ax.set_xlabel('PAYMENT METHOD')
-        ax.set_ylabel('NUMBER OF PURCHASES')
-        st.pyplot(fig)
+        fig = px.bar(
+            payment_breakdown.reset_index(),
+            x='Payment_Method',
+            y='count',
+            title='PURCHASES BY PAYMENT METHOD',
+            labels={'Payment_Method': 'PAYMENT METHOD', 'count': 'NUMBER OF PURCHASES'},
+            color='Payment_Method',
+            color_discrete_sequence=px.colors.sequential.Plasma
+        )
+        fig.update_layout(**plot_layout, showlegend=False)
+        fig.update_traces(hovertemplate='Method: %{x}<br>Count: %{y}')
+        st.plotly_chart(fig, use_container_width=True)
+
     elif chart_type == "SALES BY REGION (BAR)":
-        sales_by_region = data.groupby('Region')['Purchase_Amount'].sum()
-        fig, ax = plt.subplots()
-        sales_by_region.plot(kind='bar', ax=ax, color='#1E90FF')
-        ax.set_title('SALES BY REGION')
-        ax.set_xlabel('REGION')
-        ax.set_ylabel('TOTAL SALES ($)')
-        st.pyplot(fig)
+        sales_by_region = data.groupby('Region')['Purchase_Amount'].sum().reset_index()
+        fig = px.bar(
+            sales_by_region,
+            x='Region',
+            y='Purchase_Amount',
+            title='SALES BY REGION',
+            labels={'Region': 'REGION', 'Purchase_Amount': 'TOTAL SALES ($)'},
+            color='Region',
+            color_discrete_sequence=px.colors.sequential.Viridis
+        )
+        fig.update_layout(**plot_layout, showlegend=False)
+        fig.update_traces(hovertemplate='Region: %{x}<br>Sales: $%{y:.2f}')
+        st.plotly_chart(fig, use_container_width=True)
+
     elif chart_type == "SALES BY AGE (PIE)":
-        sales_by_category = data.groupby('Product_Category')['Purchase_Amount'].sum()
-        top_5 = sales_by_category.nlargest(5)
-        other_sales = sales_by_category.sum() - top_5.sum()
+        sales_by_category = data.groupby('Product_Category')['Purchase_Amount'].sum().reset_index()
+        top_5 = sales_by_category.nlargest(5, 'Purchase_Amount')
+        other_sales = sales_by_category['Purchase_Amount'].sum() - top_5['Purchase_Amount'].sum()
         if other_sales > 0:
-            top_5['Other'] = other_sales
-        fig, ax = plt.subplots()
-        ax.pie(top_5, labels=top_5.index, autopct='%1.1f%%', colors=['#1E90FF', '#87CEEB', '#B0E0E6', '#ADD8E6', '#E0FFFF', '#D3D3D3'])
-        ax.set_title('TOP 5 AGES BY SALES (PIE)')
-        st.pyplot(fig)
+            top_5 = pd.concat([top_5, pd.DataFrame({'Product_Category': ['Other'], 'Purchase_Amount': [other_sales]})], ignore_index=True)
+        fig = px.pie(
+            top_5,
+            names='Product_Category',
+            values='Purchase_Amount',
+            title='TOP 5 AGES BY SALES (PIE)',
+            color_discrete_sequence=px.colors.sequential.Plasma
+        )
+        fig.update_layout(**plot_layout)
+        fig.update_traces(textinfo='percent+label', hovertemplate='Age: %{label}<br>Sales: $%{value:.2f}')
+        st.plotly_chart(fig, use_container_width=True)
+
     elif chart_type == "DISCOUNT USAGE (PIE)":
-        fig, ax = plt.subplots()
-        discount_counts = data['Discount_Applied'].value_counts()
-        ax.pie(discount_counts, labels=discount_counts.index, autopct='%1.1f%%', colors=['#1E90FF', '#87CEEB'])
-        ax.set_title('DISCOUNT USAGE')
-        st.pyplot(fig)
+        discount_counts = data['Discount_Applied'].value_counts().reset_index()
+        fig = px.pie(
+            discount_counts,
+            names='Discount_Applied',
+            values='count',
+            title='DISCOUNT USAGE',
+            color_discrete_sequence=['#1E90FF', '#FF4500']
+        )
+        fig.update_layout(**plot_layout)
+        fig.update_traces(textinfo='percent+label', hovertemplate='Discount: %{label}<br>Count: %{value}')
+        st.plotly_chart(fig, use_container_width=True)
+
     elif chart_type == "PURCHASE AMOUNT VS CUSTOMER AGE (SCATTER)":
-        fig, ax = plt.subplots()
-        ax.scatter(data['Customer_Age'], data['Purchase_Amount'], color='#1E90FF', alpha=0.5)
-        ax.set_title('PURCHASE AMOUNT VS CUSTOMER AGE')
-        ax.set_xlabel('CUSTOMER AGE')
-        ax.set_ylabel('PURCHASE AMOUNT ($)')
-        st.pyplot(fig)
+        fig = px.scatter(
+            data,
+            x='Customer_Age',
+            y='Purchase_Amount',
+            title='PURCHASE AMOUNT VS CUSTOMER AGE',
+            labels={'Customer_Age': 'CUSTOMER AGE', 'Purchase_Amount': 'PURCHASE AMOUNT ($)'},
+            color='Customer_Gender',
+            size='Quantity',
+            color_discrete_sequence=['#1E90FF', '#FF4500'],
+            opacity=0.7
+        )
+        fig.update_layout(**plot_layout)
+        fig.update_traces(hovertemplate='Age: %{x}<br>Amount: $%{y:.2f}<br>Gender: %{marker.color}')
+        st.plotly_chart(fig, use_container_width=True)
+
     elif chart_type == "CUSTOMER AGE DISTRIBUTION (HISTOGRAM)":
-        fig, ax = plt.subplots()
-        ax.hist(data['Customer_Age'], bins=10, color='#1E90FF', edgecolor='black')
-        ax.set_title('CUSTOMER AGE DISTRIBUTION')
-        ax.set_xlabel('AGE')
-        ax.set_ylabel('NUMBER OF CUSTOMERS')
-        st.pyplot(fig)
+        fig = px.histogram(
+            data,
+            x='Customer_Age',
+            title='CUSTOMER AGE DISTRIBUTION',
+            labels={'Customer_Age': 'AGE', 'count': 'NUMBER OF CUSTOMERS'},
+            color_discrete_sequence=['#1E90FF'],
+            nbins=10
+        )
+        fig.update_layout(**plot_layout)
+        fig.update_traces(hovertemplate='Age Range: %{x}<br>Count: %{y}')
+        st.plotly_chart(fig, use_container_width=True)
+
+    elif chart_type == "SALES BY LOYALTY STATUS (SUNBURST)":
+        sunburst_data = data.groupby(['Customer_Loyalty', 'Region'])['Purchase_Amount'].sum().reset_index()
+        fig = px.sunburst(
+            sunburst_data,
+            path=['Customer_Loyalty', 'Region'],
+            values='Purchase_Amount',
+            title='SALES BY LOYALTY STATUS AND REGION (SUNBURST)',
+            color='Purchase_Amount',
+            color_continuous_scale='Plasma'
+        )
+        fig.update_layout(**plot_layout)
+        fig.update_traces(hovertemplate='Loyalty: %{parent}<br>Region: %{label}<br>Sales: $%{value:.2f}')
+        st.plotly_chart(fig, use_container_width=True)
+
     elif chart_type == "BUILD YOUR OWN CHART":
         numeric_cols = data.select_dtypes(include=['int64', 'float64']).columns.tolist()
-        x_axis = st.selectbox("CHOOSE X-AXIS:", numeric_cols + data.columns.tolist())
+        x_axis = st.selectbox("CHOOSE X-AXIS:", data.columns.tolist())
         y_axis = st.selectbox("CHOOSE Y-AXIS (FOR SCATTER/BAR/LINE):", ["None"] + numeric_cols)
         custom_chart_type = st.selectbox("CHOOSE CHART TYPE:", ["BAR", "LINE", "PIE", "SCATTER", "HISTOGRAM"])
-        
-        fig, ax = plt.subplots()
+        color_by = st.selectbox("COLOR BY (OPTIONAL):", ["None"] + data.columns.tolist())
+
         if custom_chart_type == "BAR" and y_axis != "None":
-            data.groupby(x_axis)[y_axis].sum().plot(kind='bar', ax=ax, color='#1E90FF')
-            ax.set_title(f"{y_axis} BY {x_axis} (BAR)")
+            fig = px.bar(
+                data,
+                x=x_axis,
+                y=y_axis,
+                color=color_by if color_by != "None" else None,
+                title=f"{y_axis} BY {x_axis} (BAR)",
+                color_discrete_sequence=px.colors.sequential.Plasma
+            )
         elif custom_chart_type == "LINE" and y_axis != "None":
-            data.groupby(x_axis)[y_axis].sum().plot(kind='line', ax=ax, color='#1E90FF')
-            ax.set_title(f"{y_axis} BY {x_axis} (LINE)")
+            fig = px.line(
+                data,
+                x=x_axis,
+                y=y_axis,
+                color=color_by if color_by != "None" else None,
+                title=f"{y_axis} BY {x_axis} (LINE)",
+                line_shape='spline',
+                color_discrete_sequence=px.colors.sequential.Plasma
+            )
         elif custom_chart_type == "PIE":
-            data[x_axis].value_counts().plot(kind='pie', ax=ax, autopct='%1.1f%%', colors=['#1E90FF', '#87CEEB', '#B0E0E6'])
-            ax.set_title(f"{x_axis} BREAKDOWN (PIE)")
+            pie_data = data.groupby(x_axis)[y_axis].sum().reset_index() if y_axis != "None" else data[x_axis].value_counts().reset_index()
+            fig = px.pie(
+                pie_data,
+                names=x_axis,
+                values=y_axis if y_axis != "None" else 'count',
+                title=f"{x_axis} BREAKDOWN (PIE)",
+                color_discrete_sequence=px.colors.sequential.Plasma
+            )
         elif custom_chart_type == "SCATTER" and y_axis != "None":
-            ax.scatter(data[x_axis], data[y_axis], color='#1E90FF', alpha=0.5)
-            ax.set_title(f"{y_axis} VS {x_axis} (SCATTER)")
+            fig = px.scatter(
+                data,
+                x=x_axis,
+                y=y_axis,
+                color=color_by if color_by != "None" else None,
+                title=f"{y_axis} VS {x_axis} (SCATTER)",
+                color_discrete_sequence=px.colors.sequential.Plasma
+            )
         elif custom_chart_type == "HISTOGRAM":
-            ax.hist(data[x_axis], bins=10, color='#1E90FF', edgecolor='black')
-            ax.set_title(f"{x_axis} DISTRIBUTION (HISTOGRAM)")
-        ax.set_xlabel(x_axis.upper())
-        if y_axis != "None":
-            ax.set_ylabel(y_axis.upper())
-        plt.xticks(rotation=45)
-        st.pyplot(fig)
+            fig = px.histogram(
+                data,
+                x=x_axis,
+                color=color_by if color_by != "None" else None,
+                title=f"{x_axis} DISTRIBUTION (HISTOGRAM)",
+                color_discrete_sequence=px.colors.sequential.Plasma
+            )
+        else:
+            st.write("Please select valid options to build your chart.")
+            return pd.DataFrame(summary_data)
+
+        fig.update_layout(**plot_layout)
+        st.plotly_chart(fig, use_container_width=True)
 
     st.write("### ADDITIONAL INSIGHTS")
     busiest_day = data.groupby('Full_Date')['Purchase_Amount'].sum().idxmax()
