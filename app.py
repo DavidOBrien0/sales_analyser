@@ -14,7 +14,7 @@ if 'page' not in st.session_state:
 if 'password_correct' not in st.session_state:
     st.session_state.password_correct = False
 
-# Custom CSS to match the "Code Name Red" theme (without top nav)
+# Custom CSS to match the "Code Name Red" theme
 st.markdown("""
     <style>
     /* Import Montserrat font from Google Fonts */
@@ -226,6 +226,21 @@ st.markdown("""
         color: #FFFFFF;
         font-size: 18px;
         padding: 10px;
+    }
+
+    /* File uploader styling */
+    .stFileUploader > div > div {
+        background-color: #000000;
+        color: #FFFFFF;
+        border: 2px solid #FFFFFF;
+        border-radius: 5px;
+        padding: 15px;
+        font-size: 16px;
+        transition: border-color 0.3s ease;
+    }
+    .stFileUploader > div > div:hover,
+    .stFileUploader > div > div:focus {
+        border-color: #FF0000; /* Red to match theme */
     }
 
     /* Download buttons */
@@ -636,7 +651,7 @@ with st.container():
             st.markdown('</div>', unsafe_allow_html=True)
         st.markdown('</div>', unsafe_allow_html=True)
 
-        # Updated heading
+        # Heading
         st.markdown('<p class="big-title">Code Name - Data Analyser</p>', unsafe_allow_html=True)
         st.markdown('<p class="secure-text">Code Name Red is dedicated to providing advanced AI data analytics solutions that seamlessly integrate with your existing systems, offering real-time data insights and automated workflows to optimize processes and achieve strategic goals.</p>', unsafe_allow_html=True)
         
@@ -656,48 +671,53 @@ with st.container():
     elif st.session_state.page == "ANALYSE SALES" and st.session_state.password_correct:
         # "Data Analyser" heading
         st.markdown('<p class="big-title">Data Analyser</p>', unsafe_allow_html=True)
-        st.write("ANALYSING BUSINESS SALES DATA FROM sales_data.csv")
+        st.write("UPLOAD YOUR CSV FILE TO ANALYSE BUSINESS SALES DATA")
 
-        try:
-            # Load the CSV directly from the repository
-            data = pd.read_csv("sales_data.csv")
-            st.write("FILE LOADED SUCCESSFULLY!")
-            with st.container():
-                st.markdown('<div class="analysis-section">', unsafe_allow_html=True)
-                summary_df = analyse_sales(data)
-                if summary_df is not None:
-                    st.write("### DOWNLOAD YOUR RESULTS")
-                    col1, col2, col3 = st.columns(3)
-                    with col1:
-                        csv_buffer = io.StringIO()
-                        summary_df.to_csv(csv_buffer, index=False)
-                        st.download_button(
-                            label="DOWNLOAD CSV",
-                            data=csv_buffer.getvalue(),
-                            file_name="data_analysis_report.csv",
-                            mime="text/csv"
-                        )
-                    with col2:
-                        pdf_buffer = generate_pdf(summary_df)
-                        st.download_button(
-                            label="DOWNLOAD PDF",
-                            data=pdf_buffer,
-                            file_name="data_analysis_report.pdf",
-                            mime="application/pdf"
-                        )
-                    with col3:
-                        excel_buffer = io.BytesIO()
-                        summary_df.to_excel(excel_buffer, index=False, engine='openpyxl')
-                        excel_buffer.seek(0)
-                        st.download_button(
-                            label="DOWNLOAD EXCEL",
-                            data=excel_buffer,
-                            file_name="data_analysis_report.xlsx",
-                            mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
-                        )
-                st.markdown('</div>', unsafe_allow_html=True)
-        except Exception as e:
-            st.error(f"ERROR: SOMETHING WENT WRONG WITH THE FILE - {e}")
+        # File uploader for CSV
+        uploaded_file = st.file_uploader("CHOOSE A CSV FILE", type=["csv"])
+        if uploaded_file is not None:
+            try:
+                # Read the uploaded CSV file
+                data = pd.read_csv(uploaded_file)
+                st.write("FILE LOADED SUCCESSFULLY!")
+                with st.container():
+                    st.markdown('<div class="analysis-section">', unsafe_allow_html=True)
+                    summary_df = analyse_sales(data)
+                    if summary_df is not None:
+                        st.write("### DOWNLOAD YOUR RESULTS")
+                        col1, col2, col3 = st.columns(3)
+                        with col1:
+                            csv_buffer = io.StringIO()
+                            summary_df.to_csv(csv_buffer, index=False)
+                            st.download_button(
+                                label="DOWNLOAD CSV",
+                                data=csv_buffer.getvalue(),
+                                file_name="data_analysis_report.csv",
+                                mime="text/csv"
+                            )
+                        with col2:
+                            pdf_buffer = generate_pdf(summary_df)
+                            st.download_button(
+                                label="DOWNLOAD PDF",
+                                data=pdf_buffer,
+                                file_name="data_analysis_report.pdf",
+                                mime="application/pdf"
+                            )
+                        with col3:
+                            excel_buffer = io.BytesIO()
+                            summary_df.to_excel(excel_buffer, index=False, engine='openpyxl')
+                            excel_buffer.seek(0)
+                            st.download_button(
+                                label="DOWNLOAD EXCEL",
+                                data=excel_buffer,
+                                file_name="data_analysis_report.xlsx",
+                                mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+                            )
+                    st.markdown('</div>', unsafe_allow_html=True)
+            except Exception as e:
+                st.error(f"ERROR: SOMETHING WENT WRONG WITH THE FILE - {e}")
+        else:
+            st.info("PLEASE UPLOAD A CSV FILE TO PROCEED.")
     else:
         st.markdown('<p class="big-title">Code Name - Data Analyser</p>', unsafe_allow_html=True)
         st.warning("PLEASE ENTER THE CORRECT PASSWORD ON THE HOME PAGE TO ACCESS THIS SECTION.")
