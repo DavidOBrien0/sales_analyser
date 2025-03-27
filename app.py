@@ -14,7 +14,7 @@ if 'page' not in st.session_state:
 if 'password_correct' not in st.session_state:
     st.session_state.password_correct = False
 
-# Custom CSS with improvements for buttons and chart selection
+# Custom CSS to match the "Code Name Red" theme
 st.markdown("""
     <style>
     /* Import Montserrat font from Google Fonts */
@@ -35,7 +35,31 @@ st.markdown("""
         text-align: center;
     }
 
-    /* Header (Navigation Bar) */
+    /* Top Navigation Bar (Code Name Red style) */
+    .top-nav {
+        background-color: #000000;
+        padding: 10px 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-bottom: 1px solid #FFFFFF;
+    }
+    .top-nav button {
+        background: none;
+        border: none;
+        color: #FFFFFF;
+        font-size: 14px;
+        font-weight: 400;
+        text-transform: uppercase;
+        cursor: pointer;
+        padding: 8px 15px;
+        transition: all 0.3s ease;
+    }
+    .top-nav button:hover {
+        color: #FF0000; /* Red hover effect to match theme */
+    }
+
+    /* Header (Navigation Bar for HOME and ANALYSE SALES) */
     .header {
         background-color: #000000;
         padding: 15px 20px;
@@ -52,39 +76,42 @@ st.markdown("""
     }
     .header-nav {
         display: flex;
-        gap: 20px;
-        justify-content: center; /* Center the buttons */
+        gap: 15px;
+        justify-content: center;
         align-items: center;
     }
     .header-nav button {
         background: none;
-        border: 2px solid #FFFFFF; /* Add a border */
+        border: 2px solid #FFFFFF;
         color: #FFFFFF;
-        font-size: 16px; /* Larger text */
+        font-size: 14px;
         font-weight: 700;
         text-transform: uppercase;
         cursor: pointer;
-        padding: 12px 20px; /* More padding for better appearance */
+        padding: 8px 15px;
         transition: all 0.3s ease;
-        border-radius: 5px; /* Rounded corners */
+        border-radius: 5px;
+        box-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
     }
     .header-nav button:hover {
-        color: #00FF00; /* Matrix green on hover */
-        background-color: rgba(0, 255, 0, 0.1); /* Subtle green background */
-        border-color: #00FF00; /* Green border on hover */
+        color: #FF0000; /* Red hover effect to match theme */
+        background-color: rgba(255, 0, 0, 0.2);
+        border-color: #FF0000;
+        box-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
     }
     .header-nav button.active {
-        color: #00FF00; /* Matrix green for active page */
-        border-color: #00FF00; /* Green border */
-        background-color: rgba(0, 255, 0, 0.2); /* Slightly stronger green background */
+        color: #FF0000;
+        border-color: #FF0000;
+        background-color: rgba(255, 0, 0, 0.3);
+        box-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
     }
 
     /* Sidebar styling */
     [data-testid="stSidebar"] {
         background-color: #000000;
         padding: 30px;
-        border-right: 1px solid #00FF00; /* Matrix green border */
-        box-shadow: 0 0 15px rgba(0, 255, 0, 0.3); /* Subtle green glow */
+        border-right: 1px solid #FF0000; /* Red border to match theme */
+        box-shadow: 0 0 15px rgba(255, 0, 0, 0.3);
     }
     [data-testid="stSidebar"] > div:first-child > div > div > div > div > div > h1 {
         color: #FFFFFF !important;
@@ -93,9 +120,9 @@ st.markdown("""
         text-transform: uppercase !important;
         margin-bottom: 20px !important;
         text-align: center !important;
-        border-bottom: 2px solid #00FF00;
+        border-bottom: 2px solid #FF0000;
         padding-bottom: 10px;
-        box-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
+        box-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
     }
     [data-testid="stSidebar"] .stRadio > div {
         display: flex;
@@ -115,18 +142,18 @@ st.markdown("""
         background-color: rgba(255, 255, 255, 0.05);
     }
     [data-testid="stSidebar"] .stRadio > label:hover {
-        color: #00FF00 !important;
-        border-color: #00FF00 !important;
-        background-color: rgba(0, 255, 0, 0.1) !important;
-        box-shadow: 0 0 10px rgba(0, 255, 0, 0.5) !important;
+        color: #FF0000 !important;
+        border-color: #FF0000 !important;
+        background-color: rgba(255, 0, 0, 0.1) !important;
+        box-shadow: 0 0 10px rgba(255, 0, 0, 0.5) !important;
     }
     [data-testid="stSidebar"] .stRadio > label > div > input:checked + div {
-        background-color: #00FF00 !important;
-        border-color: #00FF00 !important;
+        background-color: #FF0000 !important;
+        border-color: #FF0000 !important;
     }
     [data-testid="stSidebar"] .stRadio > label > div > input:checked + div > p {
         color: #000000 !important;
-        border-bottom: 2px solid #00FF00 !important;
+        border-bottom: 2px solid #FF0000 !important;
     }
 
     /* Homepage styling */
@@ -136,7 +163,14 @@ st.markdown("""
         color: #FFFFFF;
         text-transform: uppercase;
         line-height: 1.2;
-        margin-bottom: 20px;
+        margin-bottom: 10px; /* Reduced margin for subheading */
+    }
+    .sub-title {
+        font-size: 24px;
+        font-weight: 400;
+        color: #FFFFFF;
+        text-transform: uppercase;
+        margin-bottom: 30px;
     }
     .secure-text {
         font-size: 16px;
@@ -145,6 +179,7 @@ st.markdown("""
         max-width: 600px;
         margin-left: auto;
         margin-right: auto;
+        line-height: 1.6;
     }
     .stTextInput > div > input {
         background-color: #000000;
@@ -157,10 +192,10 @@ st.markdown("""
         transition: border-color 0.3s ease;
     }
     .stTextInput > div > input:focus {
-        border-color: #00FF00; /* Matrix green */
+        border-color: #FF0000; /* Red to match theme */
     }
 
-    /* Button styling */
+    /* Button styling (including Learn More) */
     .stButton>button {
         background-color: #000000;
         color: #FFFFFF;
@@ -198,16 +233,16 @@ st.markdown("""
     .stSelectbox > div > div {
         background-color: #000000;
         color: #FFFFFF;
-        border: 2px solid #FFFFFF; /* Thicker border */
-        border-radius: 5px; /* Rounded corners */
-        padding: 15px; /* More padding */
-        font-size: 18px; /* Larger text */
-        min-width: 400px; /* Wider dropdown */
+        border: 2px solid #FFFFFF;
+        border-radius: 5px;
+        padding: 15px;
+        font-size: 18px;
+        min-width: 400px;
         transition: border-color 0.3s ease;
     }
     .stSelectbox > div > div:hover,
     .stSelectbox > div > div:focus {
-        border-color: #00FF00; /* Matrix green on hover/focus */
+        border-color: #FF0000; /* Red to match theme */
     }
     .stSelectbox > div > div > select {
         color: #FFFFFF;
@@ -247,7 +282,7 @@ st.markdown("""
         background: #000000;
         padding: 15px;
         border: 1px solid #FFFFFF;
-        margin-top: 10px; /* Reduced margin to bring chart closer to selectbox */
+        margin-top: 10px;
     }
     </style>
 """, unsafe_allow_html=True)
@@ -363,7 +398,6 @@ def analyse_sales(data):
         "SALES BY LOYALTY STATUS (SUNBURST)",
         "BUILD YOUR OWN CHART"
     ]
-    # Move chart selection closer to the charts and style it
     chart_type = st.selectbox("CHOOSE A CHART TO VIEW:", chart_options)
 
     # Custom Plotly layout with color
@@ -374,7 +408,7 @@ def analyse_sales(data):
         title_font=dict(size=20, color="#FFFFFF"),
         xaxis=dict(gridcolor="#FFFFFF", zerolinecolor="#FFFFFF"),
         yaxis=dict(gridcolor="#FFFFFF", zerolinecolor="#FFFFFF"),
-        hoverlabel=dict(bgcolor="#1E90FF", font=dict(color="#000000")),  # Matrix blue hover
+        hoverlabel=dict(bgcolor="#FF0000", font=dict(color="#000000")),  # Red hover to match theme
     )
 
     if chart_type == "SALES OVER TIME (LINE)":
@@ -386,7 +420,7 @@ def analyse_sales(data):
             title='SALES OVER TIME',
             labels={'Full_Date': 'DATE (DD/MM)', 'Purchase_Amount': 'TOTAL SALES ($)'},
             line_shape='spline',
-            color_discrete_sequence=['#00FF00']  # Matrix green
+            color_discrete_sequence=['#FF0000']  # Red to match theme
         )
         fig.update_layout(**plot_layout)
         fig.update_traces(line=dict(width=3), hovertemplate='Date: %{x|%d/%m}<br>Sales: $%{y:.2f}')
@@ -402,7 +436,7 @@ def analyse_sales(data):
             title='PURCHASES BY PAYMENT METHOD',
             labels={'Payment_Method': 'PAYMENT METHOD', 'count': 'NUMBER OF PURCHASES'},
             color='Payment_Method',
-            color_discrete_sequence=px.colors.sequential.Plasma  # Neon colors
+            color_discrete_sequence=px.colors.sequential.Plasma
         )
         fig.update_layout(**plot_layout, showlegend=False)
         fig.update_traces(hovertemplate='Method: %{x}<br>Count: %{y}')
@@ -419,7 +453,7 @@ def analyse_sales(data):
             title='SALES BY REGION',
             labels={'Region': 'REGION', 'Purchase_Amount': 'TOTAL SALES ($)'},
             color='Region',
-            color_discrete_sequence=px.colors.sequential.Viridis  # Neon greens and blues
+            color_discrete_sequence=px.colors.sequential.Viridis
         )
         fig.update_layout(**plot_layout, showlegend=False)
         fig.update_traces(hovertemplate='Region: %{x}<br>Sales: $%{y:.2f}')
@@ -438,7 +472,7 @@ def analyse_sales(data):
             names='Product_Category',
             values='Purchase_Amount',
             title='TOP 5 CATEGORIES BY SALES (PIE)',
-            color_discrete_sequence=px.colors.sequential.Plasma  # Neon colors
+            color_discrete_sequence=px.colors.sequential.Plasma
         )
         fig.update_layout(**plot_layout)
         fig.update_traces(textinfo='percent+label', hovertemplate='Category: %{label}<br>Sales: $%{value:.2f}')
@@ -453,7 +487,7 @@ def analyse_sales(data):
             names='Discount_Applied',
             values='count',
             title='DISCOUNT USAGE',
-            color_discrete_sequence=['#00FF00', '#1E90FF']  # Matrix green and blue
+            color_discrete_sequence=['#FF0000', '#FFFFFF']  # Red and white to match theme
         )
         fig.update_layout(**plot_layout)
         fig.update_traces(textinfo='percent+label', hovertemplate='Discount: %{label}<br>Count: %{value}')
@@ -470,7 +504,7 @@ def analyse_sales(data):
             labels={'Customer_Age': 'CUSTOMER AGE', 'Purchase_Amount': 'PURCHASE AMOUNT ($)'},
             color='Customer_Gender',
             size='Quantity',
-            color_discrete_sequence=['#00FF00', '#1E90FF'],  # Matrix green and blue
+            color_discrete_sequence=['#FF0000', '#FFFFFF'],  # Red and white to match theme
             opacity=0.7
         )
         fig.update_layout(**plot_layout)
@@ -485,7 +519,7 @@ def analyse_sales(data):
             x='Customer_Age',
             title='CUSTOMER AGE DISTRIBUTION',
             labels={'Customer_Age': 'AGE', 'count': 'NUMBER OF CUSTOMERS'},
-            color_discrete_sequence=['#00FF00'],  # Matrix green
+            color_discrete_sequence=['#FF0000'],  # Red to match theme
             nbins=10
         )
         fig.update_layout(**plot_layout)
@@ -502,7 +536,7 @@ def analyse_sales(data):
             values='Purchase_Amount',
             title='SALES BY LOYALTY STATUS AND REGION (SUNBURST)',
             color='Purchase_Amount',
-            color_continuous_scale='Plasma'  # Neon gradient
+            color_continuous_scale='Reds'  # Red gradient to match theme
         )
         fig.update_layout(**plot_layout)
         fig.update_traces(hovertemplate='Loyalty: %{parent}<br>Region: %{label}<br>Sales: $%{value:.2f}')
@@ -524,7 +558,7 @@ def analyse_sales(data):
                 y=y_axis,
                 color=color_by if color_by != "None" else None,
                 title=f"{y_axis} BY {x_axis} (BAR)",
-                color_discrete_sequence=px.colors.sequential.Plasma  # Neon colors
+                color_discrete_sequence=px.colors.sequential.Plasma
             )
         elif custom_chart_type == "LINE" and y_axis != "None":
             fig = px.line(
@@ -534,7 +568,7 @@ def analyse_sales(data):
                 color=color_by if color_by != "None" else None,
                 title=f"{y_axis} BY {x_axis} (LINE)",
                 line_shape='spline',
-                color_discrete_sequence=px.colors.sequential.Plasma  # Neon colors
+                color_discrete_sequence=px.colors.sequential.Plasma
             )
         elif custom_chart_type == "PIE":
             pie_data = data.groupby(x_axis)[y_axis].sum().reset_index() if y_axis != "None" else data[x_axis].value_counts().reset_index()
@@ -543,7 +577,7 @@ def analyse_sales(data):
                 names=x_axis,
                 values=y_axis if y_axis != "None" else 'count',
                 title=f"{x_axis} BREAKDOWN (PIE)",
-                color_discrete_sequence=px.colors.sequential.Plasma  # Neon colors
+                color_discrete_sequence=px.colors.sequential.Plasma
             )
         elif custom_chart_type == "SCATTER" and y_axis != "None":
             fig = px.scatter(
@@ -552,7 +586,7 @@ def analyse_sales(data):
                 y=y_axis,
                 color=color_by if color_by != "None" else None,
                 title=f"{y_axis} VS {x_axis} (SCATTER)",
-                color_discrete_sequence=px.colors.sequential.Plasma  # Neon colors
+                color_discrete_sequence=px.colors.sequential.Plasma
             )
         elif custom_chart_type == "HISTOGRAM":
             fig = px.histogram(
@@ -606,6 +640,32 @@ def analyse_sales(data):
     return pd.DataFrame(summary_data)
 
 # Streamlit app setup
+# Top navigation bar (Code Name Red style, available on both pages)
+st.markdown('<div class="top-nav">', unsafe_allow_html=True)
+col1, col2, col3, col4, col5, col6, col7 = st.columns(7)
+with col1:
+    if st.button("HOME", key="nav_home"):
+        st.session_state.page = "HOME"
+with col2:
+    if st.button("ABOUT", key="nav_about"):
+        st.session_state.page = "HOME"  # Placeholder, can add an About page later
+with col3:
+    if st.button("SERVICES", key="nav_services"):
+        st.session_state.page = "HOME"  # Placeholder
+with col4:
+    if st.button("FAQ", key="nav_faq"):
+        st.session_state.page = "HOME"  # Placeholder
+with col5:
+    if st.button("CONTACT", key="nav_contact"):
+        st.session_state.page = "HOME"  # Placeholder
+with col6:
+    if st.button("BOOK ONLINE", key="nav_book"):
+        st.session_state.page = "HOME"  # Placeholder
+with col7:
+    if st.button("BLOG", key="nav_blog"):
+        st.session_state.page = "HOME"  # Placeholder
+st.markdown('</div>', unsafe_allow_html=True)
+
 # Sidebar for navigation (available on both pages)
 page = st.sidebar.radio("NAVIGATE", ["HOME", "ANALYSE SALES"], index=0 if st.session_state.page == "HOME" else 1)
 if page != st.session_state.page:
@@ -633,10 +693,16 @@ with st.container():
             st.markdown('</div>', unsafe_allow_html=True)
         st.markdown('</div>', unsafe_allow_html=True)
 
-        # Updated title
+        # Title and subheading
         st.markdown('<p class="big-title">Data Algorithm</p>', unsafe_allow_html=True)
-        st.markdown('<p class="secure-text">THIS IS A SECURE ALGORITHM - UNAUTHORISED ACCESS IS FORBIDDEN.</p>', unsafe_allow_html=True)
+        st.markdown('<p class="sub-title">TRANSFORMING BUSINESS OPERATIONS</p>', unsafe_allow_html=True)
+        st.markdown('<p class="secure-text">Code Name Red is dedicated to providing advanced AI data analytics solutions that seamlessly integrate with your existing systems, offering real-time data insights and automated workflows to optimize processes and achieve strategic goals.</p>', unsafe_allow_html=True)
         
+        # Learn More button
+        if st.button("LEARN MORE"):
+            st.session_state.page = "ANALYSE SALES"
+
+        # Password input
         password = st.text_input("ENTER PASSWORD TO ACCESS ANALYSIS:", type="password")
         if st.button("SUBMIT"):
             if password == correct_password:
@@ -646,7 +712,8 @@ with st.container():
                 st.error("INCORRECT PASSWORD. TRY AGAIN.")
 
     elif st.session_state.page == "ANALYSE SALES" and st.session_state.password_correct:
-        st.markdown('<p class="big-title">DATA ANALYSER</p>', unsafe_allow_html=True)
+        # Add "Data Analyser" heading
+        st.markdown('<p class="big-title">Data Analyser</p>', unsafe_allow_html=True)
         st.write("ANALYSING BUSINESS SALES DATA FROM sales_data.csv")
 
         try:
