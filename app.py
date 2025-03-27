@@ -313,6 +313,7 @@ def analyse_sales(data):
     ]
     chart_type = st.selectbox("CHOOSE A CHART TO VIEW:", chart_options)
 
+    # Custom Plotly layout with color
     plot_layout = dict(
         plot_bgcolor='#000000',
         paper_bgcolor='#000000',
@@ -320,7 +321,7 @@ def analyse_sales(data):
         title_font=dict(size=20, color="#FFFFFF"),
         xaxis=dict(gridcolor="#FFFFFF", zerolinecolor="#FFFFFF"),
         yaxis=dict(gridcolor="#FFFFFF", zerolinecolor="#FFFFFF"),
-        hoverlabel=dict(bgcolor="#FFFFFF", font=dict(color="#000000")),
+        hoverlabel=dict(bgcolor="#1E90FF", font=dict(color="#000000")),  # Matrix blue hover
     )
 
     if chart_type == "SALES OVER TIME (LINE)":
@@ -332,7 +333,7 @@ def analyse_sales(data):
             title='SALES OVER TIME',
             labels={'Full_Date': 'DATE (DD/MM)', 'Purchase_Amount': 'TOTAL SALES ($)'},
             line_shape='spline',
-            color_discrete_sequence=['#FFFFFF']
+            color_discrete_sequence=['#00FF00']  # Matrix green
         )
         fig.update_layout(**plot_layout)
         fig.update_traces(line=dict(width=3), hovertemplate='Date: %{x|%d/%m}<br>Sales: $%{y:.2f}')
@@ -348,7 +349,7 @@ def analyse_sales(data):
             title='PURCHASES BY PAYMENT METHOD',
             labels={'Payment_Method': 'PAYMENT METHOD', 'count': 'NUMBER OF PURCHASES'},
             color='Payment_Method',
-            color_discrete_sequence=px.colors.sequential.Greys
+            color_discrete_sequence=px.colors.sequential.Plasma  # Neon colors
         )
         fig.update_layout(**plot_layout, showlegend=False)
         fig.update_traces(hovertemplate='Method: %{x}<br>Count: %{y}')
@@ -365,7 +366,7 @@ def analyse_sales(data):
             title='SALES BY REGION',
             labels={'Region': 'REGION', 'Purchase_Amount': 'TOTAL SALES ($)'},
             color='Region',
-            color_discrete_sequence=px.colors.sequential.Greys
+            color_discrete_sequence=px.colors.sequential.Viridis  # Neon greens and blues
         )
         fig.update_layout(**plot_layout, showlegend=False)
         fig.update_traces(hovertemplate='Region: %{x}<br>Sales: $%{y:.2f}')
@@ -384,7 +385,7 @@ def analyse_sales(data):
             names='Product_Category',
             values='Purchase_Amount',
             title='TOP 5 AGES BY SALES (PIE)',
-            color_discrete_sequence=px.colors.sequential.Greys
+            color_discrete_sequence=px.colors.sequential.Plasma  # Neon colors
         )
         fig.update_layout(**plot_layout)
         fig.update_traces(textinfo='percent+label', hovertemplate='Age: %{label}<br>Sales: $%{value:.2f}')
@@ -399,7 +400,7 @@ def analyse_sales(data):
             names='Discount_Applied',
             values='count',
             title='DISCOUNT USAGE',
-            color_discrete_sequence=['#FFFFFF', '#666666']
+            color_discrete_sequence=['#00FF00', '#1E90FF']  # Matrix green and blue
         )
         fig.update_layout(**plot_layout)
         fig.update_traces(textinfo='percent+label', hovertemplate='Discount: %{label}<br>Count: %{value}')
@@ -416,7 +417,7 @@ def analyse_sales(data):
             labels={'Customer_Age': 'CUSTOMER AGE', 'Purchase_Amount': 'PURCHASE AMOUNT ($)'},
             color='Customer_Gender',
             size='Quantity',
-            color_discrete_sequence=['#FFFFFF', '#666666'],
+            color_discrete_sequence=['#00FF00', '#1E90FF'],  # Matrix green and blue
             opacity=0.7
         )
         fig.update_layout(**plot_layout)
@@ -431,7 +432,7 @@ def analyse_sales(data):
             x='Customer_Age',
             title='CUSTOMER AGE DISTRIBUTION',
             labels={'Customer_Age': 'AGE', 'count': 'NUMBER OF CUSTOMERS'},
-            color_discrete_sequence=['#FFFFFF'],
+            color_discrete_sequence=['#00FF00'],  # Matrix green
             nbins=10
         )
         fig.update_layout(**plot_layout)
@@ -448,7 +449,7 @@ def analyse_sales(data):
             values='Purchase_Amount',
             title='SALES BY LOYALTY STATUS AND REGION (SUNBURST)',
             color='Purchase_Amount',
-            color_continuous_scale='Greys'
+            color_continuous_scale='Plasma'  # Neon gradient
         )
         fig.update_layout(**plot_layout)
         fig.update_traces(hovertemplate='Loyalty: %{parent}<br>Region: %{label}<br>Sales: $%{value:.2f}')
@@ -470,7 +471,7 @@ def analyse_sales(data):
                 y=y_axis,
                 color=color_by if color_by != "None" else None,
                 title=f"{y_axis} BY {x_axis} (BAR)",
-                color_discrete_sequence=px.colors.sequential.Greys
+                color_discrete_sequence=px.colors.sequential.Plasma  # Neon colors
             )
         elif custom_chart_type == "LINE" and y_axis != "None":
             fig = px.line(
@@ -480,7 +481,7 @@ def analyse_sales(data):
                 color=color_by if color_by != "None" else None,
                 title=f"{y_axis} BY {x_axis} (LINE)",
                 line_shape='spline',
-                color_discrete_sequence=px.colors.sequential.Greys
+                color_discrete_sequence=px.colors.sequential.Plasma  # Neon colors
             )
         elif custom_chart_type == "PIE":
             pie_data = data.groupby(x_axis)[y_axis].sum().reset_index() if y_axis != "None" else data[x_axis].value_counts().reset_index()
@@ -489,7 +490,7 @@ def analyse_sales(data):
                 names=x_axis,
                 values=y_axis if y_axis != "None" else 'count',
                 title=f"{x_axis} BREAKDOWN (PIE)",
-                color_discrete_sequence=px.colors.sequential.Greys
+                color_discrete_sequence=px.colors.sequential.Plasma  # Neon colors
             )
         elif custom_chart_type == "SCATTER" and y_axis != "None":
             fig = px.scatter(
@@ -498,7 +499,7 @@ def analyse_sales(data):
                 y=y_axis,
                 color=color_by if color_by != "None" else None,
                 title=f"{y_axis} VS {x_axis} (SCATTER)",
-                color_discrete_sequence=px.colors.sequential.Greys
+                color_discrete_sequence=px.colors.sequential.Plasma  # Neon colors
             )
         elif custom_chart_type == "HISTOGRAM":
             fig = px.histogram(
@@ -506,7 +507,7 @@ def analyse_sales(data):
                 x=x_axis,
                 color=color_by if color_by != "None" else None,
                 title=f"{x_axis} DISTRIBUTION (HISTOGRAM)",
-                color_discrete_sequence=px.colors.sequential.Greys
+                color_discrete_sequence=px.colors.sequential.Plasma  # Neon colors
             )
         else:
             st.write("Please select valid options to build your chart.")
@@ -552,7 +553,7 @@ def analyse_sales(data):
     return pd.DataFrame(summary_data)
 
 # Streamlit app setup
-# Custom header (replacing sidebar title)
+# Custom header
 st.markdown("""
     <div class="header">
         <div class="header-logo">BOOKSTORE ANALYTICS</div>
