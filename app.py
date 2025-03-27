@@ -14,7 +14,7 @@ if 'page' not in st.session_state:
 if 'password_correct' not in st.session_state:
     st.session_state.password_correct = False
 
-# Custom CSS to match the "Code Name Red" theme
+# Custom CSS to match the "Code Name Red" theme with new heading
 st.markdown("""
     <style>
     /* Import Montserrat font from Google Fonts */
@@ -31,55 +31,8 @@ st.markdown("""
     .main-container {
         max-width: 1200px;
         margin: 0 auto;
-        padding: 40px 20px;
+        padding: 10px 20px; /* Reduced top padding to move content closer to the top */
         text-align: center;
-    }
-
-    /* Header (Navigation Bar for HOME and ANALYSE SALES) */
-    .header {
-        background-color: #000000;
-        padding: 15px 20px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        border-bottom: 1px solid #FFFFFF;
-    }
-    .header-logo {
-        font-size: 16px;
-        font-weight: 700;
-        text-transform: uppercase;
-        color: #FFFFFF;
-    }
-    .header-nav {
-        display: flex;
-        gap: 15px;
-        justify-content: center;
-        align-items: center;
-    }
-    .header-nav button {
-        background: none;
-        border: 2px solid #FFFFFF;
-        color: #FFFFFF;
-        font-size: 14px;
-        font-weight: 700;
-        text-transform: uppercase;
-        cursor: pointer;
-        padding: 8px 15px;
-        transition: all 0.3s ease;
-        border-radius: 5px;
-        box-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
-    }
-    .header-nav button:hover {
-        color: #FF0000; /* Red hover effect to match theme */
-        background-color: rgba(255, 0, 0, 0.2);
-        border-color: #FF0000;
-        box-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
-    }
-    .header-nav button.active {
-        color: #FF0000;
-        border-color: #FF0000;
-        background-color: rgba(255, 0, 0, 0.3);
-        box-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
     }
 
     /* Sidebar styling */
@@ -115,7 +68,7 @@ st.markdown("""
         border-radius: 0 !important;
         transition: all 0.3s ease !important;
         text-align: center !important;
-        background-color: rgba(255, 255, 255, 0.05);
+        background-color: rgba(255, 255, 0.05);
     }
     [data-testid="stSidebar"] .stRadio > label:hover {
         color: #FF0000 !important;
@@ -133,22 +86,20 @@ st.markdown("""
     }
 
     /* Homepage styling */
+    .top-title {
+        font-size: 24px;
+        font-weight: 700;
+        color: #000000; /* Black text */
+        text-transform: uppercase;
+        margin-bottom: 5px;
+    }
     .big-title {
         font-size: 72px;
         font-weight: 700;
         color: #FFFFFF;
         text-transform: uppercase;
         line-height: 1.2;
-        margin-bottom: 20px;
-    }
-    .secure-text {
-        font-size: 16px;
-        color: #FFFFFF;
-        margin-bottom: 30px;
-        max-width: 600px;
-        margin-left: auto;
-        margin-right: auto;
-        line-height: 1.6;
+        margin-bottom: 10px; /* Reduced margin to move password input closer */
     }
     .stTextInput > div > input {
         background-color: #000000;
@@ -164,7 +115,7 @@ st.markdown("""
         border-color: #FF0000; /* Red to match theme */
     }
 
-    /* Button styling (including Learn More) */
+    /* Button styling */
     .stButton>button {
         background-color: #000000;
         color: #FFFFFF;
@@ -634,30 +585,11 @@ with st.container():
     st.markdown('<div class="main-container">', unsafe_allow_html=True)
 
     if st.session_state.page == "HOME":
-        # Header with navigation buttons (only on HOME page)
-        st.markdown('<div class="header">', unsafe_allow_html=True)
-        col1, col2 = st.columns([1, 2])
-        with col1:
-            st.markdown('<div class="header-logo">DATA ANALYTICS</div>', unsafe_allow_html=True)
-        with col2:
-            st.markdown('<div class="header-nav">', unsafe_allow_html=True)
-            col_btn1, col_btn2 = st.columns(2)
-            with col_btn1:
-                if st.button("HOME", key="home_btn"):
-                    st.session_state.page = "HOME"
-            with col_btn2:
-                if st.button("ANALYSE SALES", key="analyse_btn"):
-                    st.session_state.page = "ANALYSE SALES"
-            st.markdown('</div>', unsafe_allow_html=True)
-        st.markdown('</div>', unsafe_allow_html=True)
+        # New heading "AI Data Analyser" in black text
+        st.markdown('<p class="top-title">AI Data Analyser</p>', unsafe_allow_html=True)
 
-        # Heading
+        # Existing heading
         st.markdown('<p class="big-title">Code Name - Data Analyser</p>', unsafe_allow_html=True)
-        st.markdown('<p class="secure-text">Code Name Red is dedicated to providing advanced AI data analytics solutions that seamlessly integrate with your existing systems, offering real-time data insights and automated workflows to optimize processes and achieve strategic goals.</p>', unsafe_allow_html=True)
-        
-        # Learn More button
-        if st.button("LEARN MORE"):
-            st.session_state.page = "ANALYSE SALES"
 
         # Password input
         password = st.text_input("ENTER PASSWORD TO ACCESS ANALYSIS:", type="password")
@@ -723,3 +655,4 @@ with st.container():
         st.warning("PLEASE ENTER THE CORRECT PASSWORD ON THE HOME PAGE TO ACCESS THIS SECTION.")
 
     st.markdown('</div>', unsafe_allow_html=True)
+
