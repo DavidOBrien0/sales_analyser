@@ -1,32 +1,247 @@
 Day_Month,Year,Customer_ID,Purchase_Amount,Product_Category,Quantity,Payment_Method,Region,Discount_Applied,Customer_Age,Customer_Gender,Order_ID,Transaction_Time,Shipping_Cost,Tax_Amount,Product_ID,Unit_Price,Return_Status,Customer_Loyalty,Order_Channel,Delivery_Method,Customer_Rating,Purchase_Source
 1/1,2025,CUST001,12.99,7,1,Credit Card,Dublin,No,34,Male,ORD001,10:15,3.50,1.04,978-0-0623-1600-4,12.99,No,Yes,Online,Express,4,Website
-2/1,2025,CUST002,15.50,12,2,Debit Card,Cork,Yes,28,Female,ORD002,14:30,2.00,1.24,978-0-545-01022-1,7.75,No,No,In-Store,Standard,5,In-Store
-3/1,2025,CUST003,45.00,18,3,PayPal,Galway,No,45,Male,ORD003,09:45,4.00,3.60,978-0-316-76948-8,15.00,Yes,Yes,Online,Standard,3,App
-4/1,2025,CUST004,22.98,25,2,Credit Card,Limerick,Yes,19,Female,ORD004,16:00,2.50,1.84,978-0-553-21310-2,11.49,No,No,Online,Express,4,Website
-5/1,2025,CUST005,29.99,40,1,Cash,Dublin,No,60,Male,ORD005,11:20,0.00,2.40,978-0-7475-3269-9,29.99,No,Yes,In-Store,Standard,5,In-Store
-6/1,2025,CUST006,19.98,55,2,Credit Card,Cork,Yes,31,Female,ORD006,12:00,2.50,1.60,978-0-307-58836-4,9.99,No,No,Online,Standard,4,Website
-7/1,2025,CUST007,34.99,9,1,PayPal,Dublin,No,52,Male,ORD007,15:45,3.00,2.80,978-0-7432-7356-5,34.99,No,Yes,In-Store,Express,5,In-Store
-8/1,2025,CUST008,12.50,14,1,Debit Card,Galway,No,27,Female,ORD008,10:30,2.00,1.00,978-0-375-50406-8,12.50,Yes,No,Online,Standard,3,App
-9/1,2025,CUST009,25.98,20,2,Cash,Limerick,Yes,18,Male,ORD009,13:15,0.00,2.08,978-0-5532-9335-8,12.99,No,Yes,In-Store,Standard,4,In-Store
-10/1,2025,CUST010,8.99,30,1,Credit Card,Dublin,No,65,Female,ORD010,09:00,3.50,0.72,978-0-140-42438-6,8.99,No,No,Online,Express,5,Website
-11/1,2025,CUST011,39.00,45,3,PayPal,Cork,No,39,Male,ORD011,16:20,4.00,3.12,978-0-345-39180-3,13.00,No,Yes,Online,Standard,4,App
-12/1,2025,CUST012,17.98,60,2,Debit Card,Galway,Yes,23,Female,ORD012,11:45,2.50,1.44,978-0-451-20377-9,8.99,No,No,In-Store,Standard,3,In-Store
-13/1,2025,CUST013,29.97,8,3,Credit Card,Limerick,No,47,Male,ORD013,14:00,3.00,2.40,978-0-441-01051-6,9.99,Yes,Yes,Online,Express,4,Website
-14/1,2025,CUST014,14.99,13,1,Cash,Dublin,No,33,Female,ORD014,10:10,0.00,1.20,978-0-1410-3999-2,14.99,No,No,In-Store,Standard,5,In-Store
-15/1,2025,CUST015,22.50,19,2,PayPal,Galway,Yes,55,Male,ORD015,15:30,2.50,1.80,978-0-670-03208-2,11.25,No,Yes,Online,Standard,4,App
-16/1,2025,CUST016,18.98,27,2,Credit Card,Cork,No,29,Female,ORD016,12:45,3.00,1.52,978-0-316-01331-4,9.49,No,No,Online,Express,3,Website
-17/1,2025,CUST017,49.99,42,1,Debit Card,Dublin,No,62,Male,ORD017,09:15,4.00,4.00,978-0-385-50420-1,49.99,No,Yes,In-Store,Standard,5,In-Store
-18/1,2025,CUST018,11.98,58,2,Cash,Limerick,Yes,21,Female,ORD018,13:00,0.00,0.96,978-0-7432-2750-6,5.99,No,No,In-Store,Standard,4,In-Store
-19/1,2025,CUST019,27.00,10,3,PayPal,Galway,No,36,Male,ORD019,16:15,3.50,2.16,978-0-0623-1600-4,9.00,Yes,Yes,Online,Express,4,App
-20/1,2025,CUST020,9.99,15,1,Credit Card,Dublin,No,44,Female,ORD020,11:30,2.00,0.80,978-0-545-01022-1,9.99,No,No,Online,Standard,5,Website
-21/1,2025,CUST021,35.97,22,3,Debit Card,Cork,Yes,25,Male,ORD021,14:45,3.00,2.88,978-0-316-76948-8,11.99,No,Yes,In-Store,Standard,4,In-Store
-22/1,2025,CUST022,16.50,35,2,PayPal,Limerick,No,50,Female,ORD022,10:00,2.50,1.32,978-0-553-21310-2,8.25,No,No,Online,Express,3,App
-23/1,2025,CUST023,24.99,50,1,Cash,Dublin,No,38,Male,ORD023,15:00,0.00,2.00,978-0-7475-3269-9,24.99,No,Yes,In-Store,Standard,5,In-Store
-24/1,2025,CUST024,19.98,62,2,Credit Card,Galway,Yes,30,Female,ORD024,12:20,3.00,1.60,978-0-307-58836-4,9.99,No,No,Online,Standard,4,Website
-25/1,2025,CUST025,13.99,6,1,Debit Card,Cork,No,42,Male,ORD025,09:30,2.00,1.12,978-0-7432-7356-5,13.99,No,Yes,Online,Express,4,App
-26/1,2025,CUST026,19.98,11,2,Credit Card,Dublin,Yes,31,Female,ORD026,12:00,2.50,1.60,978-0-375-50406-8,9.99,No,No,Online,Standard,4,Website
-27/1,2025,CUST027,34.99,17,1,PayPal,Cork,No,52,Male,ORD027,15:45,3.00,2.80,978-0-5532-9335-8,34.99,No,Yes,In-Store,Express,5,In-Store
-28/1,2025,CUST028,12.50,23,1,Debit Card,Galway,No,27,Female,ORD028,10:30,2.00,1.00,978-0-140-42438-6,12.50,Yes,No,Online,Standard,3,App
-29/1,2025,CUST029,25.98,38,2,Cash,Limerick,Yes,18,Male,ORD029,13:15,0.00,2.08,978-0-345-39180-3,12.99,No,Yes,In-Store,Standard,4,In-Store
-30/1,2025,CUST030,8.99,48,1,Credit Card,Dublin,No,65,Female,ORD030,09:00,3.50,0.72,978-0-451-20377-9,8.99,No,No,Online,Express,5,Website
-31/1,2025,CUST031,39.00,65,3,PayPal,Cork,No,39,Male,ORD031,16:20,4.00,3.12,978-0-441-01051-6,13.00,No,Yes,Online,Standard,4,App
+1/1,2025,CUST002,25.50,12,2,Debit Card,Cork,Yes,28,Female,ORD002,11:30,2.00,2.04,978-0-545-01022-1,12.75,No,No,In-Store,Standard,5,In-Store
+1/1,2025,CUST003,18.00,18,1,PayPal,Galway,No,45,Male,ORD003,13:45,4.00,1.44,978-0-316-76948-8,18.00,Yes,Yes,Online,Standard,3,App
+1/1,2025,CUST004,22.98,25,2,Credit Card,Limerick,Yes,19,Female,ORD004,15:00,2.50,1.84,978-0-553-21310-2,11.49,No,No,Online,Express,4,Website
+1/1,2025,CUST005,29.99,40,1,Cash,Dublin,No,60,Male,ORD005,16:20,0.00,2.40,978-0-7475-3269-9,29.99,No,Yes,In-Store,Standard,5,In-Store
+2/1,2025,CUST006,19.98,55,2,Credit Card,Cork,Yes,31,Female,ORD006,09:30,2.50,1.60,978-0-307-58836-4,9.99,No,No,Online,Standard,4,Website
+2/1,2025,CUST007,34.99,9,1,PayPal,Dublin,No,52,Male,ORD007,11:00,3.00,2.80,978-0-7432-7356-5,34.99,No,Yes,In-Store,Express,5,In-Store
+2/1,2025,CUST008,12.50,14,1,Debit Card,Galway,No,27,Female,ORD008,12:15,2.00,1.00,978-0-375-50406-8,12.50,Yes,No,Online,Standard,3,App
+2/1,2025,CUST009,25.98,20,2,Cash,Limerick,Yes,18,Male,ORD009,14:30,0.00,2.08,978-0-5532-9335-8,12.99,No,Yes,In-Store,Standard,4,In-Store
+2/1,2025,CUST010,8.99,30,1,Credit Card,Dublin,No,65,Female,ORD010,16:00,3.50,0.72,978-0-140-42438-6,8.99,No,No,Online,Express,5,Website
+3/1,2025,CUST011,39.00,45,3,PayPal,Cork,No,39,Male,ORD011,09:45,4.00,3.12,978-0-345-39180-3,13.00,No,Yes,Online,Standard,4,App
+3/1,2025,CUST012,17.98,60,2,Debit Card,Galway,Yes,23,Female,ORD012,10:30,2.50,1.44,978-0-451-20377-9,8.99,No,No,In-Store,Standard,3,In-Store
+3/1,2025,CUST013,29.97,8,3,Credit Card,Limerick,No,47,Male,ORD013,11:15,3.00,2.40,978-0-441-01051-6,9.99,Yes,Yes,Online,Express,4,Website
+3/1,2025,CUST014,14.99,13,1,Cash,Dublin,No,33,Female,ORD014,12:00,0.00,1.20,978-0-1410-3999-2,14.99,No,No,In-Store,Standard,5,In-Store
+3/1,2025,CUST015,22.50,19,2,PayPal,Galway,Yes,55,Male,ORD015,13:30,2.50,1.80,978-0-670-03208-2,11.25,No,Yes,Online,Standard,4,App
+3/1,2025,CUST016,18.98,27,2,Credit Card,Cork,No,29,Female,ORD016,14:45,3.00,1.52,978-0-316-01331-4,9.49,No,No,Online,Express,3,Website
+3/1,2025,CUST017,49.99,42,1,Debit Card,Dublin,No,62,Male,ORD017,15:15,4.00,4.00,978-0-385-50420-1,49.99,No,Yes,In-Store,Standard,5,In-Store
+3/1,2025,CUST018,11.98,58,2,Cash,Limerick,Yes,21,Female,ORD018,16:00,0.00,0.96,978-0-7432-2750-6,5.99,No,No,In-Store,Standard,4,In-Store
+4/1,2025,CUST019,27.00,10,3,PayPal,Galway,No,36,Male,ORD019,09:00,3.50,2.16,978-0-0623-1600-4,9.00,Yes,Yes,Online,Express,4,App
+4/1,2025,CUST020,9.99,15,1,Credit Card,Dublin,No,44,Female,ORD020,10:30,2.00,0.80,978-0-545-01022-1,9.99,No,No,Online,Standard,5,Website
+4/1,2025,CUST021,35.97,22,3,Debit Card,Cork,Yes,25,Male,ORD021,11:45,3.00,2.88,978-0-316-76948-8,11.99,No,Yes,In-Store,Standard,4,In-Store
+4/1,2025,CUST022,16.50,35,2,PayPal,Limerick,No,50,Female,ORD022,12:15,2.50,1.32,978-0-553-21310-2,8.25,No,No,Online,Express,3,App
+4/1,2025,CUST023,24.99,50,1,Cash,Dublin,No,38,Male,ORD023,13:00,0.00,2.00,978-0-7475-3269-9,24.99,No,Yes,In-Store,Standard,5,In-Store
+4/1,2025,CUST024,19.98,62,2,Credit Card,Galway,Yes,30,Female,ORD024,14:20,3.00,1.60,978-0-307-58836-4,9.99,No,No,Online,Standard,4,Website
+4/1,2025,CUST025,13.99,6,1,Debit Card,Cork,No,42,Male,ORD025,15:30,2.00,1.12,978-0-7432-7356-5,13.99,No,Yes,Online,Express,4,App
+4/1,2025,CUST026,19.98,11,2,Credit Card,Dublin,Yes,31,Female,ORD026,16:00,2.50,1.60,978-0-375-50406-8,9.99,No,No,Online,Standard,4,Website
+4/1,2025,CUST027,34.99,17,1,PayPal,Cork,No,52,Male,ORD027,16:45,3.00,2.80,978-0-5532-9335-8,34.99,No,Yes,In-Store,Express,5,In-Store
+4/1,2025,CUST028,12.50,23,1,Debit Card,Galway,No,27,Female,ORD028,17:00,2.00,1.00,978-0-140-42438-6,12.50,Yes,No,Online,Standard,3,App
+4/1,2025,CUST029,25.98,38,2,Cash,Limerick,Yes,18,Male,ORD029,17:15,0.00,2.08,978-0-345-39180-3,12.99,No,Yes,In-Store,Standard,4,In-Store
+4/1,2025,CUST030,8.99,48,1,Credit Card,Dublin,No,65,Female,ORD030,17:30,3.50,0.72,978-0-451-20377-9,8.99,No,No,Online,Express,5,Website
+5/1,2025,CUST031,39.00,65,3,PayPal,Cork,No,39,Male,ORD031,09:15,4.00,3.12,978-0-441-01051-6,13.00,No,Yes,Online,Standard,4,App
+5/1,2025,CUST032,17.98,5,2,Debit Card,Galway,Yes,23,Female,ORD032,10:00,2.50,1.44,978-0-451-20377-9,8.99,No,No,In-Store,Standard,3,In-Store
+5/1,2025,CUST033,29.97,12,3,Credit Card,Limerick,No,47,Male,ORD033,11:30,3.00,2.40,978-0-441-01051-6,9.99,Yes,Yes,Online,Express,4,Website
+5/1,2025,CUST034,14.99,18,1,Cash,Dublin,No,33,Female,ORD034,12:45,0.00,1.20,978-0-1410-3999-2,14.99,No,No,In-Store,Standard,5,In-Store
+5/1,2025,CUST035,22.50,25,2,PayPal,Galway,Yes,55,Male,ORD035,14:00,2.50,1.80,978-0-670.Concurrent users: 2,03208-2,11.25,No,Yes,Online,Standard,4,App
+5/1,2025,CUST036,18.98,30,2,Credit Card,Cork,No,29,Female,ORD036,15:15,3.00,1.52,978-0-316-01331-4,9.49,No,No,Online,Express,3,Website
+5/1,2025,CUST037,49.99,45,1,Debit Card,Dublin,No,62,Male,ORD037,16:00,4.00,4.00,978-0-385-50420-1,49.99,No,Yes,In-Store,Standard,5,In-Store
+5/1,2025,CUST038,11.98,60,2,Cash,Limerick,Yes,21,Female,ORD038,16:30,0.00,0.96,978-0-7432-2750-6,5.99,No,No,In-Store,Standard,4,In-Store
+5/1,2025,CUST039,27.00,8,3,PayPal,Galway,No,36,Male,ORD039,17:00,3.50,2.16,978-0-0623-1600-4,9.00,Yes,Yes,Online,Express,4,App
+5/1,2025,CUST040,9.99,15,1,Credit Card,Dublin,No,44,Female,ORD040,17:15,2.00,0.80,978-0-545-01022-1,9.99,No,No,Online,Standard,5,Website
+5/1,2025,CUST041,35.97,22,3,Debit Card,Cork,Yes,25,Male,ORD041,17:30,3.00,2.88,978-0-316-76948-8,11.99,No,Yes,In-Store,Standard,4,In-Store
+5/1,2025,CUST042,16.50,35,2,PayPal,Limerick,No,50,Female,ORD042,17:45,2.50,1.32,978-0-553-21310-2,8.25,No,No,Online,Express,3,App
+6/1,2025,CUST043,12.99,50,1,Cash,Dublin,No,38,Male,ORD043,10:00,0.00,1.04,978-0-7475-3269-9,12.99,No,Yes,In-Store,Standard,5,In-Store
+6/1,2025,CUST044,19.98,62,2,Credit Card,Galway,Yes,30,Female,ORD044,12:30,3.00,1.60,978-0-307-58836-4,9.99,No,No,Online,Standard,4,Website
+6/1,2025,CUST045,13.99,6,1,Debit Card,Cork,No,42,Male,ORD045,15:00,2.00,1.12,978-0-7432-7356-5,13.99,No,Yes,Online,Express,4,App
+7/1,2025,CUST046,19.98,11,2,Credit Card,Dublin,Yes,31,Female,ORD046,09:30,2.50,1.60,978-0-375-50406-8,9.99,No,No,Online,Standard,4,Website
+7/1,2025,CUST047,34.99,17,1,PayPal,Cork,No,52,Male,ORD047,11:00,3.00,2.80,978-0-5532-9335-8,34.99,No,Yes,In-Store,Express,5,In-Store
+7/1,2025,CUST048,12.50,23,1,Debit Card,Galway,No,27,Female,ORD048,12:15,2.00,1.00,978-0-140-42438-6,12.50,Yes,No,Online,Standard,3,App
+7/1,2025,CUST049,25.98,38,2,Cash,Limerick,Yes,18,Male,ORD049,14:30,0.00,2.08,978-0-345-39180-3,12.99,No,Yes,In-Store,Standard,4,In-Store
+7/1,2025,CUST050,8.99,48,1,Credit Card,Dublin,No,65,Female,ORD050,16:00,3.50,0.72,978-0-451-20377-9,8.99,No,No,Online,Express,5,Website
+7/1,2025,CUST051,39.00,65,3,PayPal,Cork,No,39,Male,ORD051,17:00,4.00,3.12,978-0-441-01051-6,13.00,No,Yes,Online,Standard,4,App
+8/1,2025,CUST052,17.98,5,2,Debit Card,Galway,Yes,23,Female,ORD052,09:45,2.50,1.44,978-0-451-20377-9,8.99,No,No,In-Store,Standard,3,In-Store
+8/1,2025,CUST053,29.97,12,3,Credit Card,Limerick,No,47,Male,ORD053,10:30,3.00,2.40,978-0-441-01051-6,9.99,Yes,Yes,Online,Express,4,Website
+8/1,2025,CUST054,14.99,18,1,Cash,Dublin,No,33,Female,ORD054,11:15,0.00,1.20,978-0-1410-3999-2,14.99,No,No,In-Store,Standard,5,In-Store
+8/1,2025,CUST055,22.50,25,2,PayPal,Galway,Yes,55,Male,ORD055,12:00,2.50,1.80,978-0-670-03208-2,11.25,No,Yes,Online,Standard,4,App
+8/1,2025,CUST056,18.98,30,2,Credit Card,Cork,No,29,Female,ORD056,13:30,3.00,1.52,978-0-316-01331-4,9.49,No,No,Online,Express,3,Website
+8/1,2025,CUST057,49.99,45,1,Debit Card,Dublin,No,62,Male,ORD057,15:00,4.00,4.00,978-0-385-50420-1,49.99,No,Yes,In-Store,Standard,5,In-Store
+8/1,2025,CUST058,11.98,60,2,Cash,Limerick,Yes,21,Female,ORD058,16:15,0.00,0.96,978-0-7432-2750-6,5.99,No,No,In-Store,Standard,4,In-Store
+9/1,2025,CUST059,27.00,8,3,PayPal,Galway,No,36,Male,ORD059,09:30,3.50,2.16,978-0-0623-1600-4,9.00,Yes,Yes,Online,Express,4,App
+9/1,2025,CUST060,9.99,15,1,Credit Card,Dublin,No,44,Female,ORD060,10:45,2.00,0.80,978-0-545-01022-1,9.99,No,No,Online,Standard,5,Website
+9/1,2025,CUST061,35.97,22,3,Debit Card,Cork,Yes,25,Male,ORD061,11:30,3.00,2.88,978-0-316-76948-8,11.99,No,Yes,In-Store,Standard,4,In-Store
+9/1,2025,CUST062,16.50,35,2,PayPal,Limerick,No,50,Female,ORD062,12:15,2.50,1.32,978-0-553-21310-2,8.25,No,No,Online,Express,3,App
+9/1,2025,CUST063,24.99,50,1,Cash,Dublin,No,38,Male,ORD063,13:00,0.00,2.00,978-0-7475-3269-9,24.99,No,Yes,In-Store,Standard,5,In-Store
+9/1,2025,CUST064,19.98,62,2,Credit Card,Galway,Yes,30,Female,ORD064,14:30,3.00,1.60,978-0-307-58836-4,9.99,No,No,Online,Standard,4,Website
+10/1,2025,CUST065,13.99,6,1,Debit Card,Cork,No,42,Male,ORD065,09:15,2.00,1.12,978-0-7432-7356-5,13.99,No,Yes,Online,Express,4,App
+10/1,2025,CUST066,19.98,11,2,Credit Card,Dublin,Yes,31,Female,ORD066,10:00,2.50,1.60,978-0-375-50406-8,9.99,No,No,Online,Standard,4,Website
+10/1,2025,CUST067,34.99,17,1,PayPal,Cork,No,52,Male,ORD067,11:30,3.00,2.80,978-0-5532-9335-8,34.99,No,Yes,In-Store,Express,5,In-Store
+10/1,2025,CUST068,12.50,23,1,Debit Card,Galway,No,27,Female,ORD068,12:45,2.00,1.00,978-0-140-42438-6,12.50,Yes,No,Online,Standard,3,App
+10/1,2025,CUST069,25.98,38,2,Cash,Limerick,Yes,18,Male,ORD069,14:00,0.00,2.08,978-0-345-39180-3,12.99,No,Yes,In-Store,Standard,4,In-Store
+10/1,2025,CUST070,8.99,48,1,Credit Card,Dublin,No,65,Female,ORD070,15:15,3.50,0.72,978-0-451-20377-9,8.99,No,No,Online,Express,5,Website
+10/1,2025,CUST071,39.00,65,3,PayPal,Cork,No,39,Male,ORD071,16:00,4.00,3.12,978-0-441-01051-6,13.00,No,Yes,Online,Standard,4,App
+10/1,2025,CUST072,17.98,5,2,Debit Card,Galway,Yes,23,Female,ORD072,16:30,2.50,1.44,978-0-451-20377-9,8.99,No,No,In-Store,Standard,3,In-Store
+10/1,2025,CUST073,29.97,12,3,Credit Card,Limerick,No,47,Male,ORD073,17:00,3.00,2.40,978-0-441-01051-6,9.99,Yes,Yes,Online,Express,4,Website
+11/1,2025,CUST074,14.99,18,1,Cash,Dublin,No,33,Female,ORD074,09:00,0.00,1.20,978-0-1410-3999-2,14.99,No,No,In-Store,Standard,5,In-Store
+11/1,2025,CUST075,22.50,25,2,PayPal,Galway,Yes,55,Male,ORD075,10:15,2.50,1.80,978-0-670-03208-2,11.25,No,Yes,Online,Standard,4,App
+11/1,2025,CUST076,18.98,30,2,Credit Card,Cork,No,29,Female,ORD076,11:30,3.00,1.52,978-0-316-01331-4,9.49,No,No,Online,Express,3,Website
+11/1,2025,CUST077,49.99,45,1,Debit Card,Dublin,No,62,Male,ORD077,12:45,4.00,4.00,978-0-385-50420-1,49.99,No,Yes,In-Store,Standard,5,In-Store
+11/1,2025,CUST078,11.98,60,2,Cash,Limerick,Yes,21,Female,ORD078,14:00,0.00,0.96,978-0-7432-2750-6,5.99,No,No,In-Store,Standard,4,In-Store
+11/1,2025,CUST079,27.00,8,3,PayPal,Galway,No,36,Male,ORD079,15:15,3.50,2.16,978-0-0623-1600-4,9.00,Yes,Yes,Online,Express,4,App
+11/1,2025,CUST080,9.99,15,1,Credit Card,Dublin,No,44,Female,ORD080,16:00,2.00,0.80,978-0-545-01022-1,9.99,No,No,Online,Standard,5,Website
+11/1,2025,CUST081,35.97,22,3,Debit Card,Cork,Yes,25,Male,ORD081,16:30,3.00,2.88,978-0-316-76948-8,11.99,No,Yes,In-Store,Standard,4,In-Store
+11/1,2025,CUST082,16.50,35,2,PayPal,Limerick,No,50,Female,ORD082,17:00,2.50,1.32,978-0-553-21310-2,8.25,No,No,Online,Express,3,App
+11/1,2025,CUST083,24.99,50,1,Cash,Dublin,No,38,Male,ORD083,17:15,0.00,2.00,978-0-7475-3269-9,24.99,No,Yes,In-Store,Standard,5,In-Store
+11/1,2025,CUST084,19.98,62,2,Credit Card,Galway,Yes,30,Female,ORD084,17:30,3.00,1.60,978-0-307-58836-4,9.99,No,No,Online,Standard,4,Website
+11/1,2025,CUST085,13.99,6,1,Debit Card,Cork,No,42,Male,ORD085,17:45,2.00,1.12,978-0-7432-7356-5,13.99,No,Yes,Online,Express,4,App
+12/1,2025,CUST086,19.98,11,2,Credit Card,Dublin,Yes,31,Female,ORD086,09:30,2.50,1.60,978-0-375-50406-8,9.99,No,No,Online,Standard,4,Website
+12/1,2025,CUST087,34.99,17,1,PayPal,Cork,No,52,Male,ORD087,10:45,3.00,2.80,978-0-5532-9335-8,34.99,No,Yes,In-Store,Express,5,In-Store
+12/1,2025,CUST088,12.50,23,1,Debit Card,Galway,No,27,Female,ORD088,11:30,2.00,1.00,978-0-140-42438-6,12.50,Yes,No,Online,Standard,3,App
+12/1,2025,CUST089,25.98,38,2,Cash,Limerick,Yes,18,Male,ORD089,12:15,0.00,2.08,978-0-345-39180-3,12.99,No,Yes,In-Store,Standard,4,In-Store
+12/1,2025,CUST090,8.99,48,1,Credit Card,Dublin,No,65,Female,ORD090,13:00,3.50,0.72,978-0-451-20377-9,8.99,No,No,Online,Express,5,Website
+12/1,2025,CUST091,39.00,65,3,PayPal,Cork,No,39,Male,ORD091,14:15,4.00,3.12,978-0-441-01051-6,13.00,No,Yes,Online,Standard,4,App
+12/1,2025,CUST092,17.98,5,2,Debit Card,Galway,Yes,23,Female,ORD092,15:00,2.50,1.44,978-0-451-20377-9,8.99,No,No,In-Store,Standard,3,In-Store
+12/1,2025,CUST093,29.97,12,3,Credit Card,Limerick,No,47,Male,ORD093,16:00,3.00,2.40,978-0-441-01051-6,9.99,Yes,Yes,Online,Express,4,Website
+12/1,2025,CUST094,14.99,18,1,Cash,Dublin,No,33,Female,ORD094,16:30,0.00,1.20,978-0-1410-3999-2,14.99,No,No,In-Store,Standard,5,In-Store
+12/1,2025,CUST095,22.50,25,2,PayPal,Galway,Yes,55,Male,ORD095,17:00,2.50,1.80,978-0-670-03208-2,11.25,No,Yes,Online,Standard,4,App
+12/1,2025,CUST096,18.98,30,2,Credit Card,Cork,No,29,Female,ORD096,17:15,3.00,1.52,978-0-316-01331-4,9.49,No,No,Online,Express,3,Website
+12/1,2025,CUST097,49.99,45,1,Debit Card,Dublin,No,62,Male,ORD097,17:30,4.00,4.00,978-0-385-50420-1,49.99,No,Yes,In-Store,Standard,5,In-Store
+13/1,2025,CUST098,11.98,60,2,Cash,Limerick,Yes,21,Female,ORD098,10:00,0.00,0.96,978-0-7432-2750-6,5.99,No,No,In-Store,Standard,4,In-Store
+13/1,2025,CUST099,27.00,8,3,PayPal,Galway,No,36,Male,ORD099,12:30,3.50,2.16,978-0-0623-1600-4,9.00,Yes,Yes,Online,Express,4,App
+13/1,2025,CUST100,9.99,15,1,Credit Card,Dublin,No,44,Female,ORD100,15:00,2.00,0.80,978-0-545-01022-1,9.99,No,No,Online,Standard,5,Website
+13/1,2025,CUST101,35.97,22,3,Debit Card,Cork,Yes,25,Male,ORD101,16:00,3.00,2.88,978-0-316-76948-8,11.99,No,Yes,In-Store,Standard,4,In-Store
+14/1,2025,CUST102,16.50,35,2,PayPal,Limerick,No,50,Female,ORD102,09:30,2.50,1.32,978-0-553-21310-2,8.25,No,No,Online,Express,3,App
+14/1,2025,CUST103,24.99,50,1,Cash,Dublin,No,38,Male,ORD103,11:00,0.00,2.00,978-0-7475-3269-9,24.99,No,Yes,In-Store,Standard,5,In-Store
+14/1,2025,CUST104,19.98,62,2,Credit Card,Galway,Yes,30,Female,ORD104,12:15,3.00,1.60,978-0-307-58836-4,9.99,No,No,Online,Standard,4,Website
+14/1,2025,CUST105,13.99,6,1,Debit Card,Cork,No,42,Male,ORD105,14:30,2.00,1.12,978-0-7432-7356-5,13.99,No,Yes,Online,Express,4,App
+14/1,2025,CUST106,19.98,11,2,Credit Card,Dublin,Yes,31,Female,ORD106,16:00,2.50,1.60,978-0-375-50406-8,9.99,No,No,Online,Standard,4,Website
+14/1,2025,CUST107,34.99,17,1,PayPal,Cork,No,52,Male,ORD107,17:00,3.00,2.80,978-0-5532-9335-8,34.99,No,Yes,In-Store,Express,5,In-Store
+15/1,2025,CUST108,12.50,23,1,Debit Card,Galway,No,27,Female,ORD108,09:45,2.00,1.00,978-0-140-42438-6,12.50,Yes,No,Online,Standard,3,App
+15/1,2025,CUST109,25.98,38,2,Cash,Limerick,Yes,18,Male,ORD109,10:30,0.00,2.08,978-0-345-39180-3,12.99,No,Yes,In-Store,Standard,4,In-Store
+15/1,2025,CUST110,8.99,48,1,Credit Card,Dublin,No,65,Female,ORD110,11:15,3.50,0.72,978-0-451-20377-9,8.99,No,No,Online,Express,5,Website
+15/1,2025,CUST111,39.00,65,3,PayPal,Cork,No,39,Male,ORD111,12:00,4.00,3.12,978-0-441-01051-6,13.00,No,Yes,Online,Standard,4,App
+15/1,2025,CUST112,17.98,5,2,Debit Card,Galway,Yes,23,Female,ORD112,13:30,2.50,1.44,978-0-451-20377-9,8.99,No,No,In-Store,Standard,3,In-Store
+15/1,2025,CUST113,29.97,12,3,Credit Card,Limerick,No,47,Male,ORD113,15:00,3.00,2.40,978-0-441-01051-6,9.99,Yes,Yes,Online,Express,4,Website
+15/1,2025,CUST114,14.99,18,1,Cash,Dublin,No,33,Female,ORD114,16:15,0.00,1.20,978-0-1410-3999-2,14.99,No,No,In-Store,Standard,5,In-Store
+16/1,2025,CUST115,22.50,25,2,PayPal,Galway,Yes,55,Male,ORD115,09:30,2.50,1.80,978-0-670-03208-2,11.25,No,Yes,Online,Standard,4,App
+16/1,2025,CUST116,18.98,30,2,Credit Card,Cork,No,29,Female,ORD116,10:45,3.00,1.52,978-0-316-01331-4,9.49,No,No,Online,Express,3,Website
+16/1,2025,CUST117,49.99,45,1,Debit Card,Dublin,No,62,Male,ORD117,11:30,4.00,4.00,978-0-385-50420-1,49.99,No,Yes,In-Store,Standard,5,In-Store
+16/1,2025,CUST118,11.98,60,2,Cash,Limerick,Yes,21,Female,ORD118,12:15,0.00,0.96,978-0-7432-2750-6,5.99,No,No,In-Store,Standard,4,In-Store
+16/1,2025,CUST119,27.00,8,3,PayPal,Galway,No,36,Male,ORD119,13:00,3.50,2.16,978-0-0623-1600-4,9.00,Yes,Yes,Online,Express,4,App
+16/1,2025,CUST120,9.99,15,1,Credit Card,Dublin,No,44,Female,ORD120,14:30,2.00,0.80,978-0-545-01022-1,9.99,No,No,Online,Standard,5,Website
+17/1,2025,CUST121,35.97,22,3,Debit Card,Cork,Yes,25,Male,ORD121,09:15,3.00,2.88,978-0-316-76948-8,11.99,No,Yes,In-Store,Standard,4,In-Store
+17/1,2025,CUST122,16.50,35,2,PayPal,Limerick,No,50,Female,ORD122,10:00,2.50,1.32,978-0-553-21310-2,8.25,No,No,Online,Express,3,App
+17/1,2025,CUST123,24.99,50,1,Cash,Dublin,No,38,Male,ORD123,11:30,0.00,2.00,978-0-7475-3269-9,24.99,No,Yes,In-Store,Standard,5,In-Store
+17/1,2025,CUST124,19.98,62,2,Credit Card,Galway,Yes,30,Female,ORD124,12:45,3.00,1.60,978-0-307-58836-4,9.99,No,No,Online,Standard,4,Website
+17/1,2025,CUST125,13.99,6,1,Debit Card,Cork,No,42,Male,ORD125,14:00,2.00,1.12,978-0-7432-7356-5,13.99,No,Yes,Online,Express,4,App
+17/1,2025,CUST126,19.98,11,2,Credit Card,Dublin,Yes,31,Female,ORD126,15:15,2.50,1.60,978-0-375-50406-8,9.99,No,No,Online,Standard,4,Website
+17/1,2025,CUST127,15.99,20,1,Credit Card,Dublin,No,40,Female,ORD127,16:00,2.00,1.28,978-0-5532-9335-8,15.99,No,No,Online,Standard,4,Website
+17/1,2025,CUST128,29.97,35,3,PayPal,Cork,Yes,25,Male,ORD128,16:30,3.00,2.40,978-0-140-42438-6,9.99,No,Yes,In-Store,Express,5,In-Store
+17/1,2025,CUST129,22.50,50,2,Debit Card,Galway,No,55,Female,ORD129,17:00,2.50,1.80,978-0-345-39180-3,11.25,Yes,No,Online,Standard,3,App
+17/1,2025,CUST130,18.98,65,2,Cash,Limerick,No,29,Male,ORD130,17:30,0.00,1.52,978-0-451-20377-9,9.49,No,Yes,In-Store,Standard,4,In-Store
+18/1,2025,CUST131,39.00,8,3,Credit Card,Dublin,No,36,Female,ORD131,09:15,3.50,3.12,978-0-441-01051-6,13.00,Yes,Yes,Online,Express,4,App
+18/1,2025,CUST132,24.99,15,1,PayPal,Cork,No,44,Male,ORD132,10:30,2.00,2.00,978-0-1410-3999-2,24.99,No,No,Online,Standard,5,Website
+18/1,2025,CUST133,35.97,22,3,Debit Card,Galway,Yes,25,Female,ORD133,11:45,3.00,2.88,978-0-670-03208-2,11.99,No,Yes,In-Store,Standard,4,In-Store
+18/1,2025,CUST134,16.50,30,2,Cash,Limerick,No,50,Male,ORD134,12:15,0.00,1.32,978-0-316-01331-4,8.25,No,No,In-Store,Standard,3,In-Store
+18/1,2025,CUST135,29.99,45,1,Credit Card,Dublin,No,38,Female,ORD135,13:00,3.50,2.40,978-0-385-50420-1,29.99,No,Yes,Online,Express,5,Website
+18/1,2025,CUST136,19.98,60,2,PayPal,Cork,Yes,30,Male,ORD136,14:15,3.00,1.60,978-0-7432-2750-6,9.99,No,No,Online,Standard,4,App
+18/1,2025,CUST137,13.99,5,1,Debit Card,Galway,No,42,Female,ORD137,15:00,2.00,1.12,978-0-0623-1600-4,13.99,No,Yes,Online,Express,4,Website
+18/1,2025,CUST138,19.98,12,2,Credit Card,Limerick,Yes,31,Male,ORD138,15:30,2.50,1.60,978-0-545-01022-1,9.99,No,No,Online,Standard,4,Website
+18/1,2025,CUST139,34.99,18,1,PayPal,Dublin,No,52,Female,ORD139,16:00,3.00,2.80,978-0-316-76948-8,34.99,No,Yes,In-Store,Express,5,In-Store
+18/1,2025,CUST140,12.50,25,1,Debit Card,Cork,No,27,Male,ORD140,16:30,2.00,1.00,978-0-553-21310-2,12.50,Yes,No,Online,Standard,3,App
+18/1,2025,CUST141,25.98,40,2,Cash,Galway,Yes,18,Female,ORD141,17:00,0.00,2.08,978-0-7475-3269-9,12.99,No,Yes,In-Store,Standard,4,In-Store
+18/1,2025,CUST142,8.99,55,1,Credit Card,Limerick,No,65,Male,ORD142,17:15,3.50,0.72,978-0-307-58836-4,8.99,No,No,Online,Express,5,Website
+18/1,2025,CUST143,39.00,10,3,PayPal,Dublin,No,39,Female,ORD143,17:30,4.00,3.12,978-0-7432-7356-5,13.00,No,Yes,Online,Standard,4,App
+18/1,2025,CUST144,17.98,15,2,Debit Card,Cork,Yes,23,Male,ORD144,17:45,2.50,1.44,978-0-375-50406-8,8.99,No,No,In-Store,Standard,3,In-Store
+19/1,2025,CUST145,29.97,22,3,Credit Card,Galway,No,47,Female,ORD145,09:30,3.00,2.40,978-0-5532-9335-8,9.99,Yes,Yes,Online,Express,4,Website
+19/1,2025,CUST146,14.99,35,1,Cash,Limerick,No,33,Male,ORD146,10:45,0.00,1.20,978-0-140-42438-6,14.99,No,No,In-Store,Standard,5,In-Store
+19/1,2025,CUST147,22.50,50,2,PayPal,Dublin,Yes,55,Female,ORD147,11:30,2.50,1.80,978-0-345-39180-3,11.25,No,Yes,Online,Standard,4,App
+19/1,2025,CUST148,18.98,65,2,Credit Card,Cork,No,29,Male,ORD148,12:15,3.00,1.52,978-0-451-20377-9,9.49,No,No,Online,Express,3,Website
+19/1,2025,CUST149,49.99,8,1,Debit Card,Galway,No,62,Female,ORD149,13:00,4.00,4.00,978-0-441-01051-6,49.99,No,Yes,In-Store,Standard,5,In-Store
+19/1,2025,CUST150,11.98,15,2,Cash,Limerick,Yes,21,Male,ORD150,14:15,0.00,0.96,978-0-1410-3999-2,5.99,No,No,In-Store,Standard,4,In-Store
+19/1,2025,CUST151,27.00,22,3,PayPal,Dublin,No,36,Female,ORD151,15:00,3.50,2.16,978-0-670-03208-2,9.00,Yes,Yes,Online,Express,4,App
+19/1,2025,CUST152,9.99,30,1,Credit Card,Cork,No,44,Male,ORD152,15:30,2.00,0.80,978-0-316-01331-4,9.99,No,No,Online,Standard,5,Website
+19/1,2025,CUST153,35.97,45,3,Debit Card,Galway,Yes,25,Female,ORD153,16:00,3.00,2.88,978-0-385-50420-1,11.99,No,Yes,In-Store,Standard,4,In-Store
+19/1,2025,CUST154,16.50,60,2,PayPal,Limerick,No,50,Male,ORD154,16:30,2.50,1.32,978-0-7432-2750-6,8.25,No,No,Online,Express,3,App
+19/1,2025,CUST155,24.99,5,1,Cash,Dublin,No,38,Female,ORD155,17:00,0.00,2.00,978-0-0623-1600-4,24.99,No,Yes,In-Store,Standard,5,In-Store
+19/1,2025,CUST156,19.98,12,2,Credit Card,Cork,Yes,30,Male,ORD156,17:15,3.00,1.60,978-0-545-01022-1,9.99,No,No,Online,Standard,4,Website
+19/1,2025,CUST157,13.99,18,1,Debit Card,Galway,No,42,Female,ORD157,17:30,2.00,1.12,978-0-316-76948-8,13.99,No,Yes,Online,Express,4,App
+20/1,2025,CUST158,12.99,25,1,Credit Card,Limerick,No,31,Male,ORD158,10:00,2.50,1.04,978-0-553-21310-2,12.99,No,No,Online,Standard,4,Website
+20/1,2025,CUST159,19.98,40,2,PayPal,Dublin,Yes,52,Female,ORD159,12:30,3.00,1.60,978-0-7475-3269-9,9.99,No,Yes,In-Store,Express,5,In-Store
+20/1,2025,CUST160,13.99,55,1,Debit Card,Cork,No,27,Male,ORD160,15:00,2.00,1.12,978-0-307-58836-4,13.99,No,No,Online,Standard,3,App
+21/1,2025,CUST161,19.98,10,2,Cash,Galway,Yes,18,Female,ORD161,09:30,0.00,1.60,978-0-7432-7356-5,9.99,No,Yes,In-Store,Standard,4,In-Store
+21/1,2025,CUST162,34.99,15,1,Credit Card,Limerick,No,65,Male,ORD162,11:00,3.50,2.80,978-0-375-50406-8,34.99,No,No,Online,Express,5,Website
+21/1,2025,CUST163,12.50,22,1,PayPal,Dublin,No,39,Female,ORD163,12:15,2.00,1.00,978-0-5532-9335-8,12.50,Yes,Yes,Online,Standard,4,App
+21/1,2025,CUST164,25.98,35,2,Debit Card,Cork,Yes,23,Male,ORD164,14:30,3.00,2.08,978-0-140-42438-6,12.99,No,No,In-Store,Standard,3,In-Store
+21/1,2025,CUST165,8.99,50,1,Cash,Galway,No,47,Female,ORD165,16:00,0.00,0.72,978-0-345-39180-3,8.99,No,Yes,In-Store,Standard,5,In-Store
+22/1,2025,CUST166,39.00,65,3,Credit Card,Limerick,No,33,Male,ORD166,09:45,3.50,3.12,978-0-451-20377-9,13.00,No,No,Online,Express,4,Website
+22/1,2025,CUST167,17.98,8,2,PayPal,Dublin,Yes,55,Female,ORD167,10:30,2.50,1.44,978-0-441-01051-6,8.99,No,Yes,Online,Standard,4,App
+22/1,2025,CUST168,29.97,15,3,Debit Card,Cork,No,29,Male,ORD168,11:15,3.00,2.40,978-0-1410-3999-2,9.99,Yes,No,In-Store,Standard,3,In-Store
+22/1,2025,CUST169,14.99,22,1,Cash,Galway,No,62,Female,ORD169,12:00,0.00,1.20,978-0-670-03208-2,14.99,No,Yes,In-Store,Standard,5,In-Store
+22/1,2025,CUST170,22.50,35,2,Credit Card,Limerick,Yes,21,Male,ORD170,13:30,2.50,1.80,978-0-316-01331-4,11.25,No,No,Online,Standard,4,Website
+22/1,2025,CUST171,18.98,50,2,PayPal,Dublin,No,36,Female,ORD171,15:00,3.00,1.52,978-0-385-50420-1,9.49,No,Yes,Online,Express,4,App
+23/1,2025,CUST172,49.99,65,1,Debit Card,Cork,No,44,Male,ORD172,09:30,4.00,4.00,978-0-7432-2750-6,49.99,No,No,In-Store,Standard,5,In-Store
+23/1,2025,CUST173,11.98,8,2,Cash,Galway,Yes,25,Female,ORD173,10:45,0.00,0.96,978-0-0623-1600-4,5.99,No,Yes,In-Store,Standard,4,In-Store
+23/1,2025,CUST174,27.00,15,3,Credit Card,Limerick,No,50,Male,ORD174,11:30,3.50,2.16,978-0-545-01022-1,9.00,Yes,No,Online,Express,3,Website
+23/1,2025,CUST175,9.99,22,1,PayPal,Dublin,No,38,Female,ORD175,12:15,2.00,0.80,978-0-316-76948-8,9.99,No,Yes,Online,Standard,5,App
+23/1,2025,CUST176,35.97,35,3,Debit Card,Cork,Yes,30,Male,ORD176,13:00,3.00,2.88,978-0-553-21310-2,11.99,No,No,In-Store,Standard,4,In-Store
+23/1,2025,CUST177,16.50,50,2,Cash,Galway,No,42,Female,ORD177,14:30,0.00,1.32,978-0-7475-3269-9,8.25,No,Yes,In-Store,Standard,3,In-Store
+23/1,2025,CUST178,24.99,65,1,Credit Card,Limerick,No,31,Male,ORD178,16:00,3.50,2.00,978-0-307-58836-4,24.99,No,No,Online,Express,5,Website
+24/1,2025,CUST179,19.98,8,2,PayPal,Dublin,Yes,52,Female,ORD179,09:15,3.00,1.60,978-0-7432-7356-5,9.99,No,Yes,Online,Standard,4,App
+24/1,2025,CUST180,13.99,15,1,Debit Card,Cork,No,27,Male,ORD180,10:30,2.00,1.12,978-0-375-50406-8,13.99,No,No,Online,Express,4,Website
+24/1,2025,CUST181,19.98,22,2,Credit Card,Galway,Yes,18,Female,ORD181,11:45,2.50,1.60,978-0-5532-9335-8,9.99,No,Yes,Online,Standard,4,Website
+24/1,2025,CUST182,34.99,35,1,PayPal,Limerick,No,65,Male,ORD182,12:15,3.00,2.80,978-0-140-42438-6,34.99,No,No,In-Store,Express,5,In-Store
+24/1,2025,CUST183,12.50,50,1,Debit Card,Dublin,No,39,Female,ORD183,13:00,2.00,1.00,978-0-345-39180-3,12.50,Yes,Yes,Online,Standard,3,App
+24/1,2025,CUST184,25.98,65,2,Cash,Cork,Yes,23,Male,ORD184,14:15,0.00,2.08,978-0-451-20377-9,12.99,No,No,In-Store,Standard,4,In-Store
+24/1,2025,CUST185,8.99,8,1,Credit Card,Galway,No,47,Female,ORD185,15:30,3.50,0.72,978-0-441-01051-6,8.99,No,Yes,Online,Express,5,Website
+24/1,2025,CUST186,39.00,15,3,PayPal,Limerick,No,33,Male,ORD186,16:00,4.00,3.12,978-0-1410-3999-2,13.00,No,No,Online,Standard,4,App
+24/1,2025,CUST187,17.98,22,2,Debit Card,Dublin,Yes,55,Female,ORD187,17:00,2.50,1.44,978-0-670-03208-2,8.99,No,Yes,In-Store,Standard,3,In-Store
+25/1,2025,CUST188,29.97,35,3,Credit Card,Cork,No,29,Male,ORD188,09:30,3.00,2.40,978-0-316-01331-4,9.99,Yes,No,Online,Express,4,Website
+25/1,2025,CUST189,14.99,50,1,Cash,Galway,No,62,Female,ORD189,10:45,0.00,1.20,978-0-385-50420-1,14.99,No,Yes,In-Store,Standard,5,In-Store
+25/1,2025,CUST190,22.50,65,2,PayPal,Limerick,Yes,21,Male,ORD190,11:30,2.50,1.80,978-0-7432-2750-6,11.25,No,No,Online,Standard,4,App
+25/1,2025,CUST191,18.98,8,2,Credit Card,Dublin,No,36,Female,ORD191,12:15,3.00,1.52,978-0-0623-1600-4,9.49,No,Yes,Online,Express,3,Website
+25/1,2025,CUST192,49.99,15,1,Debit Card,Cork,No,44,Male,ORD192,13:00,4.00,4.00,978-0-545-01022-1,49.99,No,No,In-Store,Standard,5,In-Store
+25/1,2025,CUST193,11.98,22,2,Cash,Galway,Yes,25,Female,ORD193,14:15,0.00,0.96,978-0-316-76948-8,5.99,No,Yes,In-Store,Standard,4,In-Store
+25/1,2025,CUST194,27.00,35,3,PayPal,Limerick,No,50,Male,ORD194,15:00,3.50,2.16,978-0-553-21310-2,9.00,Yes,No,Online,Express,4,App
+25/1,2025,CUST195,9.99,50,1,Credit Card,Dublin,No,38,Female,ORD195,15:30,2.00,0.80,978-0-7475-3269-9,9.99,No,Yes,Online,Standard,5,Website
+25/1,2025,CUST196,35.97,65,3,Debit Card,Cork,Yes,30,Male,ORD196,16:00,3.00,2.88,978-0-307-58836-4,11.99,No,No,In-Store,Standard,4,In-Store
+25/1,2025,CUST197,16.50,8,2,PayPal,Galway,No,42,Female,ORD197,16:30,2.50,1.32,978-0-7432-7356-5,8.25,No,Yes,Online,Express,3,App
+25/1,2025,CUST198,24.99,15,1,Cash,Limerick,No,31,Male,ORD198,17:00,0.00,2.00,978-0-375-50406-8,24.99,No,No,In-Store,Standard,5,In-Store
+25/1,2025,CUST199,19.98,22,2,Credit Card,Dublin,Yes,52,Female,ORD199,17:15,3.00,1.60,978-0-5532-9335-8,9.99,No,Yes,Online,Standard,4,Website
+26/1,2025,CUST200,13.99,35,1,PayPal,Cork,No,27,Male,ORD200,09:30,2.00,1.12,978-0-140-42438-6,13.99,No,No,Online,Express,4,App
+26/1,2025,CUST201,19.98,50,2,Debit Card,Galway,Yes,18,Female,ORD201,10:45,2.50,1.60,978-0-345-39180-3,9.99,No,Yes,Online,Standard,4,Website
+26/1,2025,CUST202,34.99,65,1,Credit Card,Limerick,No,65,Male,ORD202,11:30,3.00,2.80,978-0-451-20377-9,34.99,No,No,In-Store,Express,5,In-Store
+26/1,2025,CUST203,12.50,8,1,Cash,Dublin,No,39,Female,ORD203,12:15,0.00,1.00,978-0-441-01051-6,12.50,Yes,Yes,In-Store,Standard,3,In-Store
+26/1,2025,CUST204,25.98,15,2,PayPal,Cork,Yes,23,Male,ORD204,13:00,3.50,2.08,978-0-1410-3999-2,12.99,No,No,Online,Standard,4,App
+26/1,2025,CUST205,8.99,22,1,Credit Card,Galway,No,47,Female,ORD205,14:15,2.00,0.72,978-0-670-03208-2,8.99,No,Yes,Online,Express,5,Website
+26/1,2025,CUST206,39.00,35,3,Debit Card,Limerick,No,33,Male,ORD206,15:00,4.00,3.12,978-0-316-01331-4,13.00,No,No,In-Store,Standard,4,In-Store
+26/1,2025,CUST207,17.98,50,2,Cash,Dublin,Yes,55,Female,ORD207,15:30,0.00,1.44,978-0-385-50420-1,8.99,No,Yes,In-Store,Standard,3,In-Store
+26/1,2025,CUST208,29.97,65,3,PayPal,Cork,No,29,Male,ORD208,16:00,3.00,2.40,978-0-7432-2750-6,9.99,Yes,No,Online,Express,4,App
+26/1,2025,CUST209,14.99,8,1,Credit Card,Galway,No,62,Female,ORD209,16:30,2.00,1.20,978-0-0623-1600-4,14.99,No,Yes,Online,Standard,5,Website
+26/1,2025,CUST210,22.50,15,2,Debit Card,Limerick,Yes,21,Male,ORD210,17:00,2.50,1.80,978-0-545-01022-1,11.25,No,No,Online,Standard,4,App
+27/1,2025,CUST211,18.98,22,2,Credit Card,Dublin,No,36,Female,ORD211,10:00,3.00,1.52,978-0-316-76948-8,9.49,No,Yes,Online,Express,3,Website
+27/1,2025,CUST212,49.99,35,1,PayPal,Cork,No,44,Male,ORD212,12:30,4.00,4.00,978-0-553-21310-2,49.99,No,No,In-Store,Standard,5,In-Store
+27/1,2025,CUST213,11.98,50,2,Debit Card,Galway,Yes,25,Female,ORD213,15:00,2.50,0.96,978-0-7475-3269-9,5.99,No,Yes,In-Store,Standard,4,In-Store
+27/1,2025,CUST214,27.00,65,3,Cash,Limerick,No,50,Male,ORD214,16:00,0.00,2.16,978-0-307-58836-4,9.00,Yes,No,In-Store,Standard,3,In-Store
+28/1,2025,CUST215,9.99,8,1,Credit Card,Dublin,No,38,Female,ORD215,09:30,2.00,0.80,978-0-7432-7356-5,9.99,No,Yes,Online,Standard,5,Website
+28/1,2025,CUST216,35.97,15,3,PayPal,Cork,Yes,30,Male,ORD216,11:00,3.00,2.88,978-0-375-50406-8,11.99,No,No,In-Store,Standard,4,In-Store
+28/1,2025,CUST217,16.50,22,2,Debit Card,Galway,No,42,Female,ORD217,12:15,2.50,1.32,978-0-5532-9335-8,8.25,No,Yes,Online,Express,4,App
+28/1,2025,CUST218,24.99,35,1,Cash,Limerick,No,31,Male,ORD218,14:30,0.00,2.00,978-0-140-42438-6,24.99,No,No,In-Store,Standard,5,In-Store
+28/1,2025,CUST219,19.98,50,2,Credit Card,Dublin,Yes,52,Female,ORD219,16:00,3.00,1.60,978-0-345-39180-3,9.99,No,Yes,Online,Standard,4,Website
+28/1,2025,CUST220,13.99,65,1,PayPal,Cork,No,27,Male,ORD220,17:00,2.00,1.12,978-0-451-20377-9,13.99,No,No,Online,Express,4,App
+29/1,2025,CUST221,19.98,8,2,Debit Card,Galway,Yes,18,Female,ORD221,09:45,2.50,1.60,978-0-441-01051-6,9.99,No,Yes,Online,Standard,4,Website
+29/1,2025,CUST222,34.99,15,1,Credit Card,Limerick,No,65,Male,ORD222,10:30,3.00,2.80,978-0-1410-3999-2,34.99,No,No,In-Store,Express,5,In-Store
+29/1,2025,CUST223,12.50,22,1,Cash,Dublin,No,39,Female,ORD223,11:15,0.00,1.00,978-0-670-03208-2,12.50,Yes,Yes,In-Store,Standard,3,In-Store
+29/1,2025,CUST224,25.98,35,2,PayPal,Cork,Yes,23,Male,ORD224,12:00,3.50,2.08,978-0-316-01331-4,12.99,No,No,Online,Standard,4,App
+29/1,2025,CUST225,8.99,50,1,Credit Card,Galway,No,47,Female,ORD225,13:30,2.00,0.72,978-0-385-50420-1,8.99,No,Yes,Online,Express,5,Website
+29/1,2025,CUST226,39.00,65,3,Debit Card,Limerick,No,33,Male,ORD226,15:00,4.00,3.12,978-0-7432-2750-6,13.00,No,No,In-Store,Standard,4,In-Store
+29/1,2025,CUST227,17.98,8,2,Cash,Dublin,Yes,55,Female,ORD227,16:30,0.00,1.44,978-0-0623-1600-4,8.99,No,Yes,In-Store,Standard,3,In-Store
+30/1,2025,CUST228,29.97,15,3,Credit Card,Cork,No,29,Male,ORD228,09:30,3.00,2.40,978-0-545-01022-1,9.99,Yes,No,Online,Express,4,Website
+30/1,2025,CUST229,14.99,22,1,PayPal,Galway,No,62,Female,ORD229,10:45,2.00,1.20,978-0-316-76948-8,14.99,No,Yes,Online,Standard,5,App
+30/1,2025,CUST230,22.50,35,2,Debit Card,Limerick,Yes,21,Male,ORD230,11:30,2.50,1.80,978-0-553-21310-2,11.25,No,No,Online,Standard,4,Website
+30/1,2025,CUST231,18.98,50,2,Cash,Dublin,No,36,Female,ORD231,12:15,0.00,1.52,978-0-7475-3269-9,9.49,No,Yes,In-Store,Standard,3,In-Store
+30/1,2025,CUST232,49.99,65,1,Credit Card,Cork,No,44,Male,ORD232,14:30,4.00,4.00,978-0-307-58836-4,49.99,No,No,In-Store,Standard,5,In-Store
+30/1,2025,CUST233,11.98,8,2,PayPal,Galway,Yes,25,Female,ORD233,16:00,2.50,0.96,978-0-7432-7356-5,5.99,No,Yes,Online,Standard,4,App
+31/1,2025,CUST234,27.00,15,3,Credit Card,Limerick,No,50,Male,ORD234,09:15,3.50,2.16,978-0-375-50406-8,9.00,Yes,No,Online,Express,4,Website
+31/1,2025,CUST235,9.99,22,1,PayPal,Dublin,No,38,Female,ORD235,10:30,2.00,0.80,978-0-5532-9335-8,9.99,No,Yes,Online,Standard,5,App
+31/1,2025,CUST236,35.97,35,3,Debit Card,Cork,Yes,30,Male,ORD236,11:45,3.00,2.88,978-0-140-42438-6,11.99,No,No,In-Store,Standard,4,In-Store
+31/1,2025,CUST237,16.50,50,2,Cash,Galway,No,42,Female,ORD237,12:15,0.00,1.32,978-0-345-39180-3,8.25,No,Yes,In-Store,Standard,3,In-Store
+31/1,2025,CUST238,24.99,65,1,Credit Card,Limerick,No,31,Male,ORD238,13:00,3.50,2.00,978-0-451-20377-9,24.99,No,No,Online,Express,5,Website
+31/1,2025,CUST239,19.98,8,2,PayPal,Dublin,Yes,52,Female,ORD239,14:15,3.00,1.60,978-0-441-01051-6,9.99,No,Yes,Online,Standard,4,App
+31/1,2025,CUST240,13.99,15,1,Debit Card,Cork,No,27,Male,ORD240,15:30,2.00,1.12,978-0-1410-3999-2,13.99,No,No,Online,Express,4,Website
+31/1,2025,CUST241,19.98,22,2,Credit Card,Galway,Yes,18,Female,ORD241,16:00,2.50,1.60,978-0-670-03208-2,9.99,No,Yes,Online,Standard,4,Website
+31/1,2025,CUST242,34.99,35,1,PayPal,Limerick,No,65,Male,ORD242,16:30,3.00,2.80,978-0-316-01331-4,34.99,No,No,In-Store,Express,5,In-Store
+31/1,2025,CUST243,12.50,50,1,Debit Card,Dublin,No,39,Female,ORD243,17:00,2.00,1.00,978-0-385-50420-1,12.50,Yes,Yes,Online,Standard,3,App
+31/1,2025,CUST244,25.98,65,2,Cash,Cork,Yes,23,Male,ORD244,17:15,0.00,2.08,978-0-7432-2750-6,12.99,No,No,In-Store,Standard,4,In-Store
+31/1,2025,CUST245,8.99,8,1,Credit Card,Galway,No,47,Female,ORD245,17:30,3.50,0.72,978-0-0623-1600-4,8.99,No,Yes,Online,Express,5,Website
+31/1,2025,CUST246,39.00,15,3,PayPal,Limerick,No,33,Male,ORD246,17:45,4.00,3.12,978-0-545-01022-1,13.00,No,No,Online,Standard,4,App

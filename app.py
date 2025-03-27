@@ -8,32 +8,29 @@ from reportlab.lib.pagesizes import letter
 from reportlab.pdfgen import canvas
 import openpyxl
 
-# Custom CSS for Matrix vibe with enhanced styling
+# Custom CSS for styling (keep chart styling, remove homepage flair)
 st.markdown("""
     <style>
-    /* Matrix-style font and neon glow */
-    * {
+    /* Matrix-style font for charts and analysis section */
+    .chart-section * {
         font-family: 'Courier New', Courier, monospace !important;
     }
     .big-title {
-        color: #1E90FF;
         font-size: 36px;
         font-weight: bold;
-        text-shadow: 0 0 10px #1E90FF, 0 0 20px #1E90FF;
     }
     .secure-text {
-        color: #00FF00;
         font-size: 18px;
-        text-shadow: 0 0 5px #00FF00;
     }
-    .stButton>button {
+    /* Chart-specific styling */
+    .chart-section .stButton>button {
         background-color: #1E90FF;
         color: #000000;
         border: 2px solid #00FF00;
         border-radius: 5px;
         box-shadow: 0 0 5px #1E90FF;
     }
-    .stButton>button:hover {
+    .chart-section .stButton>button:hover {
         background-color: #00FF00;
         color: #000000;
         box-shadow: 0 0 10px #00FF00;
@@ -143,7 +140,7 @@ def analyse_sales(data):
     st.write(f"**PURCHASE SOURCE BREAKDOWN:**\n{source_breakdown.to_string()}")
 
     # Chart Section with Plotly
-    st.write("### VISUALISE YOUR DATA")
+    st.write("### VISUALISE YOUR DATA", cls="chart-section")
     chart_options = [
         "SALES OVER TIME (LINE)", 
         "PURCHASES BY PAYMENT METHOD (BAR)", 
@@ -176,7 +173,7 @@ def analyse_sales(data):
             y='Purchase_Amount',
             title='SALES OVER TIME',
             labels={'Full_Date': 'DATE (DD/MM)', 'Purchase_Amount': 'TOTAL SALES ($)'},
-            line_shape='spline',  # Smooth line
+            line_shape='spline',
             color_discrete_sequence=['#1E90FF']
         )
         fig.update_layout(**plot_layout)
