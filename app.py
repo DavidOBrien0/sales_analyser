@@ -204,7 +204,7 @@ st.markdown("""
 correct_password = "Letmein"
 
 # Function to generate PDF
-def generate_pdf(summary_df, filename="bookstore_sales_analysis.pdf"):
+def generate_pdf(summary_df, filename="data_analysis_report.pdf"):
     buffer = io.BytesIO()
     c = canvas.Canvas(buffer, pagesize=letter)
     c.setFont("Courier", 12)
@@ -242,7 +242,7 @@ def analyse_sales(data):
     sales_per_customer = total_sales / num_customers
     top_spender = data.loc[data['Purchase_Amount'].idxmax()]
     total_quantity = data['Quantity'].sum()
-    popular_age = data['Product_Category'].mode()[0]
+    popular_category = data['Product_Category'].mode()[0]
     payment_breakdown = data['Payment_Method'].value_counts()
     region_sales = data.groupby('Region')['Purchase_Amount'].sum().idxmax()
     discount_usage = data['Discount_Applied'].value_counts(normalize=True) * 100
@@ -279,8 +279,8 @@ def analyse_sales(data):
     st.write(f"**NUMBER OF UNIQUE CUSTOMERS:** {num_customers}")
     st.write(f"**AVERAGE SALES PER CUSTOMER:** ${sales_per_customer:.2f}")
     st.write(f"**TOP SPENDER:** Customer {top_spender['Customer_ID']} spent ${top_spender['Purchase_Amount']:.2f} on {top_spender['Day_Month']}")
-    st.write(f"**TOTAL BOOKS SOLD:** {total_quantity}")
-    st.write(f"**MOST POPULAR AGE:** {popular_age}")
+    st.write(f"**TOTAL ITEMS SOLD:** {total_quantity}")
+    st.write(f"**MOST POPULAR CATEGORY:** {popular_category}")
     st.write(f"**PAYMENT METHOD BREAKDOWN:**\n{payment_breakdown.to_string()}")
     st.write(f"**REGION WITH HIGHEST SALES:** {region_sales}")
     st.write(f"**DISCOUNT USAGE:** {discount_usage.get('Yes', 0):.1f}% of purchases had a discount")
@@ -290,7 +290,7 @@ def analyse_sales(data):
     st.write(f"**TRANSACTION TIME BREAKDOWN:**\n{time_breakdown.to_string()}")
     st.write(f"**AVERAGE SHIPPING COST:** ${avg_shipping:.2f}")
     st.write(f"**TOTAL TAX PAID:** ${total_tax:.2f}")
-    st.write(f"**NUMBER OF UNIQUE TITLES:** {num_products}")
+    st.write(f"**NUMBER OF UNIQUE PRODUCTS:** {num_products}")
     st.write(f"**AVERAGE UNIT PRICE:** ${avg_unit_price:.2f}")
     st.write(f"**RETURN RATE:** {return_rate:.1f}% of purchases returned")
     st.write(f"**LOYALTY MEMBERS:** {loyalty_percentage:.1f}% of customers")
@@ -304,7 +304,7 @@ def analyse_sales(data):
         "SALES OVER TIME (LINE)", 
         "PURCHASES BY PAYMENT METHOD (BAR)", 
         "SALES BY REGION (BAR)", 
-        "SALES BY AGE (PIE)", 
+        "SALES BY CATEGORY (PIE)", 
         "DISCOUNT USAGE (PIE)", 
         "PURCHASE AMOUNT VS CUSTOMER AGE (SCATTER)", 
         "CUSTOMER AGE DISTRIBUTION (HISTOGRAM)",
@@ -374,7 +374,7 @@ def analyse_sales(data):
         st.plotly_chart(fig, use_container_width=True)
         st.markdown('</div>', unsafe_allow_html=True)
 
-    elif chart_type == "SALES BY AGE (PIE)":
+    elif chart_type == "SALES BY CATEGORY (PIE)":
         sales_by_category = data.groupby('Product_Category')['Purchase_Amount'].sum().reset_index()
         top_5 = sales_by_category.nlargest(5, 'Purchase_Amount')
         other_sales = sales_by_category['Purchase_Amount'].sum() - top_5['Purchase_Amount'].sum()
@@ -384,11 +384,11 @@ def analyse_sales(data):
             top_5,
             names='Product_Category',
             values='Purchase_Amount',
-            title='TOP 5 AGES BY SALES (PIE)',
+            title='TOP 5 CATEGORIES BY SALES (PIE)',
             color_discrete_sequence=px.colors.sequential.Plasma  # Neon colors
         )
         fig.update_layout(**plot_layout)
-        fig.update_traces(textinfo='percent+label', hovertemplate='Age: %{label}<br>Sales: $%{value:.2f}')
+        fig.update_traces(textinfo='percent+label', hovertemplate='Category: %{label}<br>Sales: $%{value:.2f}')
         st.markdown('<div class="plotly-chart-container">', unsafe_allow_html=True)
         st.plotly_chart(fig, use_container_width=True)
         st.markdown('</div>', unsafe_allow_html=True)
@@ -527,21 +527,21 @@ def analyse_sales(data):
 
     st.write(f"**BUSIEST DAY:** {busiest_day.strftime('%d/%m')} with ${data.groupby('Full_Date')['Purchase_Amount'].sum().max():.2f} in sales")
     st.write(f"**MOST FREQUENT CUSTOMER:** {most_frequent_customer} made {customer_frequency.max()} purchases")
-    st.write(f"**AVERAGE BOOKS PER PURCHASE:** {avg_items_per_purchase:.2f}")
+    st.write(f"**AVERAGE ITEMS PER PURCHASE:** {avg_items_per_purchase:.2f}")
     st.write(f"**MOST USED PAYMENT METHOD:** {top_payment_method}")
 
     summary_data = {
         'METRIC': [
             'TOTAL SALES', 'AVERAGE SPEND PER PURCHASE', 'NUMBER OF UNIQUE CUSTOMERS',
-            'AVERAGE SALES PER CUSTOMER', 'TOTAL BOOKS SOLD', 'MOST POPULAR AGE',
+            'AVERAGE SALES PER CUSTOMER', 'TOTAL ITEMS SOLD', 'MOST POPULAR CATEGORY',
             'REGION WITH HIGHEST SALES', 'DISCOUNT USAGE (%)', 'AVERAGE CUSTOMER AGE',
-            'NUMBER OF ORDERS', 'AVERAGE SHIPPING COST', 'TOTAL TAX PAID', 'NUMBER OF UNIQUE TITLES',
+            'NUMBER OF ORDERS', 'AVERAGE SHIPPING COST', 'TOTAL TAX PAID', 'NUMBER OF UNIQUE PRODUCTS',
             'AVERAGE UNIT PRICE', 'RETURN RATE (%)', 'LOYALTY MEMBERS (%)', 'AVERAGE CUSTOMER RATING',
-            'BUSIEST DAY', 'MOST FREQUENT CUSTOMER', 'AVERAGE BOOKS PER PURCHASE', 'MOST USED PAYMENT METHOD'
+            'BUSIEST DAY', 'MOST FREQUENT CUSTOMER', 'AVERAGE ITEMS PER PURCHASE', 'MOST USED PAYMENT METHOD'
         ],
         'VALUE': [
             f"${total_sales:.2f}", f"${avg_spend:.2f}", num_customers,
-            f"${sales_per_customer:.2f}", total_quantity, str(popular_age),
+            f"${sales_per_customer:.2f}", total_quantity, str(popular_category),
             region_sales, f"{discount_usage.get('Yes', 0):.1f}", f"{avg_age:.1f}",
             num_orders, f"${avg_shipping:.2f}", f"${total_tax:.2f}", num_products,
             f"${avg_unit_price:.2f}", f"{return_rate:.1f}", f"{loyalty_percentage:.1f}",
@@ -556,7 +556,7 @@ def analyse_sales(data):
 # Custom header
 st.markdown("""
     <div class="header">
-        <div class="header-logo">BOOKSTORE ANALYTICS</div>
+        <div class="header-logo">DATA ANALYTICS</div>
         <div class="header-nav">
             <a href="#">HOME</a>
             <a href="#">ANALYSE SALES</a>
@@ -576,7 +576,7 @@ with st.container():
     st.markdown('<div class="main-container">', unsafe_allow_html=True)
 
     if page == "HOME":
-        st.markdown('<p class="big-title">BOOKSTORE SALES ANALYSER</p>', unsafe_allow_html=True)
+        st.markdown('<p class="big-title">DATA ANALYSER</p>', unsafe_allow_html=True)
         st.markdown('<p class="secure-text">THIS IS A SECURE ALGORITHM - UNAUTHORISED ACCESS IS FORBIDDEN.</p>', unsafe_allow_html=True)
         
         password = st.text_input("ENTER PASSWORD TO ACCESS ANALYSIS:", type="password")
@@ -588,8 +588,8 @@ with st.container():
                 st.error("INCORRECT PASSWORD. TRY AGAIN.")
 
     elif page == "ANALYSE SALES" and st.session_state.password_correct:
-        st.markdown('<p class="big-title">BOOKSTORE SALES ANALYSER</p>', unsafe_allow_html=True)
-        st.write("UPLOAD YOUR CSV FILE TO ANALYSE BOOKSTORE SALES DATA.")
+        st.markdown('<p class="big-title">DATA ANALYSER</p>', unsafe_allow_html=True)
+        st.write("UPLOAD YOUR CSV FILE TO ANALYSE BUSINESS SALES DATA.")
 
         uploaded_file = st.file_uploader("CHOOSE A CSV FILE", type="csv")
 
@@ -609,7 +609,7 @@ with st.container():
                             st.download_button(
                                 label="DOWNLOAD CSV",
                                 data=csv_buffer.getvalue(),
-                                file_name="bookstore_sales_analysis.csv",
+                                file_name="data_analysis_report.csv",
                                 mime="text/csv"
                             )
                         with col2:
@@ -617,7 +617,7 @@ with st.container():
                             st.download_button(
                                 label="DOWNLOAD PDF",
                                 data=pdf_buffer,
-                                file_name="bookstore_sales_analysis.pdf",
+                                file_name="data_analysis_report.pdf",
                                 mime="application/pdf"
                             )
                         with col3:
@@ -627,7 +627,7 @@ with st.container():
                             st.download_button(
                                 label="DOWNLOAD EXCEL",
                                 data=excel_buffer,
-                                file_name="bookstore_sales_analysis.xlsx",
+                                file_name="data_analysis_report.xlsx",
                                 mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
                             )
                     st.markdown('</div>', unsafe_allow_html=True)
@@ -636,7 +636,7 @@ with st.container():
         else:
             st.info("PLEASE UPLOAD A CSV FILE TO START THE ANALYSIS.")
     else:
-        st.markdown('<p class="big-title">BOOKSTORE SALES ANALYSER</p>', unsafe_allow_html=True)
+        st.markdown('<p class="big-title">DATA ANALYSER</p>', unsafe_allow_html=True)
         st.warning("PLEASE ENTER THE CORRECT PASSWORD ON THE HOME PAGE TO ACCESS THIS SECTION.")
 
     st.markdown('</div>', unsafe_allow_html=True)
