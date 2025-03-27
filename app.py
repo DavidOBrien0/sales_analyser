@@ -30,7 +30,7 @@ st.markdown("""
 correct_password = "Letmein"
 
 # Function to generate PDF
-def generate_pdf(summary_df, filename="sales_analysis_results.pdf"):
+def generate_pdf(summary_df, filename="bookstore_sales_analysis.pdf"):
     buffer = io.BytesIO()
     c = canvas.Canvas(buffer, pagesize=letter)
     c.setFont("Courier", 12)
@@ -48,11 +48,11 @@ def generate_pdf(summary_df, filename="sales_analysis_results.pdf"):
 
 # Function to analyse the sales data
 def analyse_sales(data):
-    # Robust date conversion
+    # Combine Day_Month and Year into a full datetime
     try:
-        data['Date'] = pd.to_datetime(data['Date'], errors='coerce')
-        if data['Date'].isnull().all():
-            st.error("DATE COLUMN ISSUE: All 'Date' values are invalid—check your CSV format.")
+        data['Full_Date'] = pd.to_datetime(data['Day_Month'] + '/' + data['Year'], format='%d/%m/%Y', errors='coerce')
+        if data['Full_Date'].isnull().all():
+            st.error("DATE COLUMN ISSUE: All 'Day_Month/Year' values are invalid—check your CSV format.")
             return None
     except Exception as e:
         st.error(f"DATE COLUMN ISSUE: {e}")
@@ -71,8 +71,6 @@ def analyse_sales(data):
     avg_age = data['Customer_Age'].mean()
     gender_breakdown = data['Customer_Gender'].value_counts()
     num_orders = data['Order_ID'].nunique()
-    store_breakdown = data['Store_ID'].value_counts()
-    employee_breakdown = data['Employee_ID'].value_counts()
     time_breakdown = data['Transaction_Time'].value_counts()
     avg_shipping = data['Shipping_Cost'].mean()
     total_tax = data['Tax_Amount'].sum()
@@ -80,7 +78,6 @@ def analyse_sales(data):
     avg_unit_price = data['Unit_Price'].mean()
     return_rate = (data['Return_Status'] == 'Yes').mean() * 100
     loyalty_percentage = (data['Customer_Loyalty'] == 'Yes').mean() * 100
-    promo_usage = data['Promotion_Code'].value_counts()
     channel_breakdown = data['Order_Channel'].value_counts()
     delivery_breakdown = data['Delivery_Method'].value_counts()
     avg_rating = data['Customer_Rating'].mean()
@@ -88,13 +85,13 @@ def analyse_sales(data):
 
     # Insights Engine
     st.write("### KEY INSIGHTS")
-    sales_by_date = data.groupby('Date')['Purchase_Amount'].sum()
+    sales_by_date = data.groupby('Full_Date')['Purchase_Amount'].sum()
     max_spike_date = sales_by_date.idxmax()
     max_spike_value = sales_by_date.max()
     avg_sales = sales_by_date.mean()
-    if pd.notnull(max_spike_date) and max_spike_value > avg_sales * 1.2:  # 20% above average
+    if pd.notnull(max_spike_date) and max_spike_value > avg_sales * 1.2:
         spike_percent = ((max_spike_value - avg_sales) / avg_sales) * 100
-        st.write(f"**BIGGEST SALES SPIKE:** {max_spike_date.strftime('%Y-%m-%d')} - ${max_spike_value:.2f} (UP {spike_percent:.1f}% FROM AVERAGE!)")
+        st.write(f"**BIGGEST SALES SPIKE:** {max_spike_date.strftime('%d/%m')} - ${max_spike_value:.2f} (UP {spike_percent:.1f}% FROM AVERAGE!)")
     outlier_spend = data['Purchase_Amount'].quantile(0.95)
     if top_spender['Purchase_Amount'] > outlier_spend:
         st.write(f"**OUTLIER ALERT:** Customer {top_spender['Customer_ID']} spent ${top_spender['Purchase_Amount']:.2f} - TOP 5%!")
@@ -104,25 +101,22 @@ def analyse_sales(data):
     st.write(f"**AVERAGE SPEND PER PURCHASE:** ${avg_spend:.2f}")
     st.write(f"**NUMBER OF UNIQUE CUSTOMERS:** {num_customers}")
     st.write(f"**AVERAGE SALES PER CUSTOMER:** ${sales_per_customer:.2f}")
-    st.write(f"**TOP SPENDER:** Customer {top_spender['Customer_ID']} spent ${top_spender['Purchase_Amount']:.2f} on {top_spender['Date'].strftime('%Y-%m-%d')}")
-    st.write(f"**TOTAL ITEMS SOLD:** {total_quantity}")
-    st.write(f"**MOST POPULAR PRODUCT CATEGORY:** {popular_category}")
+    st.write(f"**TOP SPENDER:** Customer {top_spender['Customer_ID']} spent ${top_spender['Purchase_Amount']:.2f} on {top_spender['Day_Month']}")
+    st.write(f"**TOTAL BOOKS SOLD:** {total_quantity}")
+    st.write(f"**MOST POPULAR GENRE:** {popular_category}")
     st.write(f"**PAYMENT METHOD BREAKDOWN:**\n{payment_breakdown.to_string()}")
     st.write(f"**REGION WITH HIGHEST SALES:** {region_sales}")
     st.write(f"**DISCOUNT USAGE:** {discount_usage.get('Yes', 0):.1f}% of purchases had a discount")
     st.write(f"**AVERAGE CUSTOMER AGE:** {avg_age:.1f} years")
     st.write(f"**GENDER BREAKDOWN:**\n{gender_breakdown.to_string()}")
     st.write(f"**NUMBER OF ORDERS:** {num_orders}")
-    st.write(f"**STORE BREAKDOWN:**\n{store_breakdown.to_string()}")
-    st.write(f"**EMPLOYEE BREAKDOWN:**\n{employee_breakdown.to_string()}")
     st.write(f"**TRANSACTION TIME BREAKDOWN:**\n{time_breakdown.to_string()}")
     st.write(f"**AVERAGE SHIPPING COST:** ${avg_shipping:.2f}")
     st.write(f"**TOTAL TAX PAID:** ${total_tax:.2f}")
-    st.write(f"**NUMBER OF UNIQUE PRODUCTS:** {num_products}")
+    st.write(f"**NUMBER OF UNIQUE TITLES:** {num_products}")
     st.write(f"**AVERAGE UNIT PRICE:** ${avg_unit_price:.2f}")
     st.write(f"**RETURN RATE:** {return_rate:.1f}% of purchases returned")
     st.write(f"**LOYALTY MEMBERS:** {loyalty_percentage:.1f}% of customers")
-    st.write(f"**PROMOTION CODE USAGE:**\n{promo_usage.to_string()}")
     st.write(f"**ORDER CHANNEL BREAKDOWN:**\n{channel_breakdown.to_string()}")
     st.write(f"**DELIVERY METHOD BREAKDOWN:**\n{delivery_breakdown.to_string()}")
     st.write(f"**AVERAGE CUSTOMER RATING:** {avg_rating:.1f}/5")
@@ -134,7 +128,7 @@ def analyse_sales(data):
         "SALES OVER TIME (LINE)", 
         "PURCHASES BY PAYMENT METHOD (BAR)", 
         "SALES BY REGION (BAR)", 
-        "SALES BY PRODUCT CATEGORY (PIE)", 
+        "SALES BY GENRE (PIE)", 
         "DISCOUNT USAGE (PIE)", 
         "PURCHASE AMOUNT VS CUSTOMER AGE (SCATTER)", 
         "CUSTOMER AGE DISTRIBUTION (HISTOGRAM)",
@@ -143,11 +137,11 @@ def analyse_sales(data):
     chart_type = st.selectbox("CHOOSE A CHART TO VIEW:", chart_options)
     
     if chart_type == "SALES OVER TIME (LINE)":
-        sales_by_date = data.groupby('Date')['Purchase_Amount'].sum()
+        sales_by_date = data.groupby('Full_Date')['Purchase_Amount'].sum()
         fig, ax = plt.subplots()
         ax.plot(sales_by_date.index, sales_by_date.values, color='#1E90FF')
         ax.set_title('SALES OVER TIME')
-        ax.set_xlabel('DATE')
+        ax.set_xlabel('DATE (DD/MM)')
         ax.set_ylabel('TOTAL SALES ($)')
         plt.xticks(rotation=45)
         st.pyplot(fig)
@@ -166,7 +160,7 @@ def analyse_sales(data):
         ax.set_xlabel('REGION')
         ax.set_ylabel('TOTAL SALES ($)')
         st.pyplot(fig)
-    elif chart_type == "SALES BY PRODUCT CATEGORY (PIE)":
+    elif chart_type == "SALES BY GENRE (PIE)":
         sales_by_category = data.groupby('Product_Category')['Purchase_Amount'].sum()
         top_5 = sales_by_category.nlargest(5)
         other_sales = sales_by_category.sum() - top_5.sum()
@@ -174,7 +168,7 @@ def analyse_sales(data):
             top_5['Other'] = other_sales
         fig, ax = plt.subplots()
         ax.pie(top_5, labels=top_5.index, autopct='%1.1f%%', colors=['#1E90FF', '#87CEEB', '#B0E0E6', '#ADD8E6', '#E0FFFF', '#D3D3D3'])
-        ax.set_title('TOP 5 PRODUCT CATEGORIES BY SALES (PIE)')
+        ax.set_title('TOP 5 GENRES BY SALES (PIE)')
         st.pyplot(fig)
     elif chart_type == "DISCOUNT USAGE (PIE)":
         fig, ax = plt.subplots()
@@ -225,25 +219,25 @@ def analyse_sales(data):
         st.pyplot(fig)
 
     st.write("### ADDITIONAL INSIGHTS")
-    busiest_day = data.groupby('Date')['Purchase_Amount'].sum().idxmax()
+    busiest_day = data.groupby('Full_Date')['Purchase_Amount'].sum().idxmax()
     customer_frequency = data['Customer_ID'].value_counts()
     most_frequent_customer = customer_frequency.idxmax()
     avg_items_per_purchase = data['Quantity'].mean()
     top_payment_method = payment_breakdown.idxmax()
 
-    st.write(f"**BUSIEST DAY:** {busiest_day.strftime('%Y-%m-%d')} with ${data.groupby('Date')['Purchase_Amount'].sum().max():.2f} in sales")
+    st.write(f"**BUSIEST DAY:** {busiest_day.strftime('%d/%m')} with ${data.groupby('Full_Date')['Purchase_Amount'].sum().max():.2f} in sales")
     st.write(f"**MOST FREQUENT CUSTOMER:** {most_frequent_customer} made {customer_frequency.max()} purchases")
-    st.write(f"**AVERAGE ITEMS PER PURCHASE:** {avg_items_per_purchase:.2f}")
+    st.write(f"**AVERAGE BOOKS PER PURCHASE:** {avg_items_per_purchase:.2f}")
     st.write(f"**MOST USED PAYMENT METHOD:** {top_payment_method}")
 
     summary_data = {
         'METRIC': [
             'TOTAL SALES', 'AVERAGE SPEND PER PURCHASE', 'NUMBER OF UNIQUE CUSTOMERS',
-            'AVERAGE SALES PER CUSTOMER', 'TOTAL ITEMS SOLD', 'MOST POPULAR PRODUCT CATEGORY',
+            'AVERAGE SALES PER CUSTOMER', 'TOTAL BOOKS SOLD', 'MOST POPULAR GENRE',
             'REGION WITH HIGHEST SALES', 'DISCOUNT USAGE (%)', 'AVERAGE CUSTOMER AGE',
-            'NUMBER OF ORDERS', 'AVERAGE SHIPPING COST', 'TOTAL TAX PAID', 'NUMBER OF UNIQUE PRODUCTS',
+            'NUMBER OF ORDERS', 'AVERAGE SHIPPING COST', 'TOTAL TAX PAID', 'NUMBER OF UNIQUE TITLES',
             'AVERAGE UNIT PRICE', 'RETURN RATE (%)', 'LOYALTY MEMBERS (%)', 'AVERAGE CUSTOMER RATING',
-            'BUSIEST DAY', 'MOST FREQUENT CUSTOMER', 'AVERAGE ITEMS PER PURCHASE', 'MOST USED PAYMENT METHOD'
+            'BUSIEST DAY', 'MOST FREQUENT CUSTOMER', 'AVERAGE BOOKS PER PURCHASE', 'MOST USED PAYMENT METHOD'
         ],
         'VALUE': [
             f"${total_sales:.2f}", f"${avg_spend:.2f}", num_customers,
@@ -251,7 +245,7 @@ def analyse_sales(data):
             region_sales, f"{discount_usage.get('Yes', 0):.1f}", f"{avg_age:.1f}",
             num_orders, f"${avg_shipping:.2f}", f"${total_tax:.2f}", num_products,
             f"${avg_unit_price:.2f}", f"{return_rate:.1f}", f"{loyalty_percentage:.1f}",
-            f"{avg_rating:.1f}", busiest_day.strftime('%Y-%m-%d') + f" (${data.groupby('Date')['Purchase_Amount'].sum().max():.2f})",
+            f"{avg_rating:.1f}", busiest_day.strftime('%d/%m') + f" (${data.groupby('Full_Date')['Purchase_Amount'].sum().max():.2f})",
             f"{most_frequent_customer} ({customer_frequency.max()} purchases)",
             f"{avg_items_per_purchase:.2f}", top_payment_method
         ]
@@ -259,7 +253,7 @@ def analyse_sales(data):
     return pd.DataFrame(summary_data)
 
 # Streamlit app setup
-st.sidebar.title("SALES ANALYSER")
+st.sidebar.title("BOOKSTORE SALES ANALYSER")
 page = st.sidebar.radio("NAVIGATE", ["HOME", "ANALYSE SALES"])
 
 # Use session state to track if password is correct
@@ -267,7 +261,7 @@ if 'password_correct' not in st.session_state:
     st.session_state.password_correct = False
 
 if page == "HOME":
-    st.markdown('<p class="big-title">WELCOME TO SALES ANALYSER</p>', unsafe_allow_html=True)
+    st.markdown('<p class="big-title">WELCOME TO BOOKSTORE SALES ANALYSER</p>', unsafe_allow_html=True)
     st.markdown('<p class="secure-text">THIS IS A SECURE ALGORITHM - UNAUTHORISED ACCESS IS FORBIDDEN.</p>', unsafe_allow_html=True)
     
     password = st.text_input("ENTER PASSWORD TO ACCESS ANALYSIS:", type="password")
@@ -279,8 +273,8 @@ if page == "HOME":
             st.error("INCORRECT PASSWORD. TRY AGAIN.")
 
 elif page == "ANALYSE SALES" and st.session_state.password_correct:
-    st.markdown('<p class="big-title">SALES ANALYSER</p>', unsafe_allow_html=True)
-    st.write("UPLOAD YOUR CSV FILE TO ANALYSE SALES DATA.")
+    st.markdown('<p class="big-title">BOOKSTORE SALES ANALYSER</p>', unsafe_allow_html=True)
+    st.write("UPLOAD YOUR CSV FILE TO ANALYSE BOOKSTORE SALES DATA.")
 
     uploaded_file = st.file_uploader("CHOOSE A CSV FILE", type="csv")
 
@@ -289,7 +283,7 @@ elif page == "ANALYSE SALES" and st.session_state.password_correct:
             data = pd.read_csv(uploaded_file)
             st.write("FILE LOADED SUCCESSFULLY!")
             summary_df = analyse_sales(data)
-            if summary_df is not None:  # Only proceed if analysis succeeded
+            if summary_df is not None:
                 # Export Options
                 st.write("### DOWNLOAD YOUR RESULTS")
                 col1, col2, col3 = st.columns(3)
@@ -299,7 +293,7 @@ elif page == "ANALYSE SALES" and st.session_state.password_correct:
                     st.download_button(
                         label="DOWNLOAD CSV",
                         data=csv_buffer.getvalue(),
-                        file_name="sales_analysis_results.csv",
+                        file_name="bookstore_sales_analysis.csv",
                         mime="text/csv"
                     )
                 with col2:
@@ -307,7 +301,7 @@ elif page == "ANALYSE SALES" and st.session_state.password_correct:
                     st.download_button(
                         label="DOWNLOAD PDF",
                         data=pdf_buffer,
-                        file_name="sales_analysis_results.pdf",
+                        file_name="bookstore_sales_analysis.pdf",
                         mime="application/pdf"
                     )
                 with col3:
@@ -317,7 +311,7 @@ elif page == "ANALYSE SALES" and st.session_state.password_correct:
                     st.download_button(
                         label="DOWNLOAD EXCEL",
                         data=excel_buffer,
-                        file_name="sales_analysis_results.xlsx",
+                        file_name="bookstore_sales_analysis.xlsx",
                         mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
                     )
         except Exception as e:
@@ -325,6 +319,5 @@ elif page == "ANALYSE SALES" and st.session_state.password_correct:
     else:
         st.info("PLEASE UPLOAD A CSV FILE TO START THE ANALYSIS.")
 else:
-    st.markdown('<p class="big-title">SALES ANALYSER</p>', unsafe_allow_html=True)
+    st.markdown('<p class="big-title">BOOKSTORE SALES ANALYSER</p>', unsafe_allow_html=True)
     st.warning("PLEASE ENTER THE CORRECT PASSWORD ON THE HOME PAGE TO ACCESS THIS SECTION.")
-
