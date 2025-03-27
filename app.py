@@ -14,7 +14,7 @@ if 'page' not in st.session_state:
 if 'password_correct' not in st.session_state:
     st.session_state.password_correct = False
 
-# Custom CSS to match the "Code Name Red" design with improved header and sidebar
+# Custom CSS with improvements for buttons and chart selection
 st.markdown("""
     <style>
     /* Import Montserrat font from Google Fonts */
@@ -53,29 +53,33 @@ st.markdown("""
     .header-nav {
         display: flex;
         gap: 20px;
+        justify-content: center; /* Center the buttons */
+        align-items: center;
     }
     .header-nav button {
         background: none;
-        border: none;
+        border: 2px solid #FFFFFF; /* Add a border */
         color: #FFFFFF;
-        font-size: 14px;
+        font-size: 16px; /* Larger text */
         font-weight: 700;
         text-transform: uppercase;
         cursor: pointer;
-        padding: 10px 15px;
+        padding: 12px 20px; /* More padding for better appearance */
         transition: all 0.3s ease;
+        border-radius: 5px; /* Rounded corners */
     }
     .header-nav button:hover {
         color: #00FF00; /* Matrix green on hover */
         background-color: rgba(0, 255, 0, 0.1); /* Subtle green background */
+        border-color: #00FF00; /* Green border on hover */
     }
     .header-nav button.active {
         color: #00FF00; /* Matrix green for active page */
-        border-bottom: 2px solid #00FF00; /* Green underline */
+        border-color: #00FF00; /* Green border */
         background-color: rgba(0, 255, 0, 0.2); /* Slightly stronger green background */
     }
 
-    /* Sidebar styling - enhanced design */
+    /* Sidebar styling */
     [data-testid="stSidebar"] {
         background-color: #000000;
         padding: 30px;
@@ -84,31 +88,31 @@ st.markdown("""
     }
     [data-testid="stSidebar"] > div:first-child > div > div > div > div > div > h1 {
         color: #FFFFFF !important;
-        font-size: 28px !important; /* Larger title */
+        font-size: 28px !important;
         font-weight: 700 !important;
         text-transform: uppercase !important;
         margin-bottom: 20px !important;
         text-align: center !important;
-        border-bottom: 2px solid #00FF00; /* Green underline */
+        border-bottom: 2px solid #00FF00;
         padding-bottom: 10px;
-        box-shadow: 0 0 10px rgba(0, 255, 0, 0.5); /* Green glow */
+        box-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
     }
     [data-testid="stSidebar"] .stRadio > div {
         display: flex;
         flex-direction: column;
-        gap: 15px; /* Increased gap */
+        gap: 15px;
     }
     [data-testid="stSidebar"] .stRadio > label {
         color: #FFFFFF !important;
         font-size: 16px !important;
         font-weight: 700 !important;
         text-transform: uppercase !important;
-        padding: 20px !important; /* More padding */
+        padding: 20px !important;
         border: 1px solid transparent !important;
         border-radius: 0 !important;
         transition: all 0.3s ease !important;
         text-align: center !important;
-        background-color: rgba(255, 255, 255, 0.05); /* Subtle white background */
+        background-color: rgba(255, 255, 255, 0.05);
     }
     [data-testid="stSidebar"] .stRadio > label:hover {
         color: #00FF00 !important;
@@ -122,7 +126,7 @@ st.markdown("""
     }
     [data-testid="stSidebar"] .stRadio > label > div > input:checked + div > p {
         color: #000000 !important;
-        border-bottom: 2px solid #00FF00 !important; /* Green underline for active */
+        border-bottom: 2px solid #00FF00 !important;
     }
 
     /* Homepage styling */
@@ -190,28 +194,15 @@ st.markdown("""
         line-height: 1.6;
     }
 
-    /* File uploader styling */
-    .stFileUploader > div > div {
-        background-color: #000000;
-        border: 1px solid #FFFFFF;
-        border-radius: 0;
-        padding: 20px;
-        text-align: center;
-        transition: border-color 0.3s ease;
-    }
-    .stFileUploader > div > div:hover {
-        border-color: #00FF00; /* Matrix green */
-    }
-
-    /* Selectbox styling */
+    /* Selectbox styling (for chart selection) */
     .stSelectbox > div > div {
         background-color: #000000;
         color: #FFFFFF;
-        border: 1px solid #FFFFFF;
-        border-radius: 0;
-        padding: 12px;
-        font-size: 16px;
-        min-width: 300px;
+        border: 2px solid #FFFFFF; /* Thicker border */
+        border-radius: 5px; /* Rounded corners */
+        padding: 15px; /* More padding */
+        font-size: 18px; /* Larger text */
+        min-width: 400px; /* Wider dropdown */
         transition: border-color 0.3s ease;
     }
     .stSelectbox > div > div:hover,
@@ -220,16 +211,16 @@ st.markdown("""
     }
     .stSelectbox > div > div > select {
         color: #FFFFFF;
-        font-size: 16px;
+        font-size: 18px;
         text-transform: uppercase;
         background-color: #000000;
-        padding: 8px;
+        padding: 10px;
         width: 100%;
     }
     .stSelectbox > div > div > select > option {
         background-color: #000000;
         color: #FFFFFF;
-        font-size: 16px;
+        font-size: 18px;
         padding: 10px;
     }
 
@@ -256,7 +247,7 @@ st.markdown("""
         background: #000000;
         padding: 15px;
         border: 1px solid #FFFFFF;
-        margin-top: 20px;
+        margin-top: 10px; /* Reduced margin to bring chart closer to selectbox */
     }
     </style>
 """, unsafe_allow_html=True)
@@ -372,6 +363,7 @@ def analyse_sales(data):
         "SALES BY LOYALTY STATUS (SUNBURST)",
         "BUILD YOUR OWN CHART"
     ]
+    # Move chart selection closer to the charts and style it
     chart_type = st.selectbox("CHOOSE A CHART TO VIEW:", chart_options)
 
     # Custom Plotly layout with color
@@ -568,7 +560,7 @@ def analyse_sales(data):
                 x=x_axis,
                 color=color_by if color_by != "None" else None,
                 title=f"{x_axis} DISTRIBUTION (HISTOGRAM)",
-                color_discrete_sequence=px.colors.sequential.Plasma  # Fixed typo and syntax
+                color_discrete_sequence=px.colors.sequential.Plasma
             )
         else:
             st.write("Please select valid options to build your chart.")
@@ -614,24 +606,7 @@ def analyse_sales(data):
     return pd.DataFrame(summary_data)
 
 # Streamlit app setup
-# Custom header with improved navigation using Streamlit buttons
-st.markdown('<div class="header">', unsafe_allow_html=True)
-col1, col2 = st.columns([1, 2])
-with col1:
-    st.markdown('<div class="header-logo">DATA ANALYTICS</div>', unsafe_allow_html=True)
-with col2:
-    st.markdown('<div class="header-nav">', unsafe_allow_html=True)
-    col_btn1, col_btn2 = st.columns(2)
-    with col_btn1:
-        if st.button("HOME", key="home_btn"):
-            st.session_state.page = "HOME"
-    with col_btn2:
-        if st.button("ANALYSE SALES", key="analyse_btn"):
-            st.session_state.page = "ANALYSE SALES"
-    st.markdown('</div>', unsafe_allow_html=True)
-st.markdown('</div>', unsafe_allow_html=True)
-
-# Sidebar for navigation (synced with header)
+# Sidebar for navigation (available on both pages)
 page = st.sidebar.radio("NAVIGATE", ["HOME", "ANALYSE SALES"], index=0 if st.session_state.page == "HOME" else 1)
 if page != st.session_state.page:
     st.session_state.page = page
@@ -641,7 +616,25 @@ with st.container():
     st.markdown('<div class="main-container">', unsafe_allow_html=True)
 
     if st.session_state.page == "HOME":
-        st.markdown('<p class="big-title">DATA ANALYSER</p>', unsafe_allow_html=True)
+        # Header with navigation buttons (only on HOME page)
+        st.markdown('<div class="header">', unsafe_allow_html=True)
+        col1, col2 = st.columns([1, 2])
+        with col1:
+            st.markdown('<div class="header-logo">DATA ANALYTICS</div>', unsafe_allow_html=True)
+        with col2:
+            st.markdown('<div class="header-nav">', unsafe_allow_html=True)
+            col_btn1, col_btn2 = st.columns(2)
+            with col_btn1:
+                if st.button("HOME", key="home_btn"):
+                    st.session_state.page = "HOME"
+            with col_btn2:
+                if st.button("ANALYSE SALES", key="analyse_btn"):
+                    st.session_state.page = "ANALYSE SALES"
+            st.markdown('</div>', unsafe_allow_html=True)
+        st.markdown('</div>', unsafe_allow_html=True)
+
+        # Updated title
+        st.markdown('<p class="big-title">Data Algorithm</p>', unsafe_allow_html=True)
         st.markdown('<p class="secure-text">THIS IS A SECURE ALGORITHM - UNAUTHORISED ACCESS IS FORBIDDEN.</p>', unsafe_allow_html=True)
         
         password = st.text_input("ENTER PASSWORD TO ACCESS ANALYSIS:", type="password")
@@ -654,55 +647,50 @@ with st.container():
 
     elif st.session_state.page == "ANALYSE SALES" and st.session_state.password_correct:
         st.markdown('<p class="big-title">DATA ANALYSER</p>', unsafe_allow_html=True)
-        st.write("UPLOAD YOUR CSV FILE TO ANALYSE BUSINESS SALES DATA.")
+        st.write("ANALYSING BUSINESS SALES DATA FROM sales_data.csv")
 
-        uploaded_file = st.file_uploader("CHOOSE A CSV FILE", type="csv")
-
-        if uploaded_file is not None:
-            try:
-                data = pd.read_csv(uploaded_file)
-                st.write("FILE LOADED SUCCESSFULLY!")
-                with st.container():
-                    st.markdown('<div class="analysis-section">', unsafe_allow_html=True)
-                    summary_df = analyse_sales(data)
-                    if summary_df is not None:
-                        st.write("### DOWNLOAD YOUR RESULTS")
-                        col1, col2, col3 = st.columns(3)
-                        with col1:
-                            csv_buffer = io.StringIO()
-                            summary_df.to_csv(csv_buffer, index=False)
-                            st.download_button(
-                                label="DOWNLOAD CSV",
-                                data=csv_buffer.getvalue(),
-                                file_name="data_analysis_report.csv",
-                                mime="text/csv"
-                            )
-                        with col2:
-                            pdf_buffer = generate_pdf(summary_df)
-                            st.download_button(
-                                label="DOWNLOAD PDF",
-                                data=pdf_buffer,
-                                file_name="data_analysis_report.pdf",
-                                mime="application/pdf"
-                            )
-                        with col3:
-                            excel_buffer = io.BytesIO()
-                            summary_df.to_excel(excel_buffer, index=False, engine='openpyxl')
-                            excel_buffer.seek(0)
-                            st.download_button(
-                                label="DOWNLOAD EXCEL",
-                                data=excel_buffer,
-                                file_name="data_analysis_report.xlsx",
-                                mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
-                            )
-                    st.markdown('</div>', unsafe_allow_html=True)
-            except Exception as e:
-                st.error(f"ERROR: SOMETHING WENT WRONG WITH THE FILE - {e}")
-        else:
-            st.info("PLEASE UPLOAD A CSV FILE TO START THE ANALYSIS.")
+        try:
+            # Load the CSV directly from the repository
+            data = pd.read_csv("sales_data.csv")
+            st.write("FILE LOADED SUCCESSFULLY!")
+            with st.container():
+                st.markdown('<div class="analysis-section">', unsafe_allow_html=True)
+                summary_df = analyse_sales(data)
+                if summary_df is not None:
+                    st.write("### DOWNLOAD YOUR RESULTS")
+                    col1, col2, col3 = st.columns(3)
+                    with col1:
+                        csv_buffer = io.StringIO()
+                        summary_df.to_csv(csv_buffer, index=False)
+                        st.download_button(
+                            label="DOWNLOAD CSV",
+                            data=csv_buffer.getvalue(),
+                            file_name="data_analysis_report.csv",
+                            mime="text/csv"
+                        )
+                    with col2:
+                        pdf_buffer = generate_pdf(summary_df)
+                        st.download_button(
+                            label="DOWNLOAD PDF",
+                            data=pdf_buffer,
+                            file_name="data_analysis_report.pdf",
+                            mime="application/pdf"
+                        )
+                    with col3:
+                        excel_buffer = io.BytesIO()
+                        summary_df.to_excel(excel_buffer, index=False, engine='openpyxl')
+                        excel_buffer.seek(0)
+                        st.download_button(
+                            label="DOWNLOAD EXCEL",
+                            data=excel_buffer,
+                            file_name="data_analysis_report.xlsx",
+                            mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+                        )
+                st.markdown('</div>', unsafe_allow_html=True)
+        except Exception as e:
+            st.error(f"ERROR: SOMETHING WENT WRONG WITH THE FILE - {e}")
     else:
-        st.markdown('<p class="big-title">DATA ANALYSER</p>', unsafe_allow_html=True)
+        st.markdown('<p class="big-title">Data Algorithm</p>', unsafe_allow_html=True)
         st.warning("PLEASE ENTER THE CORRECT PASSWORD ON THE HOME PAGE TO ACCESS THIS SECTION.")
 
     st.markdown('</div>', unsafe_allow_html=True)
-
