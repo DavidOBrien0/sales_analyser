@@ -8,7 +8,7 @@ from reportlab.lib.pagesizes import letter
 from reportlab.pdfgen import canvas
 import openpyxl
 
-# Custom CSS to match the "Code Name Red" design
+# Custom CSS to match the "Code Name Red" design with improved selectbox
 st.markdown("""
     <style>
     /* Import Montserrat font from Google Fonts */
@@ -159,17 +159,34 @@ st.markdown("""
         border-color: #00FF00; /* Matrix green */
     }
 
-    /* Selectbox styling */
+    /* Selectbox styling - improved for readability */
     .stSelectbox > div > div {
         background-color: #000000;
         color: #FFFFFF;
         border: 1px solid #FFFFFF;
         border-radius: 0;
-        padding: 8px;
+        padding: 12px; /* Increased padding */
+        font-size: 16px; /* Larger font size */
+        min-width: 300px; /* Minimum width for long chart names */
+        transition: border-color 0.3s ease;
+    }
+    .stSelectbox > div > div:hover,
+    .stSelectbox > div > div:focus {
+        border-color: #00FF00; /* Matrix green on hover/focus */
     }
     .stSelectbox > div > div > select {
         color: #FFFFFF;
+        font-size: 16px; /* Match font size */
         text-transform: uppercase;
+        background-color: #000000;
+        padding: 8px;
+        width: 100%; /* Ensure full width */
+    }
+    .stSelectbox > div > div > select > option {
+        background-color: #000000;
+        color: #FFFFFF;
+        font-size: 16px;
+        padding: 10px;
     }
 
     /* Download buttons */
