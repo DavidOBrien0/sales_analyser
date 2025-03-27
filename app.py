@@ -14,7 +14,7 @@ if 'page' not in st.session_state:
 if 'password_correct' not in st.session_state:
     st.session_state.password_correct = False
 
-# Custom CSS to match the "Code Name Red" theme
+# Custom CSS to match the "Code Name Red" theme (without top nav)
 st.markdown("""
     <style>
     /* Import Montserrat font from Google Fonts */
@@ -33,30 +33,6 @@ st.markdown("""
         margin: 0 auto;
         padding: 40px 20px;
         text-align: center;
-    }
-
-    /* Top Navigation Bar (Code Name Red style) */
-    .top-nav {
-        background-color: #000000;
-        padding: 10px 20px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        border-bottom: 1px solid #FFFFFF;
-    }
-    .top-nav button {
-        background: none;
-        border: none;
-        color: #FFFFFF;
-        font-size: 14px;
-        font-weight: 400;
-        text-transform: uppercase;
-        cursor: pointer;
-        padding: 8px 15px;
-        transition: all 0.3s ease;
-    }
-    .top-nav button:hover {
-        color: #FF0000; /* Red hover effect to match theme */
     }
 
     /* Header (Navigation Bar for HOME and ANALYSE SALES) */
@@ -163,14 +139,7 @@ st.markdown("""
         color: #FFFFFF;
         text-transform: uppercase;
         line-height: 1.2;
-        margin-bottom: 10px; /* Reduced margin for subheading */
-    }
-    .sub-title {
-        font-size: 24px;
-        font-weight: 400;
-        color: #FFFFFF;
-        text-transform: uppercase;
-        margin-bottom: 30px;
+        margin-bottom: 20px;
     }
     .secure-text {
         font-size: 16px;
@@ -640,32 +609,6 @@ def analyse_sales(data):
     return pd.DataFrame(summary_data)
 
 # Streamlit app setup
-# Top navigation bar (Code Name Red style, available on both pages)
-st.markdown('<div class="top-nav">', unsafe_allow_html=True)
-col1, col2, col3, col4, col5, col6, col7 = st.columns(7)
-with col1:
-    if st.button("HOME", key="nav_home"):
-        st.session_state.page = "HOME"
-with col2:
-    if st.button("ABOUT", key="nav_about"):
-        st.session_state.page = "HOME"  # Placeholder, can add an About page later
-with col3:
-    if st.button("SERVICES", key="nav_services"):
-        st.session_state.page = "HOME"  # Placeholder
-with col4:
-    if st.button("FAQ", key="nav_faq"):
-        st.session_state.page = "HOME"  # Placeholder
-with col5:
-    if st.button("CONTACT", key="nav_contact"):
-        st.session_state.page = "HOME"  # Placeholder
-with col6:
-    if st.button("BOOK ONLINE", key="nav_book"):
-        st.session_state.page = "HOME"  # Placeholder
-with col7:
-    if st.button("BLOG", key="nav_blog"):
-        st.session_state.page = "HOME"  # Placeholder
-st.markdown('</div>', unsafe_allow_html=True)
-
 # Sidebar for navigation (available on both pages)
 page = st.sidebar.radio("NAVIGATE", ["HOME", "ANALYSE SALES"], index=0 if st.session_state.page == "HOME" else 1)
 if page != st.session_state.page:
@@ -693,9 +636,8 @@ with st.container():
             st.markdown('</div>', unsafe_allow_html=True)
         st.markdown('</div>', unsafe_allow_html=True)
 
-        # Title and subheading
-        st.markdown('<p class="big-title">Data Algorithm</p>', unsafe_allow_html=True)
-        st.markdown('<p class="sub-title">TRANSFORMING BUSINESS OPERATIONS</p>', unsafe_allow_html=True)
+        # Updated heading
+        st.markdown('<p class="big-title">Code Name - Data Analyser</p>', unsafe_allow_html=True)
         st.markdown('<p class="secure-text">Code Name Red is dedicated to providing advanced AI data analytics solutions that seamlessly integrate with your existing systems, offering real-time data insights and automated workflows to optimize processes and achieve strategic goals.</p>', unsafe_allow_html=True)
         
         # Learn More button
@@ -712,7 +654,7 @@ with st.container():
                 st.error("INCORRECT PASSWORD. TRY AGAIN.")
 
     elif st.session_state.page == "ANALYSE SALES" and st.session_state.password_correct:
-        # Add "Data Analyser" heading
+        # "Data Analyser" heading
         st.markdown('<p class="big-title">Data Analyser</p>', unsafe_allow_html=True)
         st.write("ANALYSING BUSINESS SALES DATA FROM sales_data.csv")
 
@@ -757,7 +699,7 @@ with st.container():
         except Exception as e:
             st.error(f"ERROR: SOMETHING WENT WRONG WITH THE FILE - {e}")
     else:
-        st.markdown('<p class="big-title">Data Algorithm</p>', unsafe_allow_html=True)
+        st.markdown('<p class="big-title">Code Name - Data Analyser</p>', unsafe_allow_html=True)
         st.warning("PLEASE ENTER THE CORRECT PASSWORD ON THE HOME PAGE TO ACCESS THIS SECTION.")
 
     st.markdown('</div>', unsafe_allow_html=True)
