@@ -14,7 +14,7 @@ if 'page' not in st.session_state:
 if 'password_correct' not in st.session_state:
     st.session_state.password_correct = False
 
-# Custom CSS with updated styles for the HOME page
+# Custom CSS with updated colors
 st.markdown("""
     <style>
     /* Import Montserrat font from Google Fonts */
@@ -23,8 +23,8 @@ st.markdown("""
     /* Global styles */
     html, body, [class*="css"] {
         font-family: 'Montserrat', 'Courier New', Courier, monospace !important;
-        background: linear-gradient(135deg, #1a1a1a 0%, #000000 100%); /* Dark gradient background */
-        color: #FFFFFF; /* White text */
+        background: linear-gradient(135deg, #FFEBE7 0%, #FFC0BE 100%); /* Gradient from soft pink to slightly darker pink */
+        color: #000000; /* Black text for better contrast on light background */
         margin: 0;
         padding: 0;
         overflow-x: hidden;
@@ -38,35 +38,35 @@ st.markdown("""
         text-align: center;
         border: 2px solid transparent;
         border-radius: 10px;
-        background: rgba(0, 0, 0, 0.5); /* Slightly transparent black background for contrast */
-        box-shadow: 0 0 15px rgba(255, 0, 0, 0.5); /* Red glow */
+        background: rgba(255, 255, 255, 0.8); /* Semi-transparent white background for contrast */
+        box-shadow: 0 0 15px rgba(127, 149, 209, 0.5); /* Soft blue glow */
         animation: borderGlow 3s infinite ease-in-out;
     }
 
-    /* Keyframes for the animated border glow */
+    /* Keyframes for the animated border glow (updated to soft blue) */
     @keyframes borderGlow {
-        0% { border-color: #FF0000; box-shadow: 0 0 15px rgba(255, 0, 0, 0.5); }
-        50% { border-color: #FF3333; box-shadow: 0 0 25px rgba(255, 0, 0, 0.8); }
-        100% { border-color: #FF0000; box-shadow: 0 0 15px rgba(255, 0, 0, 0.5); }
+        0% { border-color: #7F95D1; box-shadow: 0 0 15px rgba(127, 149, 209, 0.5); }
+        50% { border-color: #A3BFFA; box-shadow: 0 0 25px rgba(127, 149, 209, 0.8); }
+        100% { border-color: #7F95D1; box-shadow: 0 0 15px rgba(127, 149, 209, 0.5); }
     }
 
-    /* Sidebar styling (unchanged) */
+    /* Sidebar styling (updated colors for consistency) */
     [data-testid="stSidebar"] {
-        background-color: #000000;
+        background-color: #FFEBE7; /* Match the background */
         padding: 30px;
-        border-right: 1px solid #FF0000;
-        box-shadow: 0 0 15px rgba(255, 0, 0, 0.3);
+        border-right: 1px solid #FF82A9; /* Vibrant pink border */
+        box-shadow: 0 0 15px rgba(255, 130, 169, 0.3);
     }
     [data-testid="stSidebar"] > div:first-child > div > div > div > div > div > h1 {
-        color: #FFFFFF !important;
+        color: #7F95D1 !important; /* Soft blue */
         font-size: 28px !important;
         font-weight: 700 !important;
         text-transform: uppercase !important;
         margin-bottom: 20px !important;
         text-align: center !important;
-        border-bottom: 2px solid #FF0000;
+        border-bottom: 2px solid #FF82A9; /* Vibrant pink */
         padding-bottom: 10px;
-        box-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+        box-shadow: 0 0 10px rgba(255, 130, 169, 0.5);
     }
     [data-testid="stSidebar"] .stRadio > div {
         display: flex;
@@ -74,7 +74,7 @@ st.markdown("""
         gap: 15px;
     }
     [data-testid="stSidebar"] .stRadio > label {
-        color: #FFFFFF !important;
+        color: #000000 !important; /* Black text for contrast */
         font-size: 16px !important;
         font-weight: 700 !important;
         text-transform: uppercase !important;
@@ -83,44 +83,35 @@ st.markdown("""
         border-radius: 0 !important;
         transition: all 0.3s ease !important;
         text-align: center !important;
-        background-color: rgba(255, 255, 255, 0.05);
+        background-color: rgba(255, 130, 169, 0.1); /* Light pink background */
     }
     [data-testid="stSidebar"] .stRadio > label:hover {
-        color: #FF0000 !important;
-        border-color: #FF0000 !important;
-        background-color: rgba(255, 0, 0, 0.1) !important;
-        box-shadow: 0 0 10px rgba(255, 0, 0, 0.5) !important;
+        color: #FF82A9 !important; /* Vibrant pink on hover */
+        border-color: #FF82A9 !important;
+        background-color: rgba(255, 130, 169, 0.2) !important;
+        box-shadow: 0 0 10px rgba(255, 130, 169, 0.5) !important;
     }
     [data-testid="stSidebar"] .stRadio > label > div > input:checked + div {
-        background-color: #FF0000 !important;
-        border-color: #FF0000 !important;
+        background-color: #FF82A9 !important; /* Vibrant pink */
+        border-color: #FF82A9 !important;
     }
     [data-testid="stSidebar"] .stRadio > label > div > input:checked + div > p {
-        color: #000000 !important;
-        border-bottom: 2px solid #FF0000 !important;
+        color: #FFFFFF !important; /* White text for contrast */
+        border-bottom: 2px solid #FF82A9 !important;
     }
 
     /* Homepage styling with updated colors */
     .top-title {
         font-size: 24px;
         font-weight: 700;
-        color: #000000; /* Black text */
+        color: #7F95D1; /* Soft blue */
         text-transform: uppercase;
         margin-bottom: 5px;
         text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.5); /* White shadow for contrast */
     }
-    .big-title {
-        font-size: 72px;
-        font-weight: 700;
-        color: #FF0000; /* Red to match Code Name Red theme */
-        text-transform: uppercase;
-        line-height: 1.2;
-        margin-bottom: 10px;
-        text-shadow: 0 0 10px rgba(255, 0, 0, 0.7); /* Red glow effect */
-    }
     .welcome-message {
         font-size: 16px;
-        color: #FFFFFF;
+        color: #FF82A9; /* Vibrant pink */
         margin-bottom: 20px;
         opacity: 0;
         animation: fadeIn 2s ease-in forwards;
@@ -130,26 +121,26 @@ st.markdown("""
         100% { opacity: 1; transform: translateY(0); }
     }
     .stTextInput > div > input {
-        background-color: #000000;
-        color: #FFFFFF;
-        border: 1px solid #FF0000; /* Red border */
-        border-radius: 5px; /* Slightly rounded corners */
+        background-color: #FFFFFF; /* White background for contrast */
+        color: #000000; /* Black text */
+        border: 1px solid #FF82A9; /* Vibrant pink border */
+        border-radius: 5px;
         padding: 10px;
         font-size: 14px;
         text-transform: uppercase;
         transition: border-color 0.3s ease, box-shadow 0.3s ease;
     }
     .stTextInput > div > input:focus {
-        border-color: #FF3333; /* Lighter red on focus */
-        box-shadow: 0 0 8px rgba(255, 0, 0, 0.5); /* Red glow on focus */
+        border-color: #FF82A9; /* Vibrant pink */
+        box-shadow: 0 0 8px rgba(255, 130, 169, 0.5); /* Pink glow on focus */
     }
 
-    /* Button styling with updated hover effect */
+    /* Button styling with updated colors */
     .stButton>button {
-        background-color: #000000;
-        color: #FFFFFF;
-        border: 1px solid #FF0000; /* Red border */
-        border-radius: 5px; /* Slightly rounded corners */
+        background-color: #FFFFFF; /* White background */
+        color: #000000; /* Black text */
+        border: 1px solid #FF82A9; /* Vibrant pink border */
+        border-radius: 5px;
         padding: 10px 20px;
         font-size: 14px;
         font-weight: 700;
@@ -157,18 +148,18 @@ st.markdown("""
         transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
     }
     .stButton>button:hover {
-        background-color: #FF0000; /* Red background on hover */
-        color: #FFFFFF;
-        box-shadow: 0 0 10px rgba(255, 0, 0, 0.7); /* Red glow on hover */
+        background-color: #FF82A9; /* Vibrant pink background on hover */
+        color: #FFFFFF; /* White text */
+        box-shadow: 0 0 10px rgba(255, 130, 169, 0.7); /* Pink glow on hover */
     }
 
-    /* Analysis page styling (unchanged) */
+    /* Analysis page styling (updated colors for consistency) */
     .analysis-section {
         padding: 20px;
         text-align: left;
     }
     .analysis-section h3 {
-        color: #FFFFFF;
+        color: #7F95D1; /* Soft blue */
         font-size: 24px;
         font-weight: 700;
         text-transform: uppercase;
@@ -177,13 +168,14 @@ st.markdown("""
     .analysis-section p, .analysis-section div {
         font-size: 14px;
         line-height: 1.6;
+        color: #000000; /* Black text for contrast */
     }
 
-    /* Selectbox styling (unchanged) */
+    /* Selectbox styling (updated colors) */
     .stSelectbox > div > div {
-        background-color: #000000;
-        color: #FFFFFF;
-        border: 2px solid #FFFFFF;
+        background-color: #FFFFFF;
+        color: #000000;
+        border: 2px solid #FF82A9; /* Vibrant pink */
         border-radius: 5px;
         padding: 15px;
         font-size: 18px;
@@ -192,28 +184,28 @@ st.markdown("""
     }
     .stSelectbox > div > div:hover,
     .stSelectbox > div > div:focus {
-        border-color: #FF0000;
+        border-color: #FF82A9;
     }
     .stSelectbox > div > div > select {
-        color: #FFFFFF;
+        color: #000000;
         font-size: 18px;
         text-transform: uppercase;
-        background-color: #000000;
+        background-color: #FFFFFF;
         padding: 10px;
         width: 100%;
     }
     .stSelectbox > div > div > select > option {
-        background-color: #000000;
-        color: #FFFFFF;
+        background-color: #FFFFFF;
+        color: #000000;
         font-size: 18px;
         padding: 10px;
     }
 
-    /* File uploader styling (unchanged) */
+    /* File uploader styling (updated colors) */
     .stFileUploader > div > div {
-        background-color: #000000;
-        color: #FFFFFF;
-        border: 2px solid #FFFFFF;
+        background-color: #FFFFFF;
+        color: #000000;
+        border: 2px solid #FF82A9;
         border-radius: 5px;
         padding: 15px;
         font-size: 16px;
@@ -221,15 +213,15 @@ st.markdown("""
     }
     .stFileUploader > div > div:hover,
     .stFileUploader > div > div:focus {
-        border-color: #FF0000;
+        border-color: #FF82A9;
     }
 
-    /* Download buttons (unchanged) */
+    /* Download buttons (updated colors) */
     .stDownloadButton > button {
-        background-color: #000000;
-        color: #FFFFFF;
-        border: 1px solid #FFFFFF;
-        border-radius: 0;
+        background-color: #FFFFFF;
+        color: #000000;
+        border: 1px solid #FF82A9;
+        border-radius: 5px;
         padding: 10px 20px;
         font-size: 14px;
         font-weight: 700;
@@ -238,15 +230,15 @@ st.markdown("""
         transition: background-color 0.3s ease, color 0.3s ease;
     }
     .stDownloadButton > button:hover {
-        background-color: #FFFFFF;
-        color: #000000;
+        background-color: #FF82A9;
+        color: #FFFFFF;
     }
 
-    /* Plotly chart container (unchanged) */
+    /* Plotly chart container (updated colors) */
     .plotly-chart-container {
-        background: #000000;
+        background: #FFFFFF;
         padding: 15px;
-        border: 1px solid #FFFFFF;
+        border: 1px solid #FF82A9;
         margin-top: 10px;
     }
     </style>
@@ -365,15 +357,15 @@ def analyse_sales(data):
     ]
     chart_type = st.selectbox("CHOOSE A CHART TO VIEW:", chart_options)
 
-    # Custom Plotly layout with color
+    # Custom Plotly layout with updated colors
     plot_layout = dict(
-        plot_bgcolor='#000000',
-        paper_bgcolor='#000000',
-        font=dict(family="Courier New, monospace", color="#FFFFFF"),
-        title_font=dict(size=20, color="#FFFFFF"),
-        xaxis=dict(gridcolor="#FFFFFF", zerolinecolor="#FFFFFF"),
-        yaxis=dict(gridcolor="#FFFFFF", zerolinecolor="#FFFFFF"),
-        hoverlabel=dict(bgcolor="#FF0000", font=dict(color="#000000")),  # Red hover to match theme
+        plot_bgcolor='#FFFFFF',
+        paper_bgcolor='#FFFFFF',
+        font=dict(family="Courier New, monospace", color="#000000"),
+        title_font=dict(size=20, color="#7F95D1"),
+        xaxis=dict(gridcolor="#FF82A9", zerolinecolor="#FF82A9"),
+        yaxis=dict(gridcolor="#FF82A9", zerolinecolor="#FF82A9"),
+        hoverlabel=dict(bgcolor="#FF82A9", font=dict(color="#FFFFFF")),
     )
 
     if chart_type == "SALES OVER TIME (LINE)":
@@ -385,7 +377,7 @@ def analyse_sales(data):
             title='SALES OVER TIME',
             labels={'Full_Date': 'DATE (DD/MM)', 'Purchase_Amount': 'TOTAL SALES ($)'},
             line_shape='spline',
-            color_discrete_sequence=['#FF0000']  # Red to match theme
+            color_discrete_sequence=['#FF82A9']  # Vibrant pink
         )
         fig.update_layout(**plot_layout)
         fig.update_traces(line=dict(width=3), hovertemplate='Date: %{x|%d/%m}<br>Sales: $%{y:.2f}')
@@ -452,7 +444,7 @@ def analyse_sales(data):
             names='Discount_Applied',
             values='count',
             title='DISCOUNT USAGE',
-            color_discrete_sequence=['#FF0000', '#FFFFFF']
+            color_discrete_sequence=['#FF82A9', '#7F95D1']  # Vibrant pink and soft blue
         )
         fig.update_layout(**plot_layout)
         fig.update_traces(textinfo='percent+label', hovertemplate='Discount: %{label}<br>Count: %{value}')
@@ -469,7 +461,7 @@ def analyse_sales(data):
             labels={'Customer_Age': 'CUSTOMER AGE', 'Purchase_Amount': 'PURCHASE AMOUNT ($)'},
             color='Customer_Gender',
             size='Quantity',
-            color_discrete_sequence=['#FF0000', '#FFFFFF'],
+            color_discrete_sequence=['#FF82A9', '#7F95D1'],  # Vibrant pink and soft blue
             opacity=0.7
         )
         fig.update_layout(**plot_layout)
@@ -484,7 +476,7 @@ def analyse_sales(data):
             x='Customer_Age',
             title='CUSTOMER AGE DISTRIBUTION',
             labels={'Customer_Age': 'AGE', 'count': 'NUMBER OF CUSTOMERS'},
-            color_discrete_sequence=['#FF0000'],
+            color_discrete_sequence=['#FF82A9'],  # Vibrant pink
             nbins=10
         )
         fig.update_layout(**plot_layout)
@@ -501,7 +493,7 @@ def analyse_sales(data):
             values='Purchase_Amount',
             title='SALES BY LOYALTY STATUS AND REGION (SUNBURST)',
             color='Purchase_Amount',
-            color_continuous_scale='Reds'
+            color_continuous_scale='Blues'  # Blue gradient to match theme
         )
         fig.update_layout(**plot_layout)
         fig.update_traces(hovertemplate='Loyalty: %{parent}<br>Region: %{label}<br>Sales: $%{value:.2f}')
@@ -615,13 +607,10 @@ with st.container():
     st.markdown('<div class="main-container">', unsafe_allow_html=True)
 
     if st.session_state.page == "HOME":
-        # New heading "AI Data Analyser" in black text
+        # Heading "AI Data Analyser"
         st.markdown('<p class="top-title">AI Data Analyser</p>', unsafe_allow_html=True)
 
-        # Existing heading
-        st.markdown('<p class="big-title">Code Name - Data Analyser</p>', unsafe_allow_html=True)
-
-        # New welcome message with fade-in animation
+        # Welcome message
         st.markdown('<p class="welcome-message">Welcome to the Future of Data Analysis</p>', unsafe_allow_html=True)
 
         # Password input
@@ -635,7 +624,7 @@ with st.container():
 
     elif st.session_state.page == "ANALYSE SALES" and st.session_state.password_correct:
         # "Data Analyser" heading
-        st.markdown('<p class="big-title">Data Analyser</p>', unsafe_allow_html=True)
+        st.markdown('<p class="top-title">Data Analyser</p>', unsafe_allow_html=True)
         st.write("UPLOAD YOUR CSV FILE TO ANALYSE BUSINESS SALES DATA")
 
         # File uploader for CSV
@@ -684,7 +673,7 @@ with st.container():
         else:
             st.info("PLEASE UPLOAD A CSV FILE TO PROCEED.")
     else:
-        st.markdown('<p class="big-title">Code Name - Data Analyser</p>', unsafe_allow_html=True)
+        st.markdown('<p class="top-title">Data Analyser</p>', unsafe_allow_html=True)
         st.warning("PLEASE ENTER THE CORRECT PASSWORD ON THE HOME PAGE TO ACCESS THIS SECTION.")
 
     st.markdown('</div>', unsafe_allow_html=True)
