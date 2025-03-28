@@ -14,7 +14,7 @@ if 'page' not in st.session_state:
 if 'password_correct' not in st.session_state:
     st.session_state.password_correct = False
 
-# Custom CSS with updated colors
+# Custom CSS to match the "Code Name Red" theme with new heading
 st.markdown("""
     <style>
     /* Import Montserrat font from Google Fonts */
@@ -23,50 +23,35 @@ st.markdown("""
     /* Global styles */
     html, body, [class*="css"] {
         font-family: 'Montserrat', 'Courier New', Courier, monospace !important;
-        background: linear-gradient(135deg, #FFEBE7 0%, #FFC0BE 100%); /* Gradient from soft pink to slightly darker pink */
-        color: #000000; /* Black text for better contrast on light background */
-        margin: 0;
-        padding: 0;
-        overflow-x: hidden;
+        background-color: #000000; /* Black background */
+        color: #FFFFFF; /* White text */
     }
 
-    /* Main container with animated border */
+    /* Main container */
     .main-container {
         max-width: 1200px;
         margin: 0 auto;
-        padding: 10px 20px;
+        padding: 10px 20px; /* Reduced top padding to move content closer to the top */
         text-align: center;
-        border: 2px solid transparent;
-        border-radius: 10px;
-        background: rgba(255, 255, 255, 0.8); /* Semi-transparent white background for contrast */
-        box-shadow: 0 0 15px rgba(127, 149, 209, 0.5); /* Soft blue glow */
-        animation: borderGlow 3s infinite ease-in-out;
     }
 
-    /* Keyframes for the animated border glow (updated to soft blue) */
-    @keyframes borderGlow {
-        0% { border-color: #7F95D1; box-shadow: 0 0 15px rgba(127, 149, 209, 0.5); }
-        50% { border-color: #A3BFFA; box-shadow: 0 0 25px rgba(127, 149, 209, 0.8); }
-        100% { border-color: #7F95D1; box-shadow: 0 0 15px rgba(127, 149, 209, 0.5); }
-    }
-
-    /* Sidebar styling (updated colors for consistency) */
+    /* Sidebar styling */
     [data-testid="stSidebar"] {
-        background-color: #FFEBE7; /* Match the background */
+        background-color: #000000;
         padding: 30px;
-        border-right: 1px solid #FF82A9; /* Vibrant pink border */
-        box-shadow: 0 0 15px rgba(255, 130, 169, 0.3);
+        border-right: 1px solid #FF0000; /* Red border to match theme */
+        box-shadow: 0 0 15px rgba(255, 0, 0, 0.3);
     }
     [data-testid="stSidebar"] > div:first-child > div > div > div > div > div > h1 {
-        color: #7F95D1 !important; /* Soft blue */
+        color: #FFFFFF !important;
         font-size: 28px !important;
         font-weight: 700 !important;
         text-transform: uppercase !important;
         margin-bottom: 20px !important;
         text-align: center !important;
-        border-bottom: 2px solid #FF82A9; /* Vibrant pink */
+        border-bottom: 2px solid #FF0000;
         padding-bottom: 10px;
-        box-shadow: 0 0 10px rgba(255, 130, 169, 0.5);
+        box-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
     }
     [data-testid="stSidebar"] .stRadio > div {
         display: flex;
@@ -74,7 +59,7 @@ st.markdown("""
         gap: 15px;
     }
     [data-testid="stSidebar"] .stRadio > label {
-        color: #000000 !important; /* Black text for contrast */
+        color: #FFFFFF !important;
         font-size: 16px !important;
         font-weight: 700 !important;
         text-transform: uppercase !important;
@@ -83,83 +68,77 @@ st.markdown("""
         border-radius: 0 !important;
         transition: all 0.3s ease !important;
         text-align: center !important;
-        background-color: rgba(255, 130, 169, 0.1); /* Light pink background */
+        background-color: rgba(255, 255, 255, 0.05);
     }
     [data-testid="stSidebar"] .stRadio > label:hover {
-        color: #FF82A9 !important; /* Vibrant pink on hover */
-        border-color: #FF82A9 !important;
-        background-color: rgba(255, 130, 169, 0.2) !important;
-        box-shadow: 0 0 10px rgba(255, 130, 169, 0.5) !important;
+        color: #FF0000 !important;
+        border-color: #FF0000 !important;
+        background-color: rgba(255, 0, 0, 0.1) !important;
+        box-shadow: 0 0 10px rgba(255, 0, 0, 0.5) !important;
     }
     [data-testid="stSidebar"] .stRadio > label > div > input:checked + div {
-        background-color: #FF82A9 !important; /* Vibrant pink */
-        border-color: #FF82A9 !important;
+        background-color: #FF0000 !important;
+        border-color: #FF0000 !important;
     }
     [data-testid="stSidebar"] .stRadio > label > div > input:checked + div > p {
-        color: #FFFFFF !important; /* White text for contrast */
-        border-bottom: 2px solid #FF82A9 !important;
+        color: #000000 !important;
+        border-bottom: 2px solid #FF0000 !important;
     }
 
-    /* Homepage styling with updated colors */
+    /* Homepage styling */
     .top-title {
         font-size: 24px;
         font-weight: 700;
-        color: #7F95D1; /* Soft blue */
+        color: #000000; /* Black text */
         text-transform: uppercase;
         margin-bottom: 5px;
-        text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.5); /* White shadow for contrast */
     }
-    .welcome-message {
-        font-size: 16px;
-        color: #FF82A9; /* Vibrant pink */
-        margin-bottom: 20px;
-        opacity: 0;
-        animation: fadeIn 2s ease-in forwards;
-    }
-    @keyframes fadeIn {
-        0% { opacity: 0; transform: translateY(10px); }
-        100% { opacity: 1; transform: translateY(0); }
+    .big-title {
+        font-size: 72px;
+        font-weight: 700;
+        color: #FFFFFF;
+        text-transform: uppercase;
+        line-height: 1.2;
+        margin-bottom: 10px; /* Reduced margin to move password input closer */
     }
     .stTextInput > div > input {
-        background-color: #FFFFFF; /* White background for contrast */
-        color: #000000; /* Black text */
-        border: 1px solid #FF82A9; /* Vibrant pink border */
-        border-radius: 5px;
+        background-color: #000000;
+        color: #FFFFFF;
+        border: 1px solid #FFFFFF;
+        border-radius: 0;
         padding: 10px;
         font-size: 14px;
         text-transform: uppercase;
-        transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        transition: border-color 0.3s ease;
     }
     .stTextInput > div > input:focus {
-        border-color: #FF82A9; /* Vibrant pink */
-        box-shadow: 0 0 8px rgba(255, 130, 169, 0.5); /* Pink glow on focus */
+        border-color: #FF0000; /* Red to match theme */
     }
 
-    /* Button styling with updated colors */
+    /* Button styling */
     .stButton>button {
-        background-color: #FFFFFF; /* White background */
-        color: #000000; /* Black text */
-        border: 1px solid #FF82A9; /* Vibrant pink border */
-        border-radius: 5px;
+        background-color: #000000;
+        color: #FFFFFF;
+        border: 1px solid #FFFFFF;
+        border-radius: 0;
         padding: 10px 20px;
         font-size: 14px;
         font-weight: 700;
         text-transform: uppercase;
-        transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+        transition: background-color 0.3s ease, color 0.3s ease;
     }
     .stButton>button:hover {
-        background-color: #FF82A9; /* Vibrant pink background on hover */
-        color: #FFFFFF; /* White text */
-        box-shadow: 0 0 10px rgba(255, 130, 169, 0.7); /* Pink glow on hover */
+        background-color: #FFFFFF;
+        color: #000000;
     }
 
-    /* Analysis page styling (updated colors for consistency) */
+    /* Analysis page styling */
     .analysis-section {
         padding: 20px;
         text-align: left;
     }
     .analysis-section h3 {
-        color: #7F95D1; /* Soft blue */
+        color: #FFFFFF;
         font-size: 24px;
         font-weight: 700;
         text-transform: uppercase;
@@ -168,14 +147,13 @@ st.markdown("""
     .analysis-section p, .analysis-section div {
         font-size: 14px;
         line-height: 1.6;
-        color: #000000; /* Black text for contrast */
     }
 
-    /* Selectbox styling (updated colors) */
+    /* Selectbox styling (for chart selection) */
     .stSelectbox > div > div {
-        background-color: #FFFFFF;
-        color: #000000;
-        border: 2px solid #FF82A9; /* Vibrant pink */
+        background-color: #000000;
+        color: #FFFFFF;
+        border: 2px solid #FFFFFF;
         border-radius: 5px;
         padding: 15px;
         font-size: 18px;
@@ -184,28 +162,28 @@ st.markdown("""
     }
     .stSelectbox > div > div:hover,
     .stSelectbox > div > div:focus {
-        border-color: #FF82A9;
+        border-color: #FF0000; /* Red to match theme */
     }
     .stSelectbox > div > div > select {
-        color: #000000;
+        color: #FFFFFF;
         font-size: 18px;
         text-transform: uppercase;
-        background-color: #FFFFFF;
+        background-color: #000000;
         padding: 10px;
         width: 100%;
     }
     .stSelectbox > div > div > select > option {
-        background-color: #FFFFFF;
-        color: #000000;
+        background-color: #000000;
+        color: #FFFFFF;
         font-size: 18px;
         padding: 10px;
     }
 
-    /* File uploader styling (updated colors) */
+    /* File uploader styling */
     .stFileUploader > div > div {
-        background-color: #FFFFFF;
-        color: #000000;
-        border: 2px solid #FF82A9;
+        background-color: #000000;
+        color: #FFFFFF;
+        border: 2px solid #FFFFFF;
         border-radius: 5px;
         padding: 15px;
         font-size: 16px;
@@ -213,15 +191,15 @@ st.markdown("""
     }
     .stFileUploader > div > div:hover,
     .stFileUploader > div > div:focus {
-        border-color: #FF82A9;
+        border-color: #FF0000; /* Red to match theme */
     }
 
-    /* Download buttons (updated colors) */
+    /* Download buttons */
     .stDownloadButton > button {
-        background-color: #FFFFFF;
-        color: #000000;
-        border: 1px solid #FF82A9;
-        border-radius: 5px;
+        background-color: #000000;
+        color: #FFFFFF;
+        border: 1px solid #FFFFFF;
+        border-radius: 0;
         padding: 10px 20px;
         font-size: 14px;
         font-weight: 700;
@@ -230,15 +208,15 @@ st.markdown("""
         transition: background-color 0.3s ease, color 0.3s ease;
     }
     .stDownloadButton > button:hover {
-        background-color: #FF82A9;
-        color: #FFFFFF;
+        background-color: #FFFFFF;
+        color: #000000;
     }
 
-    /* Plotly chart container (updated colors) */
+    /* Plotly chart container */
     .plotly-chart-container {
-        background: #FFFFFF;
+        background: #000000;
         padding: 15px;
-        border: 1px solid #FF82A9;
+        border: 1px solid #FFFFFF;
         margin-top: 10px;
     }
     </style>
@@ -247,7 +225,7 @@ st.markdown("""
 # Define the correct password
 correct_password = "Letmein"
 
-# Function to generate PDF (unchanged)
+# Function to generate PDF
 def generate_pdf(summary_df, filename="data_analysis_report.pdf"):
     buffer = io.BytesIO()
     c = canvas.Canvas(buffer, pagesize=letter)
@@ -264,7 +242,7 @@ def generate_pdf(summary_df, filename="data_analysis_report.pdf"):
     buffer.seek(0)
     return buffer
 
-# Function to analyse the sales data (unchanged)
+# Function to analyse the sales data
 def analyse_sales(data):
     try:
         data['Day_Month'] = data['Day_Month'].astype(str)
@@ -357,15 +335,15 @@ def analyse_sales(data):
     ]
     chart_type = st.selectbox("CHOOSE A CHART TO VIEW:", chart_options)
 
-    # Custom Plotly layout with updated colors
+    # Custom Plotly layout with color
     plot_layout = dict(
-        plot_bgcolor='#FFFFFF',
-        paper_bgcolor='#FFFFFF',
-        font=dict(family="Courier New, monospace", color="#000000"),
-        title_font=dict(size=20, color="#7F95D1"),
-        xaxis=dict(gridcolor="#FF82A9", zerolinecolor="#FF82A9"),
-        yaxis=dict(gridcolor="#FF82A9", zerolinecolor="#FF82A9"),
-        hoverlabel=dict(bgcolor="#FF82A9", font=dict(color="#FFFFFF")),
+        plot_bgcolor='#000000',
+        paper_bgcolor='#000000',
+        font=dict(family="Courier New, monospace", color="#FFFFFF"),
+        title_font=dict(size=20, color="#FFFFFF"),
+        xaxis=dict(gridcolor="#FFFFFF", zerolinecolor="#FFFFFF"),
+        yaxis=dict(gridcolor="#FFFFFF", zerolinecolor="#FFFFFF"),
+        hoverlabel=dict(bgcolor="#FF0000", font=dict(color="#000000")),  # Red hover to match theme
     )
 
     if chart_type == "SALES OVER TIME (LINE)":
@@ -377,7 +355,7 @@ def analyse_sales(data):
             title='SALES OVER TIME',
             labels={'Full_Date': 'DATE (DD/MM)', 'Purchase_Amount': 'TOTAL SALES ($)'},
             line_shape='spline',
-            color_discrete_sequence=['#FF82A9']  # Vibrant pink
+            color_discrete_sequence=['#FF0000']  # Red to match theme
         )
         fig.update_layout(**plot_layout)
         fig.update_traces(line=dict(width=3), hovertemplate='Date: %{x|%d/%m}<br>Sales: $%{y:.2f}')
@@ -444,7 +422,7 @@ def analyse_sales(data):
             names='Discount_Applied',
             values='count',
             title='DISCOUNT USAGE',
-            color_discrete_sequence=['#FF82A9', '#7F95D1']  # Vibrant pink and soft blue
+            color_discrete_sequence=['#FF0000', '#FFFFFF']  # Red and white to match theme
         )
         fig.update_layout(**plot_layout)
         fig.update_traces(textinfo='percent+label', hovertemplate='Discount: %{label}<br>Count: %{value}')
@@ -461,7 +439,7 @@ def analyse_sales(data):
             labels={'Customer_Age': 'CUSTOMER AGE', 'Purchase_Amount': 'PURCHASE AMOUNT ($)'},
             color='Customer_Gender',
             size='Quantity',
-            color_discrete_sequence=['#FF82A9', '#7F95D1'],  # Vibrant pink and soft blue
+            color_discrete_sequence=['#FF0000', '#FFFFFF'],  # Red and white to match theme
             opacity=0.7
         )
         fig.update_layout(**plot_layout)
@@ -476,7 +454,7 @@ def analyse_sales(data):
             x='Customer_Age',
             title='CUSTOMER AGE DISTRIBUTION',
             labels={'Customer_Age': 'AGE', 'count': 'NUMBER OF CUSTOMERS'},
-            color_discrete_sequence=['#FF82A9'],  # Vibrant pink
+            color_discrete_sequence=['#FF0000'],  # Red to match theme
             nbins=10
         )
         fig.update_layout(**plot_layout)
@@ -493,7 +471,7 @@ def analyse_sales(data):
             values='Purchase_Amount',
             title='SALES BY LOYALTY STATUS AND REGION (SUNBURST)',
             color='Purchase_Amount',
-            color_continuous_scale='Blues'  # Blue gradient to match theme
+            color_continuous_scale='Reds'  # Red gradient to match theme
         )
         fig.update_layout(**plot_layout)
         fig.update_traces(hovertemplate='Loyalty: %{parent}<br>Region: %{label}<br>Sales: $%{value:.2f}')
@@ -607,11 +585,11 @@ with st.container():
     st.markdown('<div class="main-container">', unsafe_allow_html=True)
 
     if st.session_state.page == "HOME":
-        # Heading "AI Data Analyser"
+        # New heading "AI Data Analyser" in black text
         st.markdown('<p class="top-title">AI Data Analyser</p>', unsafe_allow_html=True)
 
-        # Welcome message
-        st.markdown('<p class="welcome-message">Welcome to the Future of Data Analysis</p>', unsafe_allow_html=True)
+        # Existing heading
+        st.markdown('<p class="big-title">Code Name - Data Analyser</p>', unsafe_allow_html=True)
 
         # Password input
         password = st.text_input("ENTER PASSWORD TO ACCESS ANALYSIS:", type="password")
@@ -624,7 +602,7 @@ with st.container():
 
     elif st.session_state.page == "ANALYSE SALES" and st.session_state.password_correct:
         # "Data Analyser" heading
-        st.markdown('<p class="top-title">Data Analyser</p>', unsafe_allow_html=True)
+        st.markdown('<p class="big-title">Data Analyser</p>', unsafe_allow_html=True)
         st.write("UPLOAD YOUR CSV FILE TO ANALYSE BUSINESS SALES DATA")
 
         # File uploader for CSV
@@ -673,7 +651,7 @@ with st.container():
         else:
             st.info("PLEASE UPLOAD A CSV FILE TO PROCEED.")
     else:
-        st.markdown('<p class="top-title">Data Analyser</p>', unsafe_allow_html=True)
+        st.markdown('<p class="big-title">Code Name - Data Analyser</p>', unsafe_allow_html=True)
         st.warning("PLEASE ENTER THE CORRECT PASSWORD ON THE HOME PAGE TO ACCESS THIS SECTION.")
 
     st.markdown('</div>', unsafe_allow_html=True)
