@@ -14,7 +14,7 @@ if 'page' not in st.session_state:
 if 'password_correct' not in st.session_state:
     st.session_state.password_correct = False
 
-# Custom CSS to match the "Code Name Red" theme with new heading
+# Custom CSS with updated styles for the HOME page
 st.markdown("""
     <style>
     /* Import Montserrat font from Google Fonts */
@@ -23,23 +23,38 @@ st.markdown("""
     /* Global styles */
     html, body, [class*="css"] {
         font-family: 'Montserrat', 'Courier New', Courier, monospace !important;
-        background-color: #000000; /* Black background */
+        background: linear-gradient(135deg, #1a1a1a 0%, #000000 100%); /* Dark gradient background */
         color: #FFFFFF; /* White text */
+        margin: 0;
+        padding: 0;
+        overflow-x: hidden;
     }
 
-    /* Main container */
+    /* Main container with animated border */
     .main-container {
         max-width: 1200px;
         margin: 0 auto;
-        padding: 10px 20px; /* Reduced top padding to move content closer to the top */
+        padding: 10px 20px;
         text-align: center;
+        border: 2px solid transparent;
+        border-radius: 10px;
+        background: rgba(0, 0, 0, 0.5); /* Slightly transparent black background for contrast */
+        box-shadow: 0 0 15px rgba(255, 0, 0, 0.5); /* Red glow */
+        animation: borderGlow 3s infinite ease-in-out;
     }
 
-    /* Sidebar styling */
+    /* Keyframes for the animated border glow */
+    @keyframes borderGlow {
+        0% { border-color: #FF0000; box-shadow: 0 0 15px rgba(255, 0, 0, 0.5); }
+        50% { border-color: #FF3333; box-shadow: 0 0 25px rgba(255, 0, 0, 0.8); }
+        100% { border-color: #FF0000; box-shadow: 0 0 15px rgba(255, 0, 0, 0.5); }
+    }
+
+    /* Sidebar styling (unchanged) */
     [data-testid="stSidebar"] {
         background-color: #000000;
         padding: 30px;
-        border-right: 1px solid #FF0000; /* Red border to match theme */
+        border-right: 1px solid #FF0000;
         box-shadow: 0 0 15px rgba(255, 0, 0, 0.3);
     }
     [data-testid="stSidebar"] > div:first-child > div > div > div > div > div > h1 {
@@ -85,54 +100,69 @@ st.markdown("""
         border-bottom: 2px solid #FF0000 !important;
     }
 
-    /* Homepage styling */
+    /* Homepage styling with updated colors */
     .top-title {
         font-size: 24px;
         font-weight: 700;
         color: #000000; /* Black text */
         text-transform: uppercase;
         margin-bottom: 5px;
+        text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.5); /* White shadow for contrast */
     }
     .big-title {
         font-size: 72px;
         font-weight: 700;
-        color: #FFFFFF;
+        color: #FF0000; /* Red to match Code Name Red theme */
         text-transform: uppercase;
         line-height: 1.2;
-        margin-bottom: 10px; /* Reduced margin to move password input closer */
+        margin-bottom: 10px;
+        text-shadow: 0 0 10px rgba(255, 0, 0, 0.7); /* Red glow effect */
+    }
+    .welcome-message {
+        font-size: 16px;
+        color: #FFFFFF;
+        margin-bottom: 20px;
+        opacity: 0;
+        animation: fadeIn 2s ease-in forwards;
+    }
+    @keyframes fadeIn {
+        0% { opacity: 0; transform: translateY(10px); }
+        100% { opacity: 1; transform: translateY(0); }
     }
     .stTextInput > div > input {
         background-color: #000000;
         color: #FFFFFF;
-        border: 1px solid #FFFFFF;
-        border-radius: 0;
+        border: 1px solid #FF0000; /* Red border */
+        border-radius: 5px; /* Slightly rounded corners */
         padding: 10px;
         font-size: 14px;
         text-transform: uppercase;
-        transition: border-color 0.3s ease;
+        transition: border-color 0.3s ease, box-shadow 0.3s ease;
     }
     .stTextInput > div > input:focus {
-        border-color: #FF0000; /* Red to match theme */
+        border-color: #FF3333; /* Lighter red on focus */
+        box-shadow: 0 0 8px rgba(255, 0, 0, 0.5); /* Red glow on focus */
     }
 
-    /* Button styling */
+    /* Button styling with updated hover effect */
     .stButton>button {
         background-color: #000000;
         color: #FFFFFF;
-        border: 1px solid #FFFFFF;
-        border-radius: 0;
+        border: 1px solid #FF0000; /* Red border */
+        border-radius: 5px; /* Slightly rounded corners */
         padding: 10px 20px;
         font-size: 14px;
         font-weight: 700;
         text-transform: uppercase;
-        transition: background-color 0.3s ease, color 0.3s ease;
+        transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
     }
     .stButton>button:hover {
-        background-color: #FFFFFF;
-        color: #000000;
+        background-color: #FF0000; /* Red background on hover */
+        color: #FFFFFF;
+        box-shadow: 0 0 10px rgba(255, 0, 0, 0.7); /* Red glow on hover */
     }
 
-    /* Analysis page styling */
+    /* Analysis page styling (unchanged) */
     .analysis-section {
         padding: 20px;
         text-align: left;
@@ -149,7 +179,7 @@ st.markdown("""
         line-height: 1.6;
     }
 
-    /* Selectbox styling (for chart selection) */
+    /* Selectbox styling (unchanged) */
     .stSelectbox > div > div {
         background-color: #000000;
         color: #FFFFFF;
@@ -162,7 +192,7 @@ st.markdown("""
     }
     .stSelectbox > div > div:hover,
     .stSelectbox > div > div:focus {
-        border-color: #FF0000; /* Red to match theme */
+        border-color: #FF0000;
     }
     .stSelectbox > div > div > select {
         color: #FFFFFF;
@@ -179,7 +209,7 @@ st.markdown("""
         padding: 10px;
     }
 
-    /* File uploader styling */
+    /* File uploader styling (unchanged) */
     .stFileUploader > div > div {
         background-color: #000000;
         color: #FFFFFF;
@@ -191,10 +221,10 @@ st.markdown("""
     }
     .stFileUploader > div > div:hover,
     .stFileUploader > div > div:focus {
-        border-color: #FF0000; /* Red to match theme */
+        border-color: #FF0000;
     }
 
-    /* Download buttons */
+    /* Download buttons (unchanged) */
     .stDownloadButton > button {
         background-color: #000000;
         color: #FFFFFF;
@@ -212,7 +242,7 @@ st.markdown("""
         color: #000000;
     }
 
-    /* Plotly chart container */
+    /* Plotly chart container (unchanged) */
     .plotly-chart-container {
         background: #000000;
         padding: 15px;
@@ -225,7 +255,7 @@ st.markdown("""
 # Define the correct password
 correct_password = "Letmein"
 
-# Function to generate PDF
+# Function to generate PDF (unchanged)
 def generate_pdf(summary_df, filename="data_analysis_report.pdf"):
     buffer = io.BytesIO()
     c = canvas.Canvas(buffer, pagesize=letter)
@@ -242,7 +272,7 @@ def generate_pdf(summary_df, filename="data_analysis_report.pdf"):
     buffer.seek(0)
     return buffer
 
-# Function to analyse the sales data
+# Function to analyse the sales data (unchanged)
 def analyse_sales(data):
     try:
         data['Day_Month'] = data['Day_Month'].astype(str)
@@ -422,7 +452,7 @@ def analyse_sales(data):
             names='Discount_Applied',
             values='count',
             title='DISCOUNT USAGE',
-            color_discrete_sequence=['#FF0000', '#FFFFFF']  # Red and white to match theme
+            color_discrete_sequence=['#FF0000', '#FFFFFF']
         )
         fig.update_layout(**plot_layout)
         fig.update_traces(textinfo='percent+label', hovertemplate='Discount: %{label}<br>Count: %{value}')
@@ -439,7 +469,7 @@ def analyse_sales(data):
             labels={'Customer_Age': 'CUSTOMER AGE', 'Purchase_Amount': 'PURCHASE AMOUNT ($)'},
             color='Customer_Gender',
             size='Quantity',
-            color_discrete_sequence=['#FF0000', '#FFFFFF'],  # Red and white to match theme
+            color_discrete_sequence=['#FF0000', '#FFFFFF'],
             opacity=0.7
         )
         fig.update_layout(**plot_layout)
@@ -454,7 +484,7 @@ def analyse_sales(data):
             x='Customer_Age',
             title='CUSTOMER AGE DISTRIBUTION',
             labels={'Customer_Age': 'AGE', 'count': 'NUMBER OF CUSTOMERS'},
-            color_discrete_sequence=['#FF0000'],  # Red to match theme
+            color_discrete_sequence=['#FF0000'],
             nbins=10
         )
         fig.update_layout(**plot_layout)
@@ -471,7 +501,7 @@ def analyse_sales(data):
             values='Purchase_Amount',
             title='SALES BY LOYALTY STATUS AND REGION (SUNBURST)',
             color='Purchase_Amount',
-            color_continuous_scale='Reds'  # Red gradient to match theme
+            color_continuous_scale='Reds'
         )
         fig.update_layout(**plot_layout)
         fig.update_traces(hovertemplate='Loyalty: %{parent}<br>Region: %{label}<br>Sales: $%{value:.2f}')
@@ -590,6 +620,9 @@ with st.container():
 
         # Existing heading
         st.markdown('<p class="big-title">Code Name - Data Analyser</p>', unsafe_allow_html=True)
+
+        # New welcome message with fade-in animation
+        st.markdown('<p class="welcome-message">Welcome to the Future of Data Analysis</p>', unsafe_allow_html=True)
 
         # Password input
         password = st.text_input("ENTER PASSWORD TO ACCESS ANALYSIS:", type="password")
